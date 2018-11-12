@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/Alinor.rpy", line 35: u'dvorca' is not a keyword argument or valid child for the imagemap statement.
-    ground vorota dvorca
-                        ^
+File "game/System.rpy", line 187: play requires a channel
+    play expression muz_title
+        ^
 
-Ren'Py Version: Ren'Py 6.99.14.1.3218
-Mon Nov 12 02:28:05 2018
+Ren'Py Version: Ren'Py 7.1.1.929
+Mon Nov 12 11:00:36 2018

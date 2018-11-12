@@ -1,18 +1,8 @@
 label alinor_vorota_dvorca:        # Алинор. Королевский дворец и сад
-    if day_time:
-        scene vorota dvorca
-    else:
-        scene vorota dvorca zakat 
-    if not no_fade:
-        with fade
-    else:
-        $ no_fade = False
-        
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    scene vorota dvorca
+    call fade
+    $ muz="Alinor_stolica"
+    call muz_on
         
     call screen alinor_vorota_dvorca
     jump alinor_vorota_dvorca
@@ -31,12 +21,8 @@ label alinor_vorota_dvorca:        # Алинор. Королевский дво
 
 screen alinor_vorota_dvorca:# Алинор. Королевский дворец и сад (карта)
     imagemap:
-        if day_time:
-            ground "vorota dvorca"
-            hover "images/Alinor/vorota1akt.jpg"
-        else:
-            ground "Images/Alinor/vorota2.jpg"
-            hover "images/Alinor/vorota2akt.jpg"
+        ground "vorota dvorca"
+        hover "vorota dvorca akt"
         hotspot (705, 1, 26, 37) clicked Call ("call_menu")
         hotspot (285, 255, 205, 248) clicked Jump ("alinor_vorota_dvorca.garden")
         hotspot (225, 535, 385, 64) clicked Jump ("alinor_vorota_dvorca.on_main_street")
@@ -47,15 +33,9 @@ label alinor_gorod:       # Алинор. Площадь столицы
         scene alinor stolploshad
     else:
         scene alinor stolploshadzakat 
-    if not no_fade:
-        with fade
-    else:
-        $ no_fade = False
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    call fade
+    $ muz="Alinor_stolica"
+    call muz_on
         
     call screen alinor_gorod
     jump alinor_gorod
@@ -92,15 +72,9 @@ label alinor_ul_dom:    # Алинор. Улица, на которой ваш �
         scene alinor ulvashdom
     else:
         scene alinor ulvashdomzakat 
-    if not no_fade:
-        with fade
-    else:
-        $ no_fade = False 
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    call fade
+    $ muz="Alinor_stolica"
+    call muz_on
         
     call screen alinor_ul_dom
     jump alinor_ul_dom
@@ -129,15 +103,9 @@ screen alinor_ul_dom:   # Алинор. Улица, где дом Джека (к
         
 label alinor_vash_dom:         # Алинор. Дом Джека.
     scene alinor vashdom
-    if not no_fade:
-       with fade
-    else:
-        $ no_fade = False 
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
+    call fade
+    $ muz="Alinor_vash_dom"
+    call muz_on
         
     call screen alinor_vash_dom
     jump alinor_vash_dom
@@ -160,15 +128,9 @@ screen alinor_vash_dom:   # Алинор. Дом Джека (карта)
         
 label alinor_dom_spal:    # Алинор. Ваша спальная.
     scene alinor domspal
-    if not no_fade:
-       with fade
-    else:
-        $ no_fade = False
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
+    call fade
+    $ muz="Alinor_vash_dom"
+    call muz_on
         
     call screen alinor_dom_spal
     jump alinor_dom_spal
@@ -204,15 +166,9 @@ label alinor_glav_ul:      # Алинор. Главная улица столи�
         scene alinor glavul
     else:
         scene alinor glavulzakat 
-    if not no_fade:
-        with fade
-    else:
-        $ no_fade = False 
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    call fade
+    $ muz="Alinor_stolica"
+    call muz_on
         
     call screen alinor_glav_ul
     jump alinor_glav_ul
@@ -251,15 +207,9 @@ label alinor_pereulok:        # Алинор. Переулок, ведущий �
         scene alinor pereulok
     else:
         scene alinor pereulokzakat 
-    if not no_fade:
-        with fade
-    else:
-        $ no_fade = False
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    call fade
+    $ muz="Alinor_stolica"
+    call muz_on
         
     call screen alinor_pereulok
     jump alinor_pereulok
@@ -294,15 +244,9 @@ label alinor_cerkov:     # Алинор. Церковь
         scene alinor cerkov
     else:
         scene alinor cerkovzakat 
-    if not no_fade:
-        with fade
-    else:
-        $ no_fade = False
-    if muzika == "Alinor_stolica":  # ЗАМЕНИТЬ МУЗЫКУ
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    call fade
+    $ muz="Alinor_stolica" #ЗАМЕНИТЬ
+    call muz_on
         
     call screen alinor_cerkov
     jump alinor_cerkov

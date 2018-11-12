@@ -32,3 +32,8 @@ label blank_spisok:
     j_smile "А больше пока ничего и нет."
     hide jack smile_for_blank with dissolve
 jump blankakt
+
+
+label zametki:
+    "Функция не активна"
+    return

@@ -32,7 +32,7 @@ label alinor_vorota_dvorca:        # Алинор. Королевский дво
 screen alinor_vorota_dvorca:# Алинор. Королевский дворец и сад (карта)
     imagemap:
         if day_time:
-            ground "Images/Alinor/vorota1.jpg"
+            ground "vorota dvorca"
             hover "images/Alinor/vorota1akt.jpg"
         else:
             ground "Images/Alinor/vorota2.jpg"
@@ -51,14 +51,14 @@ label alinor_gorod:       # Алинор. Площадь столицы
         with fade
     else:
         $ no_fade = False
-    call screen alinor_gorod
-    jump alinor_gorod
-    
     if muzika == "Alinor_stolica":
         pass
     else:
         play music "Music/Alinor/stolica.ogg"
         $ muzika = "Alinor_stolica"
+        
+    call screen alinor_gorod
+    jump alinor_gorod
 
     label .jack_home_street:
         call time1 from _call_time1_1
@@ -95,15 +95,15 @@ label alinor_ul_dom:    # Алинор. Улица, на которой ваш �
     if not no_fade:
         with fade
     else:
-        $ no_fade = False
-    call screen alinor_ul_dom
-    jump alinor_ul_dom
-    
+        $ no_fade = False 
     if muzika == "Alinor_stolica":
         pass
     else:
         play music "Music/Alinor/stolica.ogg"
         $ muzika = "Alinor_stolica"
+        
+    call screen alinor_ul_dom
+    jump alinor_ul_dom
         
     label .to_jack_home:
         $ in_home = True
@@ -132,16 +132,15 @@ label alinor_vash_dom:         # Алинор. Дом Джека.
     if not no_fade:
        with fade
     else:
-        $ no_fade = False
-       
-    call screen alinor_vash_dom
-    jump alinor_vash_dom
-    
+        $ no_fade = False 
     if muzika == "Alinor_vash_dom":
         pass
     else:
         play music "Music/Alinor/Vash_dom.ogg"
         $ muzika = "Alinor_vash_dom"
+        
+    call screen alinor_vash_dom
+    jump alinor_vash_dom
 
     label .dom_spal:
         jump alinor_dom_spal
@@ -165,12 +164,12 @@ label alinor_dom_spal:    # Алинор. Ваша спальная.
        with fade
     else:
         $ no_fade = False
-
     if muzika == "Alinor_vash_dom":
         pass
     else:
         play music "Music/Alinor/Vash_dom.ogg"
         $ muzika = "Alinor_vash_dom"
+        
     call screen alinor_dom_spal
     jump alinor_dom_spal
 
@@ -208,17 +207,17 @@ label alinor_glav_ul:      # Алинор. Главная улица столи�
     if not no_fade:
         with fade
     else:
-        $ no_fade = False
-    call screen alinor_glav_ul
-    jump alinor_glav_ul
-    
+        $ no_fade = False 
     if muzika == "Alinor_stolica":
         pass
     else:
         play music "Music/Alinor/stolica.ogg"
         $ muzika = "Alinor_stolica"
         
-    label .ploshad:
+    call screen alinor_glav_ul
+    jump alinor_glav_ul
+        
+    label .alinor_pereulok:
         call time1 from _call_time1_5
         jump alinor_pereulok
     label .v_bar:
@@ -244,7 +243,7 @@ screen alinor_glav_ul:   # Алинор. Улица, где дом Джека (�
         hotspot (212, 391, 196, 154) clicked Jump ("alinor_glav_ul.v_bar")
         hotspot (467, 369, 105, 179) clicked Jump ("alinor_glav_ul.gostin")
         hotspot (573, 368, 113, 180) clicked Jump ("alinor_glav_ul.to_palace")
-        hotspot (127, 548, 540, 53) clicked Jump ("alinor_glav_ul.to_palace")
+        hotspot (127, 548, 540, 53) clicked Jump ("alinor_glav_ul.alinor_pereulok")
         
         
 label alinor_pereulok:        # Алинор. Переулок, ведущий на главную улицу или к церкви
@@ -256,14 +255,14 @@ label alinor_pereulok:        # Алинор. Переулок, ведущий �
         with fade
     else:
         $ no_fade = False
-    call screen alinor_pereulok
-    jump alinor_pereulok
-    
     if muzika == "Alinor_stolica":
         pass
     else:
         play music "Music/Alinor/stolica.ogg"
         $ muzika = "Alinor_stolica"
+        
+    call screen alinor_pereulok
+    jump alinor_pereulok
         
     label .ploshad:
         call time1 from _call_time1_7
@@ -299,14 +298,14 @@ label alinor_cerkov:     # Алинор. Церковь
         with fade
     else:
         $ no_fade = False
-    call screen alinor_cerkov
-    jump alinor_cerkov
-    
     if muzika == "Alinor_stolica":  # ЗАМЕНИТЬ МУЗЫКУ
         pass
     else:
         play music "Music/Alinor/stolica.ogg"
         $ muzika = "Alinor_stolica"
+        
+    call screen alinor_cerkov
+    jump alinor_cerkov
 
     label .pereulok:
         call time1 from _call_time1_10

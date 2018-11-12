@@ -138,6 +138,7 @@ init:
     
     #Предметы инвентаря
     image item_dopusk = "Invent/Items/dopusk.png"
+    image item_train_wife_foto = "Invent/Items/foto1.png"
     
     
     #Переменные
@@ -153,6 +154,8 @@ init:
     
 label invent:    # Инвентарь
     scene invent
+    jump invent_prov
+    
     $ ItemsValue = len(items)
 
     #Изображения предметов
@@ -545,6 +548,7 @@ label inventakt:
          if ItemsValue >53:
              jump expression items[53]
 jump inventakt
+
         
     
 label calendar:   #Календарь
@@ -884,7 +888,7 @@ label time1: # Этот блок прибавляет 15 минут и меня�
             hide clock1200
             with dissolve
             $ sutki = 0
-            call time2
+            call time2 from _call_time2_4
         elif clock == 44:
             show clock
             show clock1800
@@ -894,19 +898,19 @@ label time1: # Этот блок прибавляет 15 минут и меня�
             hide clock1800
             with dissolve
             $ sutki = 1
-            call time2
+            call time2 from _call_time2_5
         elif clock == 56:
             $ day_time = False
         return
     else:           # Сделать предупреждалку в 23 00 и предложение пойти домой.
         if in_home == True:
             $ sutki = 2
-            call time2
+            call time2 from _call_time2_6
         else:
             scene black with fade
             "Вы заснули на улице!"
             $ sutki = 3
-            call time2
+            call time2 from _call_time2_7
         return
     
 label time2:  # Этот блок прибавляет сразу же одно время суток
