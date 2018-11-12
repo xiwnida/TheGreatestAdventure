@@ -1,5 +1,6 @@
+
 init:
-    
+    define config.conditionswitch_predict_all = True
     # Фоны
     image dom = "Images/Alinor/dom.jpg"
     image sad dvorca = "Images/Alinor/sad_dvorca.jpg"
@@ -7,8 +8,10 @@ init:
     image kabinet dvorca = "Images/Alinor/kabinet1.jpg"
     image kabinet dvorca1 = "Images/Alinor/kabinet2.jpg"
     image sad dvorca1 = "Images/Alinor/sad_dvorca1.jpg"
-    image vorota dvorca = "Images/Alinor/vorota1.jpg"
-    image vorota dvorca zakat = "Images/Alinor/vorota2.jpg"
+    image vorota dvorca = ConditionSwitch(
+        "day_time=='True'","Images/Alinor/vorota1.jpg",
+        "day_time=='False'","Images/Alinor/vorota2.jpg")
+#    image vorota dvorca zakat = "Images/Alinor/vorota2.jpg"
     image alinor stolploshad = "Images/Alinor/ul2.jpg"
     image alinor stolploshadzakat = "Images/Alinor/ul2.1.jpg"
     image alinor ulvashdom = "Images/Alinor/ul1.jpg"
@@ -20,6 +23,11 @@ init:
     image alinor pereulokzakat = "Images/Alinor/ul4.1.jpg"
     image alinor cerkov = "Images/Alinor/cerkov1.jpg"
     image alinor cerkovzakat = "Images/Alinor/cerkov2.jpg"
+    
+    #Фоны АКТ
+    image vorota dvorca akt = ConditionSwitch(
+        "day_time=='True'","Images/Alinor/vorota1akt.jpg",
+        "day_time=='False'","Images/Alinor/vorota2akt.jpg")
     
     # Диалоги с персонажами
     image shopper girl = "Images/Character/Shopper_Girl.jpg"

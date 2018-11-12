@@ -1,26 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Vok.rpy", line 118, in script
-    image empty = Null(side, side)
-  File "game/Vok.rpy", line 118, in <module>
-    image empty = Null(side, side)
-NameError: name 'side' is not defined
+  File "game/System.rpy", line 10, in script
+    image vorota dvorca = "Images/Alinor/vorota1.jpg",
+Exception: Not a displayable: (u'Images/Alinor/vorota1.jpg',)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/Vok.rpy", line 118, in script
-    image empty = Null(side, side)
-  File "D:\JKTVR18\Krjutskova Veera\Renpy\renpy-7.1.1-sdk\renpy\ast.py", line 981, in execute
-    img = renpy.python.py_eval_bytecode(self.code.bytecode)
-  File "D:\JKTVR18\Krjutskova Veera\Renpy\renpy-7.1.1-sdk\renpy\python.py", line 1937, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/Vok.rpy", line 118, in <module>
-    image empty = Null(side, side)
-NameError: name 'side' is not defined
+  File "game/System.rpy", line 10, in script
+    image vorota dvorca = "Images/Alinor/vorota1.jpg",
+  File "D:\JKTVR18\Krjutskova\Renpy\renpy-7.1.1-sdk\renpy\ast.py", line 985, in execute
+    renpy.exports.image(self.imgname, img)
+  File "D:\JKTVR18\Krjutskova\Renpy\renpy-7.1.1-sdk\renpy\exports.py", line 366, in image
+    d = renpy.easy.displayable(d)
+  File "D:\JKTVR18\Krjutskova\Renpy\renpy-7.1.1-sdk\renpy\easy.py", line 136, in displayable
+    raise Exception("Not a displayable: %r" % (d,))
+Exception: Not a displayable: (u'Images/Alinor/vorota1.jpg',)
 
 Windows-8-6.2.9200
 Ren'Py 7.1.1.929
  
-Mon Nov 12 11:24:17 2018
+Mon Nov 12 13:09:38 2018
