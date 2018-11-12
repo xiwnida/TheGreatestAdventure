@@ -1,0 +1,64 @@
+#Полезные блоки
+label call_menu:   # Блок выдвигающегося меню
+    show callmenu with easeintop
+    $ result = renpy.imagemap("Talking/menu.png", "Talking/menuakt.png", [
+    (645, 8, 790, 59, "Рюкзак"),
+    (645, 70, 790, 121, "Карта"),
+    (645, 135, 790, 185, "Кошель"),
+    (645, 198, 790, 249, "Блокнот"),
+    (645, 259, 790, 312, "Календарь"),
+    (645, 323, 790, 375, "Мысли"),
+    (705, 380, 731, 413, "Назад")
+    ])
+    if result == "Рюкзак":
+        call invent
+        return
+    elif result == "Карта":
+        call karta
+        return
+    elif result == "Кошель":
+        call money
+        return
+    elif result == "Блокнот":
+        call blank
+        return
+    elif result == "Календарь":
+        call calendar
+        return
+    #if result == "Мысли":
+        #call misli
+    elif result == "Назад":
+        $ no_fade = True
+        hide callmenu with easeouttop
+        return
+jump call_menu
+    
+screen proverka:
+    imagemap:
+        if money_gold == 0:
+            ground "Images/Alinor/vorota1.jpg"
+            hover "images/Alinor/vorota1akt.jpg"
+        if money_gold == 50:
+            ground "Images/Alinor/vorota2.jpg"
+            hover "images/Alinor/vorota2akt.jpg"
+        hotspot (225, 535, 385, 64) clicked Jump ("odin")
+        if money_gold == 50:
+            hotspot (285, 255, 205, 248) clicked Jump ("dva")
+    
+label vorota_dvorca_odin:
+   if money_gold == 0:
+      $ scene_p = "vorota dvorca"
+   else:
+       $ scene_p = "vorota dvorca zakat"
+   if money_gold == 0:
+       with fade
+   call screen proverka 
+label odin:
+    scene expression scene_p
+    "Главная улица"
+    jump vorota_dvorca_odin
+label dva:
+    scene expression scene_p
+    "Сад"
+    jump vorota_dvorca_odin
+    

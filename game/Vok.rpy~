@@ -1,0 +1,19 @@
+init:
+    # Фоны
+    image voknight = "Images/Vok/voknoch.jpg"
+    image vokday = "Images/Vok/vok.jpg"
+    
+    # Названия города на стене вокзального помещения
+    image name_alinor = "Images/Vok/alinornoch.png"
+
+
+
+
+
+
+
+
+
+
+
+

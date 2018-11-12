@@ -1,0 +1,28 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/Alinor.rpy", line 212, in script
+    call screen alinor_glav_ul
+ScriptError: could not find label 'alinor_glav_ul.alinor_pereulok'.
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\bootstrap.py", line 306, in bootstrap
+    renpy.main.main()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 523, in main
+    run(restart)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 149, in run
+    renpy.execution.run_context(True)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\execution.py", line 835, in run_context
+    context.run()
+  File "game/Alinor.rpy", line 212, in script
+    call screen alinor_glav_ul
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 871, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'alinor_glav_ul.alinor_pereulok'.
+
+Windows-7-6.1.7601-SP1
+Ren'Py 6.99.14.1.3218
+ 
+Mon Nov 12 02:02:29 2018
