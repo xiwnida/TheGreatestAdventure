@@ -1,8 +1,7 @@
 label alinor_vorota_dvorca:        # Алинор. Королевский дворец и сад
-    scene vorota dvorca
+    $ location("Alinor", "vorota", "alinor_stolica")
+    call location #Попробовать вписать в функцию автоматическое показывание картинок. Слить в один call фейд и скрин.
     call fade
-    $ muz="Alinor_stolica"
-    call muz_on
         
     call screen alinor_vorota_dvorca
     jump alinor_vorota_dvorca
@@ -21,11 +20,11 @@ label alinor_vorota_dvorca:        # Алинор. Королевский дво
 
 screen alinor_vorota_dvorca:# Алинор. Королевский дворец и сад (карта)
     imagemap:
-        if day_time:
-            ground "Images/Alinor/vorota1.jpg"
+        if day_time=="day":
+            ground "Images/Alinor/vorota_day.jpg"
             hover "images/Alinor/vorota1akt.jpg"
         else:
-            ground "Images/Alinor/vorota2.jpg"
+            ground "Images/Alinor/vorota_zakat.jpg"
             hover "images/Alinor/vorota2akt.jpg"
         hotspot (705, 1, 26, 37) clicked Call ("call_menu")
         hotspot (285, 255, 205, 248) clicked Jump ("alinor_vorota_dvorca.garden")

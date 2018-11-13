@@ -1,24 +1,46 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/System.rpy", line 10, in script
-    image vorota dvorca = "Images/Alinor/vorota1.jpg",
-Exception: Not a displayable: (u'Images/Alinor/vorota1.jpg',)
+  File "game/Alinor.rpy", line 5, in script
+    call screen alinor_vorota_dvorca
+  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+IOError: Couldn't find file 'Nope'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/System.rpy", line 10, in script
-    image vorota dvorca = "Images/Alinor/vorota1.jpg",
-  File "D:\JKTVR18\Krjutskova\Renpy\renpy-7.1.1-sdk\renpy\ast.py", line 985, in execute
-    renpy.exports.image(self.imgname, img)
-  File "D:\JKTVR18\Krjutskova\Renpy\renpy-7.1.1-sdk\renpy\exports.py", line 366, in image
-    d = renpy.easy.displayable(d)
-  File "D:\JKTVR18\Krjutskova\Renpy\renpy-7.1.1-sdk\renpy\easy.py", line 136, in displayable
-    raise Exception("Not a displayable: %r" % (d,))
-Exception: Not a displayable: (u'Images/Alinor/vorota1.jpg',)
+  File "game/Alinor.rpy", line 5, in script
+    call screen alinor_vorota_dvorca
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1801, in execute
+    self.call("execute")
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1789, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\statements.py", line 169, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 3284, in interact_core
+    renpy.audio.audio.periodic()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 976, in periodic_thread_main
+    periodic_pass()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 920, in periodic_pass
+    c.periodic()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 409, in periodic
+    topf = load(self.file_prefix + filename + self.file_suffix)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 69, in load
+    rv = renpy.loader.load(fn)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\loader.py", line 555, in load
+    raise IOError("Couldn't find file '%s'." % name)
+IOError: Couldn't find file 'Nope'.
 
-Windows-8-6.2.9200
-Ren'Py 7.1.1.929
+Windows-7-6.1.7601-SP1
+Ren'Py 6.99.14.1.3218
  
-Mon Nov 12 13:09:38 2018
+Mon Nov 12 18:22:16 2018

@@ -1,5 +1,15 @@
-init:
+init python:
     
+    
+    def location(city, loca, music): #Название города, название фона, время суток, название музыки
+        global location_image
+        global day_time
+        location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
+        global muz
+        muz=music
+
+init:
+
     # Фоны
     image dom = "Images/Alinor/dom.jpg"
     image sad dvorca = "Images/Alinor/sad_dvorca.jpg"
@@ -167,7 +177,7 @@ init:
     $ event = "Nope" # Эта переменная отвечает за одноразовые события.
     $ no_fade = False # Эта переменная нужна, чтобы после отключения меню не сработал fade эффект (ох, костыли!)
     $ scene_p = "Nope" # Эта переменная нужна, чтобы показать нужную сцену перед иммедж картой
-    $ day_time = True # Эта переменная нужна, чтобы включить закатную сцену вечером
+    $ day_time = "day" # Эта переменная нужна, чтобы включить закатную сцену вечером
     
 label fade:
     if not no_fade:
@@ -175,13 +185,15 @@ label fade:
     else:
         $ no_fade = False
         
-label muz_on:
-    if muz=="Alinor_stolica":
+label location:
+    show expression location_image #Показать изображение, чье название собрано функцией location
+
+    if muz=="alinor_stolica":
         $ muz_title = "Music/Alinor/stolica.ogg"
     elif muz=="Alinor_vash_dom":
         $ muz_title= "Music/Alinor/Vash_dom.ogg"
     
-    if muzika == muz:
+    if muzika == muz: #Если играющая музыка равна новой музыке
         pass
     else:
         play music muz_title
