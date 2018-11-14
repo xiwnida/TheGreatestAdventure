@@ -1,46 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Alinor.rpy", line 5, in script
-    call screen alinor_vorota_dvorca
-  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-IOError: Couldn't find file 'Nope'.
+  File "game/Alinor.rpy", line 86, in script
+    call screen imagebutton_example
+ScriptError: could not find label '.to_jack_home'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/Alinor.rpy", line 5, in script
-    call screen alinor_vorota_dvorca
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1801, in execute
-    self.call("execute")
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1789, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\statements.py", line 169, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 3284, in interact_core
-    renpy.audio.audio.periodic()
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 976, in periodic_thread_main
-    periodic_pass()
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 920, in periodic_pass
-    c.periodic()
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 409, in periodic
-    topf = load(self.file_prefix + filename + self.file_suffix)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\audio\audio.py", line 69, in load
-    rv = renpy.loader.load(fn)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\loader.py", line 555, in load
-    raise IOError("Couldn't find file '%s'." % name)
-IOError: Couldn't find file 'Nope'.
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\bootstrap.py", line 306, in bootstrap
+    renpy.main.main()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 523, in main
+    run(restart)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 149, in run
+    renpy.execution.run_context(True)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\execution.py", line 835, in run_context
+    context.run()
+  File "game/Alinor.rpy", line 86, in script
+    call screen imagebutton_example
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 871, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label '.to_jack_home'.
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Mon Nov 12 18:22:16 2018
+Wed Nov 14 16:33:07 2018

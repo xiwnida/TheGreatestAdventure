@@ -1,22 +1,22 @@
-Mon Nov 12 18:26:46 2018
+Wed Nov 14 16:32:59 2018
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
 
-Bootstrap to the start of init.init took 0.14s
+Bootstrap to the start of init.init took 0.15s
 Early init took 0.01s
 Loader init took 0.03s
 Loading error handling took 0.03s
-Loading script took 0.38s
-Loading save slot metadata. took 0.06s
+Loading script took 0.50s
+Loading save slot metadata. took 0.05s
 Loading persistent took 0.00s
 Importing _renpysteam: ImportError('No module named _renpysteam',)
 Running init code took 0.14s
-Loading analysis data took 0.05s
+Loading analysis data took 0.06s
 Analyze and compile ATL took 0.01s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Ayri\\AppData\\Roaming/RenPy/backups\\The Greatest Adventure':
-Dump and make backups. took 0.10s
+Dump and make backups. took 0.15s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
 Initial gc. took 0.03s
@@ -27,9 +27,9 @@ Init translation took 0.01s
 Build styles took 0.00s
 Load screen analysis took 0.00s
 Analyze screens took 0.02s
-Save screen analysis took 0.08s
+Save screen analysis took 0.09s
 Prepare screens took 0.09s
-Save pyanalysis. took 0.23s
+Save pyanalysis. took 0.27s
 Save bytecode. took 0.11s
 Running _start took 0.00s
 Performance test:
@@ -161,11 +161,31 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
-Total time until interface ready: 2.07500004768s
+Total time until interface ready: 2.40000009537s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
 - Frame drawn at 0.007000 seconds.
-- Frame drawn at 0.009000 seconds.
+- Frame drawn at 0.010000 seconds.
 - Frame drawn at 0.012000 seconds.
-- Frame drawn at 0.016000 seconds.
-- 0.016000 seconds to render 5 frames.
+- Frame drawn at 0.015000 seconds.
+- 0.015000 seconds to render 5 frames.
+
+Full traceback:
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\bootstrap.py", line 306, in bootstrap
+    renpy.main.main()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 523, in main
+    run(restart)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 149, in run
+    renpy.execution.run_context(True)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\execution.py", line 835, in run_context
+    context.run()
+  File "game/Alinor.rpy", line 86, in script
+    call screen imagebutton_example
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 871, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label '.to_jack_home'.
+
+While running game code:
+  File "game/Alinor.rpy", line 86, in script
+    call screen imagebutton_example
+ScriptError: could not find label '.to_jack_home'.

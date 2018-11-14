@@ -7,10 +7,19 @@ init python:
         location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
         global muz
         muz=music
+        
+        
+    def buttons():
+        global button_name
+        global button_hover
+        global i
+        i+=1
+        button_name.append("Images/Alinor/"+str(name)+str(i)+".png")
+        button_hover.append("Images/Alinor/"+str(name)+str(i)+"akt.png")
 
 init:
 
-    # Фоны
+#=====================Фоны=====================================
     image dom = "Images/Alinor/dom.jpg"
     image sad dvorca = "Images/Alinor/sad_dvorca.jpg"
     image koridor dvorca = "Images/Alinor/koridor1.jpg"
@@ -21,7 +30,7 @@ init:
     image vorota dvorca zakat = "Images/Alinor/vorota2.jpg"
     image alinor stolploshad = "Images/Alinor/ul2.jpg"
     image alinor stolploshadzakat = "Images/Alinor/ul2.1.jpg"
-    image alinor ulvashdom = "Images/Alinor/ul1.jpg"
+    image alinor ulvashdom = "Images/Alinor/ul1_day.jpg"
     image alinor ulvashdomzakat = "Images/Alinor/ul1.1.jpg"
     image alinor glavul = "Images/Alinor/ul3.jpg"
     image alinor vashdom = "Images/Alinor/dom1.jpg"
@@ -31,10 +40,10 @@ init:
     image alinor cerkov = "Images/Alinor/cerkov1.jpg"
     image alinor cerkovzakat = "Images/Alinor/cerkov2.jpg"
     
-    # Диалоги с персонажами
+#==============Диалоги с персонажами=====================================
     image shopper girl = "Images/Character/Shopper_Girl.jpg"
     
-    # Персонажи
+#==============Персонажи=====================================
     image jack smile = "Chara/GG/smile.png"
     image jack smile2 = "Chara/GG/smile2.png"
     image jack smile close = "Chara/GG/smile_close.png"
@@ -81,7 +90,7 @@ init:
     image driver1 udiv2 = "Chara/Train Driver/udiv2.png"
     image driver1 shock = "Chara/Train Driver/shock.png"
     
-    # Предметы и прочее
+#==============Предметы и прочее=====================================
     image svitok1 = "Images/svitok1.jpg"
     image svitok2 = "Images/svitok2.jpg"
     image naslutro = "Images/naslutro.png"
@@ -98,10 +107,10 @@ init:
     image callmenu = "Talking/menu.png" 
     image gold = "Invent/Money/gold.png"
 
-    # Реплики
+#==============Реплики=====================================
     $ bangirl = Character(u'Красивая девушка', color="d24f4b")
     
-    #Головы персонажей Алинора
+#==============Головы персонажей Алинора=====================================
     $ bangirl_hah = Character(show_side_image=Image("Chara/Bandits/Bandgirl_hah_mini.png", xalign=0.0, yalign=1.0))
     $ bangirl_smile = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile_mini.png", xalign=0.0, yalign=1.0))
     $ bangirl_smile2 = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile2_mini.png", xalign=0.0, yalign=1.0))
@@ -122,7 +131,7 @@ init:
     $ driver1_udiv = Character(show_side_image=Image("Chara/Train driver/udiv_box.png", xalign=0.0, yalign=1.0))
     $ driver1_udiv2 = Character(show_side_image=Image("Chara/Train driver/udiv2_box.png", xalign=0.0, yalign=1.0))
     
-    #Головы Джека
+#==============Головы Джека=====================================
     $ j_auch = Character(show_side_image=Image("Chara/Mini GG/Auch.png", xalign=0.0, yalign=1.0))
     $ j_duma = Character(show_side_image=Image("Chara/Mini GG/Duma.png", xalign=0.0, yalign=1.0))
     $ j_hehe = Character(show_side_image=Image("Chara/Mini GG/Hehe.png", xalign=0.0, yalign=1.0))
@@ -157,7 +166,7 @@ init:
     $ j_zolkapl = Character(show_side_image=Image("Chara/Mini GG/Zolkapl.png", xalign=0.0, yalign=1.0))
     
     
-    # Переменные
+#==============Переменные=====================================
     $ korol_dal_karta = False
     $ korol_dal_money = False
     $ korol_dal_dokument = False
@@ -178,15 +187,23 @@ init:
     $ no_fade = False # Эта переменная нужна, чтобы после отключения меню не сработал fade эффект (ох, костыли!)
     $ scene_p = "Nope" # Эта переменная нужна, чтобы показать нужную сцену перед иммедж картой
     $ day_time = "day" # Эта переменная нужна, чтобы включить закатную сцену вечером
+    $ name = ""
+    $ q = 0
+    $ i = 0
+    $ button_name = []
+    $ button_hover = []
     
 label fade:
     if not no_fade:
         with fade
     else:
         $ no_fade = False
-        
+    return
+    
+#==============Колл. Показывает изображение, чье название собрано функцией location====================
+    
 label location:
-    show expression location_image #Показать изображение, чье название собрано функцией location
+    show expression location_image 
 
     if muz=="alinor_stolica":
         $ muz_title = "Music/Alinor/stolica.ogg"
@@ -198,3 +215,43 @@ label location:
     else:
         play music muz_title
         $ muzika = muz
+    return
+
+#=========================
+        
+screen imagebutton_example(): #ПРОВЕРКА-------СДЕЛАТЬ WHILE В ЭКРАНЕ. И СДЕЛАТЬ ССЫЛКИ НА ЛЕЙБЛЫ В ПЕРЕМЕННЫХ, ДЛЯ ЭТОГО ОТРЕДАЧИТЬ ФУНКЦИЮ
+    if i>=1:
+        imagebutton:
+            idle button_name[0]
+            hover button_hover[0]
+            focus_mask True
+            action Jump(".call_menu")
+    if i>=2:
+        imagebutton:
+            idle button_name[1]
+            hover button_hover[1]
+            focus_mask True
+            action Jump(".to_jack_home")
+    if i>=3:
+        imagebutton:
+            idle button_name[2]
+            hover button_hover[2]
+            focus_mask True
+            action Jump(".ploshad")
+    if i>=4:
+        imagebutton:
+            idle button_name[3]
+            hover button_hover[3]
+            focus_mask True
+            action Jump("ddd")
+label ddd:
+    if i==1:
+        "Привет"
+    else:
+        "Пока"
+    
+label proverka_knopok:
+    while i<q:
+        $ buttons()
+        "[button_name] [i]"
+        call screen imagebutton_example

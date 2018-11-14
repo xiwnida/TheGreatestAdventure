@@ -2,17 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/System.rpy", line 13: expected statement.
-    config.automatic_images_minimum_components = 1
-                                               ^
+File "game/System.rpy", line 193: expected statement.
+    button_name = []
+                ^
 
-File "game/System.rpy", line 14: expected statement.
-    config.automatic_images = [' ', '_', '/']
-                            ^
-
-File "game/System.rpy", line 15: expected statement.
-    config.automatic_images_strip = ['Images']
-                                  ^
+File "game/System.rpy", line 194: expected statement.
+    button_hover = []
+                 ^
 
 Ren'Py Version: Ren'Py 6.99.14.1.3218
-Mon Nov 12 18:24:58 2018
+Wed Nov 14 16:25:57 2018
