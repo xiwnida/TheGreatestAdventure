@@ -1,12 +1,4 @@
 #init:
-    # Фоны
-#    image voknight = "Images/Vok/voknoch.jpg"
-#    image vokday = "Images/Vok/vok.jpg"
-#    image vokzakat = "Images/Vok/vokzakat.jpg"
-    
-    # Названия города на стене вокзального помещения
-#    image vokname_alinornight = "Images/Vok/alinornoch.png"
-#    image vokname_alinor = "Images/Vok/alinor.png"
 
 
 init python:

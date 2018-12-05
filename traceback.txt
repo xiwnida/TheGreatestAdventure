@@ -1,66 +1,22 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While loading <'Image' u'Images/Alinor/dom1.jpg'>:
-  File "game/script.rpy", line 571, in script
-    $ result = renpy.imagemap("Images/Alinor/dom1.png", "Images/Alinor/dom1akt.png", [
-  File "game/script.rpy", line 574, in <module>
-    (224, 525, 629, 599, "На улицу")
-IOError: Couldn't find file 'Images/Alinor/dom1.jpg'.
+While running game code:
+  File "game/script.rpy", line 674, in script
+    jump alinor_dom_spal
+ScriptError: could not find label 'alinor_dom_spal'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 571, in script
-    $ result = renpy.imagemap("Images/Alinor/dom1.png", "Images/Alinor/dom1akt.png", [
-  File "D:\renpy-7.1.3-sdk\renpy\ast.py", line 881, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\renpy-7.1.3-sdk\renpy\python.py", line 1913, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/script.rpy", line 574, in <module>
-    (224, 525, 629, 599, "На улицу")
-  File "D:\renpy-7.1.3-sdk\renpy\exports.py", line 1284, in imagemap
-    roll_forward=roll_forward)
-  File "D:\renpy-7.1.3-sdk\renpy\ui.py", line 289, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 2672, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 3158, in interact_core
-    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
-  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 2075, in draw_screen
-    renpy.config.screen_height,
-  File "render.pyx", line 487, in renpy.display.render.render_screen
-  File "render.pyx", line 235, in renpy.display.render.render
-  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 722, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 147, in renpy.display.render.render
-  File "render.pyx", line 235, in renpy.display.render.render
-  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 722, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 147, in renpy.display.render.render
-  File "render.pyx", line 235, in renpy.display.render.render
-  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 722, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 147, in renpy.display.render.render
-  File "render.pyx", line 235, in renpy.display.render.render
-  File "accelerator.pyx", line 110, in renpy.display.accelerator.transform_render
-  File "render.pyx", line 235, in renpy.display.render.render
-  File "D:\renpy-7.1.3-sdk\renpy\display\image.py", line 500, in render
-    return wrap_render(self.target, width, height, st, at)
-  File "D:\renpy-7.1.3-sdk\renpy\display\image.py", line 306, in wrap_render
-    rend = render(child, w, h, st, at)
-  File "render.pyx", line 147, in renpy.display.render.render
-  File "render.pyx", line 235, in renpy.display.render.render
-  File "D:\renpy-7.1.3-sdk\renpy\display\im.py", line 580, in render
-    return cache.get(self, render=True)
-  File "D:\renpy-7.1.3-sdk\renpy\display\im.py", line 266, in get
-    surf = image.load()
-  File "D:\renpy-7.1.3-sdk\renpy\display\im.py", line 625, in load
-    surf = renpy.display.pgrender.load_image(renpy.loader.load(self.filename), self.filename)
-  File "D:\renpy-7.1.3-sdk\renpy\loader.py", line 576, in load
-    raise IOError("Couldn't find file '%s'." % name)
-IOError: Couldn't find file 'Images/Alinor/dom1.jpg'.
+  File "game/script.rpy", line 674, in script
+    jump alinor_dom_spal
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1573, in execute
+    rv = renpy.game.script.lookup(target)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 871, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'alinor_dom_spal'.
 
-Windows-8-6.2.9200
-Ren'Py 7.1.3.1092
+Windows-7-6.1.7601-SP1
+Ren'Py 6.99.14.1.3218
  
-Wed Dec 05 13:03:09 2018
+Wed Dec 05 23:23:07 2018

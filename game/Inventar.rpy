@@ -161,10 +161,10 @@ label invent:    # Инвентарь
     #Изображения предметов
     if ItemsValue >0:
         show expression [items[0]]:
-            xpos 30 ypos 19
+            xpos 30 ypos 17
     if ItemsValue >1:
         show expression [items[1]]:
-            xpos 121 ypos 19
+            xpos 121 ypos 17
     if ItemsValue >2:
         show expression [items[2]]:
             xpos 212 ypos 17

@@ -900,7 +900,7 @@ label time1: # Этот блок прибавляет 15 минут и меня�
             $ sutki = 1
             call time2 from _call_time2_5
         elif clock == 56:
-            $ day_time = False
+            $ day_time = "zakat"
         return
     else:           # Сделать предупреждалку в 23 00 и предложение пойти домой.
         if in_home == True:
@@ -954,7 +954,7 @@ label time2:  # Этот блок прибавляет сразу же одно 
 label day_31_in_mounth:
     $ sutki = 0
     $ clock = 0
-    $ day_time = True
+    $ day_time = "day"
     if days < 31:
         $ days += 1
         return
@@ -971,7 +971,7 @@ label day_31_in_mounth:
 label day_30_in_mounth:
     $ sutki = 0
     $ clock = 0
-    $ day_time = True
+    $ day_time = "day"
     if days < 30:
         $ days += 1
         return
@@ -988,7 +988,7 @@ label day_30_in_mounth:
 label day_28_in_mounth:
     $ sutki = 0
     $ clock = 0
-    $ day_time = True
+    $ day_time = "day"
     if days < 28:
         $ days += 1
         return

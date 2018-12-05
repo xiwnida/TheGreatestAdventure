@@ -315,8 +315,10 @@ label koroldal1:
     j_smile "{i}Ну, мне тоже пора.{/i}"
     scene black with fade
     $ renpy.pause (1.0)
-
-label alinor_vorota_dvorca1:
+    
+    
+#==================Ворота в сад======================
+label alinor_vorota_dvorca1:            
     
     if muzika == "Alinor_stolica":
         pass
@@ -344,7 +346,7 @@ label alinor_vorota_dvorca1:
         scene vorota dvorca
         if no_fade == False:
             with fade
-
+            
     $ result = renpy.imagemap("Images/Alinor/vorota_day.jpg", "Images/Alinor/vorota1akt.jpg", [
     (705, 1, 731, 38, "Меню"),
     (285, 255, 490, 503, "Cад"),
@@ -358,128 +360,83 @@ label alinor_vorota_dvorca1:
     if result == "На главную улицу":
         jump alinor_glavn_ul1
     elif result == "Меню":
-        call call_menu from _call_call_menu
+        call call_menu
 jump alinor_vorota_dvorca1
 
-label alinor_glavn_ul1:
-    scene alinor glavul
-    if no_fade == False:
-        with fade    
 
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+#==================Главная улица столицы======================
+label alinor_glavn_ul1:
+    $ location("Alinor", "ul_plaza", "alinor_stolica")
+    call location
+    $buttons('ul_plaza', 2, ['alinor_glavn_ul1' , '.pereulok' , '.to_palace'])
+    call screen imagebutton_example
+    jump alinor_glavn_ul1
         
-    $ result = renpy.imagemap("Images/Alinor/ul3.png", "Images/Alinor/ul3akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (290, 548, 625, 599, "На площадь"),
-    (570, 375, 710, 547, "Ко дворцу")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_1
-    elif result == "На площадь":
+    label .pereulok:
         jump alinor_pereulok1
-    elif result == "Ко дворцу":
-        jump alinor_vorota_dvorca1
+    label .to_palace:
+        jump alinor_vorota_dvorca1    
+        
 jump alinor_glavn_ul1
 
+#==================Переулок======================
 label alinor_pereulok1:
-    scene alinor pereulok
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    $ location("Alinor", "pereulok", "alinor_stolica")
+    call location
+    $buttons('pereulok', 2, ['alinor_pereulok1' , '.ploshad' , '.glav_ul'])
+    call screen imagebutton_example
+    jump alinor_pereulok1
         
-    $ result = renpy.imagemap("Images/Alinor/ul4.png", "Images/Alinor/ul4akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (225, 535, 610, 599, "На площадь"),
-    (422, 155, 535, 315, "На главную улицу")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_2
-    elif result == "На площадь":
+    label .ploshad:
         jump alinor_gorod1
-    elif result == "На главную улицу":
+    label .glav_ul:
         jump alinor_glavn_ul1
 jump alinor_pereulok1
 
+#==================Торговая площадь======================
 label alinor_gorod1: 
-    scene alinor stolploshad
-    if no_fade == False:
-       with fade
-        
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul2.png", "Images/Alinor/ul2akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (392, 294, 515, 390, "На главную улицу"),
-    (192, 500, 643, 599, "К вашему дому")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_3
-    elif result == "К вашему дому":
+    $ location("Alinor", "ul_gorod", "alinor_stolica")
+    call location
+    $buttons('ul_gorod', 2, ['alinor_gorod1' , '.jack_home_street' , '.pereulok'])
+    call screen imagebutton_example
+    jump alinor_gorod1
+
+    label .jack_home_street:
         jump alinor_ul_dom1
-    if result == "На главную улицу":
+    label .pereulok:
         jump alinor_pereulok1
 jump alinor_gorod1
 
+#==================Улица где дом Джека======================
 label alinor_ul_dom1:
-    scene alinor ulvashdom
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
+    $ location("Alinor", "ul_dom", "alinor_stolica")
+    call location
+    $buttons('ul_dom', 2, ['alinor_ul_dom1' , '.to_jack_home' , '.ploshad'])
+    call screen imagebutton_example
+    jump alinor_ul_dom1
         
-    $ result = renpy.imagemap("Images/Alinor/ul1.png", "Images/Alinor/ul1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (290, 243, 410, 360, "Домой"),
-    (440, 247, 557, 365, "На площадь")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_4
-    elif result == "Домой":
+        
+    label .to_jack_home:
         jump alinor_vash_dom1
-    elif result == "На площадь":
+    label .ploshad:
         jump alinor_gorod1
 jump alinor_ul_dom1
 
+#==================Дом Джека======================
 label alinor_vash_dom1:
-    scene alinor vashdom
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
-    $ result = renpy.imagemap("Images/Alinor/dom1.png", "Images/Alinor/dom1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (292, 186, 421, 498, "В спальную"),
-    (224, 525, 629, 599, "На улицу")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_5
-    elif result == "В спальную":
+    $ location("Alinor", "dom", "alinor_vash_dom", True)
+    call location
+    $buttons('dom', 2, ['alinor_vash_dom1' , '.dom_spal' , '.ul_dom'])
+    call screen imagebutton_example
+    jump alinor_vash_dom1
+
+    label .dom_spal:
         jump alinor_dom_spal1
-    elif result == "На улицу":
+    label .ul_dom: 
         jump alinor_ul_dom1
 jump alinor_vash_dom1
 
+#==================Спальня======================
 label alinor_dom_spal1:
     scene alinor domspal
     if no_fade == False:
