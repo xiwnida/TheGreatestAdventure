@@ -1,38 +1,49 @@
+init python:
+    
+    
+    def location(city, loca, music): #Название города, название фона, время суток, название музыки
+        global location_image
+        global day_time
+        location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
+        global muz
+        muz=music
+        
+        
+    def buttons():
+        global button_name
+        global button_hover
+        global buttons_quantity_var
+        buttons_quantity_var+=1
+        button_name.append("Images/Alinor/"+str(name)+str(i)+".png")
+        button_hover.append("Images/Alinor/"+str(name)+str(i)+"akt.png")
 
 init:
-    define config.conditionswitch_predict_all = True
-    # Фоны
+
+#=====================Фоны=====================================
     image dom = "Images/Alinor/dom.jpg"
     image sad dvorca = "Images/Alinor/sad_dvorca.jpg"
     image koridor dvorca = "Images/Alinor/koridor1.jpg"
     image kabinet dvorca = "Images/Alinor/kabinet1.jpg"
     image kabinet dvorca1 = "Images/Alinor/kabinet2.jpg"
     image sad dvorca1 = "Images/Alinor/sad_dvorca1.jpg"
-    image vorota dvorca = ConditionSwitch(
-        "day_time=='True'","Images/Alinor/vorota1.jpg",
-        "day_time=='False'","Images/Alinor/vorota2.jpg")
-#    image vorota dvorca zakat = "Images/Alinor/vorota2.jpg"
-    image alinor stolploshad = "Images/Alinor/ul2.jpg"
-    image alinor stolploshadzakat = "Images/Alinor/ul2.1.jpg"
-    image alinor ulvashdom = "Images/Alinor/ul1.jpg"
-    image alinor ulvashdomzakat = "Images/Alinor/ul1.1.jpg"
-    image alinor glavul = "Images/Alinor/ul3.jpg"
+    image vorota dvorca = "Images/Alinor/vorota_day.jpg"
+    image vorota dvorca zakat = "Images/Alinor/vorota_zakat.jpg"
+    image alinor stolploshad = "Images/Alinor/ul2_day.jpg"
+    image alinor stolploshadzakat = "Images/Alinor/ul2_zakat.jpg"
+    image alinor ulvashdom = "Images/Alinor/ul1_day.jpg"
+    image alinor ulvashdomzakat = "Images/Alinor/ul1_zakat.jpg"
+    image alinor glavul = "Images/Alinor/ul3_day.jpg"
     image alinor vashdom = "Images/Alinor/dom1.jpg"
     image alinor domspal = "Images/Alinor/domspal.jpg"
-    image alinor pereulok = "Images/Alinor/ul4.jpg"
-    image alinor pereulokzakat = "Images/Alinor/ul4.1.jpg"
-    image alinor cerkov = "Images/Alinor/cerkov1.jpg"
-    image alinor cerkovzakat = "Images/Alinor/cerkov2.jpg"
+    image alinor pereulok = "Images/Alinor/ul_day.jpg"
+    image alinor pereulokzakat = "Images/Alinor/ul4_zakat.jpg"
+    image alinor cerkov = "Images/Alinor/cerkov_day.jpg"
+    image alinor cerkovzakat = "Images/Alinor/cerkov_zakat.jpg"
     
-    #Фоны АКТ
-    image vorota dvorca akt = ConditionSwitch(
-        "day_time=='True'","Images/Alinor/vorota1akt.jpg",
-        "day_time=='False'","Images/Alinor/vorota2akt.jpg")
-    
-    # Диалоги с персонажами
+#==============Диалоги с персонажами=====================================
     image shopper girl = "Images/Character/Shopper_Girl.jpg"
     
-    # Персонажи
+#==============Персонажи=====================================
     image jack smile = "Chara/GG/smile.png"
     image jack smile2 = "Chara/GG/smile2.png"
     image jack smile close = "Chara/GG/smile_close.png"
@@ -79,7 +90,7 @@ init:
     image driver1 udiv2 = "Chara/Train Driver/udiv2.png"
     image driver1 shock = "Chara/Train Driver/shock.png"
     
-    # Предметы и прочее
+#==============Предметы и прочее=====================================
     image svitok1 = "Images/svitok1.jpg"
     image svitok2 = "Images/svitok2.jpg"
     image naslutro = "Images/naslutro.png"
@@ -96,10 +107,10 @@ init:
     image callmenu = "Talking/menu.png" 
     image gold = "Invent/Money/gold.png"
 
-    # Реплики
+#==============Реплики=====================================
     $ bangirl = Character(u'Красивая девушка', color="d24f4b")
     
-    #Головы персонажей Алинора
+#==============Головы персонажей Алинора=====================================
     $ bangirl_hah = Character(show_side_image=Image("Chara/Bandits/Bandgirl_hah_mini.png", xalign=0.0, yalign=1.0))
     $ bangirl_smile = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile_mini.png", xalign=0.0, yalign=1.0))
     $ bangirl_smile2 = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile2_mini.png", xalign=0.0, yalign=1.0))
@@ -120,7 +131,7 @@ init:
     $ driver1_udiv = Character(show_side_image=Image("Chara/Train driver/udiv_box.png", xalign=0.0, yalign=1.0))
     $ driver1_udiv2 = Character(show_side_image=Image("Chara/Train driver/udiv2_box.png", xalign=0.0, yalign=1.0))
     
-    #Головы Джека
+#==============Головы Джека=====================================
     $ j_auch = Character(show_side_image=Image("Chara/Mini GG/Auch.png", xalign=0.0, yalign=1.0))
     $ j_duma = Character(show_side_image=Image("Chara/Mini GG/Duma.png", xalign=0.0, yalign=1.0))
     $ j_hehe = Character(show_side_image=Image("Chara/Mini GG/Hehe.png", xalign=0.0, yalign=1.0))
@@ -155,7 +166,7 @@ init:
     $ j_zolkapl = Character(show_side_image=Image("Chara/Mini GG/Zolkapl.png", xalign=0.0, yalign=1.0))
     
     
-    # Переменные
+#==============Переменные=====================================
     $ korol_dal_karta = False
     $ korol_dal_money = False
     $ korol_dal_dokument = False
@@ -175,22 +186,49 @@ init:
     $ event = "Nope" # Эта переменная отвечает за одноразовые события.
     $ no_fade = False # Эта переменная нужна, чтобы после отключения меню не сработал fade эффект (ох, костыли!)
     $ scene_p = "Nope" # Эта переменная нужна, чтобы показать нужную сцену перед иммедж картой
-    $ day_time = True # Эта переменная нужна, чтобы включить закатную сцену вечером
+    $ day_time = "day" # Эта переменная нужна, чтобы включить закатную сцену вечером
+    $ name = ""
+    $ buttons_quantity = 0 # В эту переменную на каждой локе заносится количество кнопок
+    $ buttons_quantity_var = 0 # Эта переменная нужна для циклов, чтобы сравнивать текущий цикл с максимальным значением кнопок
+    $ button_name = [] # Массив с иддл-именами кнопок
+    $ button_hover = [] # Массив с ховер-именами кнопок
     
 label fade:
     if not no_fade:
         with fade
     else:
         $ no_fade = False
-        
-label muz_on:
-    if muz=="Alinor_stolica":
+    return
+    
+#==============Колл. Показывает изображение, чье название собрано функцией location====================
+    
+label location:
+    show expression location_image 
+
+    if muz=="alinor_stolica":
         $ muz_title = "Music/Alinor/stolica.ogg"
     elif muz=="Alinor_vash_dom":
         $ muz_title= "Music/Alinor/Vash_dom.ogg"
     
-    if muzika == muz:
+    if muzika == muz: #Если играющая музыка равна новой музыке
         pass
     else:
         play music muz_title
         $ muzika = muz
+    return
+
+#=========================
+        
+#screen imagebutton_example(): #ПРОВЕРКА-------СДЕЛАТЬ WHILE В ЭКРАНЕ. И СДЕЛАТЬ ССЫЛКИ НА ЛЕЙБЛЫ В ПЕРЕМЕННЫХ, ДЛЯ ЭТОГО ОТРЕДАЧИТЬ ФУНКЦИЮ
+   # $ while buttons_quantity_var<=buttons_quantity:
+     #   imagebutton:
+       #     idle button_name[buttons_quantity]
+         #   hover button_hover[0]
+          #  focus_mask True
+           # action Jump(".call_menu")
+       # $ buttons_quantity=+1
+    
+label proverka_knopok:
+    while buttons_quantity_var<buttons_quantity:
+        $ buttons()
+    call screen imagebutton_example

@@ -1,10 +1,9 @@
-label alinor_vorota_dvorca:        # Алинор. Королевский дворец и сад
+#=======================Столица. Королевский дворец=================================
+label alinor_capital_vorota_dvorca:
     $ location("Alinor", "vorota", "alinor_stolica")
-    call location #Попробовать вписать в функцию автоматическое показывание картинок. Слить в один call фейд и скрин.
-    call fade
-        
+    call location
     call screen alinor_vorota_dvorca
-    jump alinor_vorota_dvorca
+    jump alinor_capital_vorota_dvorca
 
     label .garden:
         show jack smile at left with dissolve
@@ -12,13 +11,14 @@ label alinor_vorota_dvorca:        # Алинор. Королевский дво
         j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
         hide jack smile with dissolve
         $ no_fade = True
-        jump alinor_vorota_dvorca
+        jump alinor_capital_vorota_dvorca
     label .on_main_street:
         call time1 from _call_time1
-        jump alinor_glav_ul
-    jump alinor_vorota_dvorca
+        jump alinor_capital_plaza
+    jump alinor_capital_vorota_dvorca
 
-screen alinor_vorota_dvorca:# Алинор. Королевский дворец и сад (карта)
+   
+screen alinor_vorota_dvorca:
     imagemap:
         if day_time=="day":
             ground "Images/Alinor/vorota_day.jpg"
@@ -27,126 +27,95 @@ screen alinor_vorota_dvorca:# Алинор. Королевский дворец 
             ground "Images/Alinor/vorota_zakat.jpg"
             hover "images/Alinor/vorota2akt.jpg"
         hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (285, 255, 205, 248) clicked Jump ("alinor_vorota_dvorca.garden")
-        hotspot (225, 535, 385, 64) clicked Jump ("alinor_vorota_dvorca.on_main_street")
+        hotspot (285, 255, 205, 248) clicked Jump ("alinor_capital_vorota_dvorca.garden")
+        hotspot (225, 535, 385, 64) clicked Jump ("alinor_capital_vorota_dvorca.on_main_street")
         
+#=======================Столица. Главная улица=================================
+label alinor_capital_plaza:
+    $ location("Alinor", "ul_plaza", "alinor_stolica")
+    call location
+    $buttons('ul_plaza', 4, ['alinor_capital_plaza' , '.pereulok' , '.to_palace', '.v_bar', '.gostin'])
+    call screen imagebutton_example
+    jump alinor_capital_plaza
         
-label alinor_gorod:       # Алинор. Площадь столицы
-    if day_time:
-        scene alinor stolploshad
-    else:
-        scene alinor stolploshadzakat 
-    call fade
-    $ muz="Alinor_stolica"
-    call muz_on
-        
-    call screen alinor_gorod
-    jump alinor_gorod
+    label .pereulok:
+        call time1
+        jump alinor_capital_pereulok
+    label .to_palace:
+        call time1
+        jump alinor_capital_vorota_dvorca    
+    label .v_bar:     #ПРОПИСАТЬ БАР
+                          
+        jump alinor_capital_pereulok
+    label .gostin:     #ПРОПИСАТЬ ГОСТИНИЦУ
+                                  
+        jump alinor_capital_pereulok
+jump alinor_capital_plaza
+
+#=======================Столица. Торговая площадь=================================
+label alinor_capital_gorod:
+    $ location("Alinor", "ul_gorod", "alinor_stolica")
+    call location
+    $buttons('ul_gorod', 4, ['alinor_capital_gorod' , '.jack_home_street' , '.pereulok', '.lavka_torgovca', '.vokzal'])
+    call screen imagebutton_example
+    jump alinor_capital_gorod
 
     label .jack_home_street:
-        call time1 from _call_time1_1
-        jump alinor_ul_dom
+        call time1
+        jump alinor_capital_ul_dom
     label .pereulok:
-        call time1 from _call_time1_2
-        jump alinor_pereulok
+        call time1
+        jump alinor_capital_pereulok
     label .lavka_torgovca:
-        jump alinor_lavka_torgovca
+        jump alinor_capital_lavka_torgovca
     label .vokzal:
         #jump vokzal
-jump alinor_gorod
-
-screen alinor_gorod:   # Алинор. Площадь столицы (карта)
-    imagemap:
-        if day_time:
-            ground "Images/Alinor/ul2.png"
-            hover "images/Alinor/ul2akt.png"
-        else:
-            ground "Images/Alinor/ul2.1.png"
-            hover "images/Alinor/ul2.1akt.png"
-        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (390, 254, 130, 130) clicked Jump ("alinor_gorod.pereulok")
-        hotspot (192, 500, 451, 94) clicked Jump ("alinor_gorod.jack_home_street")
-        hotspot (642, 276, 158, 236) clicked Jump ("alinor_gorod.lavka_torgovca")
-        hotspot (284, 361, 142, 84) clicked Jump ("alinor_gorod.vokzal")
+jump alinor_capital_gorod
         
-    
-label alinor_ul_dom:    # Алинор. Улица, на которой ваш дом.
-    if day_time:
-        scene alinor ulvashdom
-    else:
-        scene alinor ulvashdomzakat 
-    call fade
-    $ muz="Alinor_stolica"
-    #call muz_on
-        
-    #call screen alinor_ul_dom
-    $q=3
-    $name="ula"
-    call proverka_knopok
-    jump alinor_ul_dom
+#=======================Столица. Улица, на которой дом Джека=================================
+label alinor_capital_ul_dom:
+    $ location("Alinor", "ul_dom", "alinor_stolica")
+    call location
+    $buttons('ul_dom', 2, ['alinor_capital_ul_dom' , '.to_jack_home' , '.ploshad'])
+    call screen imagebutton_example
+    jump alinor_capital_ul_dom
         
         
-    label .call_menu:
-        call call_menu
     label .to_jack_home:
         $ in_home = True
         call time1 from _call_time1_3
-        jump alinor_vash_dom
+        jump alinor_capital_vash_dom
     label .ploshad:
         call time1 from _call_time1_4
-        jump alinor_gorod
-jump alinor_ul_dom
-        
-#screen alinor_ul_dom:   # Алинор. Улица, где дом Джека (карта)
-#    imagemap:
-#        if day_time:
-#            ground "Images/Alinor/ul1.png"
-#            hover "images/Alinor/ul1akt.png"
-#        else:
-#            ground "Images/Alinor/ul1.1.png"
-#            hover "images/Alinor/ul1.1akt.png"
-#        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-#        hotspot (288, 202, 122, 182) clicked Jump ("alinor_ul_dom.to_jack_home")
-#        hotspot (441, 204, 112, 176) clicked Jump ("alinor_ul_dom.ploshad")
-        
-        
-label alinor_vash_dom:         # Алинор. Дом Джека.
-    scene alinor vashdom
-    call fade
-    $ muz="Alinor_vash_dom"
-    call muz_on
-        
-    call screen alinor_vash_dom
-    jump alinor_vash_dom
+        jump alinor_capital_gorod
+jump alinor_capital_ul_dom
+  
+#=======================Столица. Дом Джека=================================
+label alinor_capital_vash_dom:
+    $ location("Alinor", "dom", "alinor_vash_dom", True)
+    call location
+    $buttons('dom', 2, ['alinor_capital_vash_dom' , '.dom_spal' , '.ul_dom'])
+    call screen imagebutton_example
+    jump alinor_capital_vash_dom
 
     label .dom_spal:
-        jump alinor_dom_spal
+        jump alinor_capital_dom_spal
     label .ul_dom: 
         $ in_home = False
-        jump alinor_ul_dom
-jump alinor_vash_dom
-
-screen alinor_vash_dom:   # Алинор. Дом Джека (карта)
-    imagemap:
-        ground "Images/Alinor/dom1.png"
-        hover "images/Alinor/dom1akt.png"
-        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (228, 200, 167, 225) clicked Jump ("alinor_vash_dom.dom_spal")
-        hotspot (224, 525, 405, 75) clicked Jump ("alinor_vash_dom.ul_dom")
+        jump alinor_capital_ul_dom
+jump alinor_capital_vash_dom
         
-        
-label alinor_dom_spal:    # Алинор. Ваша спальная.
-    scene alinor domspal
-    call fade
-    $ muz="Alinor_vash_dom"
-    call muz_on
-        
-    call screen alinor_dom_spal
-    jump alinor_dom_spal
+#=======================Столица. Дом Джека. Спальня=================================
+label alinor_capital_dom_spal:
+    $ location("Alinor", "dom_spal", "alinor_vash_dom", True)
+    call location
+    $buttons('dom_spal', 2, ['alinor_capital_dom_spal' , '.vash_dom' , '.sleep'])
+    call screen imagebutton_example
+    jump alinor_capital_dom_spal
 
     label .vash_dom:
-        jump alinor_vash_dom
-    label .spat:
+        jump alinor_capital_vash_dom
+    label .sleep:
         "Функция не дописана"
         menu:
             "Вы хотите спать до утра?"
@@ -154,130 +123,45 @@ label alinor_dom_spal:    # Алинор. Ваша спальная.
                 pass
             "Нет":
                 $no_fade = True
-                jump alinor_dom_spal
+                jump alinor_capital_dom_spal
         scene black
         $ sutki = 3
         call time2 from _call_time2_8
-jump alinor_dom_spal
+jump alinor_capital_dom_spal
 
-screen alinor_dom_spal:   # Алинор. Спальня Джека (карта)
-    imagemap:
-        ground "Images/Alinor/domspal2.png"
-        hover "images/Alinor/domspal2akt.png"
-        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (224, 525, 405, 75) clicked Jump ("alinor_dom_spal.vash_dom")
-        hotspot (73, 283, 135, 41) clicked Call ("zametki")
-        hotspot (500, 241, 250, 217) clicked Jump ("alinor_dom_spal.spat")
-        
-        
-label alinor_glav_ul:      # Алинор. Главная улица столицы.
-    if day_time:
-        scene alinor glavul
-    else:
-        scene alinor glavulzakat 
-    call fade
-    $ muz="Alinor_stolica"
-    call muz_on
-        
-    call screen alinor_glav_ul
-    jump alinor_glav_ul
-        
-    label .alinor_pereulok:
-        call time1 from _call_time1_5
-        jump alinor_pereulok
-    label .v_bar:
-                          #ПРОПИСАТЬ БАР
-        jump alinor_pereulok
-    label .gostin:
-                                  #ПРОПИСАТЬ ГОСТИНИЦУ
-        jump alinor_pereulok
-    label .to_palace:
-        call time1 from _call_time1_6
-        jump alinor_vorota_dvorca
-jump alinor_glav_ul
-
-screen alinor_glav_ul:   # Алинор. Улица, где дом Джека (карта)
-    imagemap:
-        if day_time:
-            ground "Images/Alinor/ul3.png"
-            hover "images/Alinor/ul3akt.png"
-        else:
-            ground "Images/Alinor/ul3.1.png"
-            hover "images/Alinor/ul3.1akt.png"
-        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (212, 391, 196, 154) clicked Jump ("alinor_glav_ul.v_bar")
-        hotspot (467, 369, 105, 179) clicked Jump ("alinor_glav_ul.gostin")
-        hotspot (573, 368, 113, 180) clicked Jump ("alinor_glav_ul.to_palace")
-        hotspot (127, 548, 540, 53) clicked Jump ("alinor_glav_ul.alinor_pereulok")
-        
-        
-label alinor_pereulok:        # Алинор. Переулок, ведущий на главную улицу или к церкви
-    if day_time:
-        scene alinor pereulok
-    else:
-        scene alinor pereulokzakat 
-    call fade
-    $ muz="Alinor_stolica"
-    call muz_on
-        
-    call screen alinor_pereulok
-    jump alinor_pereulok
+#=======================Столица. Переулок=================================
+label alinor_capital_pereulok:        
+    $ location("Alinor", "pereulok", "alinor_stolica")
+    call location
+    $buttons('pereulok', 3, ['alinor_capital_pereulok' , '.ploshad' , '.glav_ul', '.cerkov'])
+    call screen imagebutton_example
+    jump alinor_capital_pereulok
         
     label .ploshad:
-        call time1 from _call_time1_7
-        jump alinor_gorod
+        call time1
+        jump alinor_capital_gorod
     label .glav_ul:
-        call time1 from _call_time1_8
-        jump alinor_glav_ul
+        call time1 
+        jump alinor_capital_plaza
     label .cerkov:
-        call time1 from _call_time1_9
-        jump alinor_cerkov
-jump alinor_pereulok
-
-screen alinor_pereulok:   # Алинор. Переулок (карта)
-    imagemap:
-        if day_time:
-            ground "Images/Alinor/ul4.png"
-            hover "images/Alinor/ul4akt.png"
-        else:
-            ground "Images/Alinor/ul4.1.png"
-            hover "images/Alinor/ul4.1akt.png"
-        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (397, 155, 122, 170) clicked Jump ("alinor_pereulok.glav_ul")
-        hotspot (85, 223, 116, 281) clicked Jump ("alinor_pereulok.cerkov")
-        hotspot (113, 540, 585, 60) clicked Jump ("alinor_pereulok.ploshad")
+        call time1 
+        jump alinor_capital_cerkov
+jump alinor_capital_pereulok
         
-        
-label alinor_cerkov:     # Алинор. Церковь
-    if day_time:
-        scene alinor cerkov
-    else:
-        scene alinor cerkovzakat 
-    call fade
-    $ muz="Alinor_stolica" #ЗАМЕНИТЬ
-    call muz_on
-        
-    call screen alinor_cerkov
-    jump alinor_cerkov
+#=======================Столица. Церковь=================================
+label alinor_capital_cerkov:
+    $ location("Alinor", "cerkov", "alinor_stolica") #Заменить музыку!!!!!!!!!!!!!!!
+    call location
+    $buttons('cerkov', 3, ['alinor_capital_cerkov' , '.pereulok' , '.v_cerkov', '.les'])
+    call screen imagebutton_example
+    jump alinor_capital_cerkov
 
     label .pereulok:
-        call time1 from _call_time1_10
-        jump alinor_pereulok
-    label .les:
-        "Тут ничего нет"
+        call time1
+        jump alinor_capital_pereulok
     label .v_cerkov:
         "Тут тоже ничего нет"
-jump alinor_cerkov
+    label .les:
+        "Тут ничего нет"
+jump alinor_capital_cerkov
         
-screen alinor_cerkov:   # Алинор. Церковь (карта)
-    imagemap:
-        if day_time:
-            ground "Images/Alinor/cerkov1.png"
-            hover "images/Alinor/cerkov1akt.png"
-        else:
-            ground "Images/Alinor/cerkov2.png"
-            hover "images/Alinor/cerkov2akt.png"
-        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (704, 199, 99, 402) clicked Jump ("alinor_cerkov.les")
-        hotspot (408, 399, 76, 126) clicked Jump ("alinor_cerkov.v_cerkov")
-        hotspot (1, 541, 316, 60) clicked Jump ("alinor_cerkov.pereulok")

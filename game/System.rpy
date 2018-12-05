@@ -1,44 +1,52 @@
 init python:
     
     
-    def location(city, loca, music): #Название города, название фона, время суток, название музыки
+    def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
         global location_image
         global day_time
-        location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
+        if not inside:
+            location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
+        else:
+            location_image = "Images/"+str(city)+"/"+str(loca)+".jpg"
         global muz
         muz=music
         
         
-    def buttons():
+    def buttons(name, quantity, goto_array): # Дописать закатные кнопки
         global button_name
         global button_hover
-        global i
-        i+=1
-        button_name.append("Images/Alinor/"+str(name)+str(i)+".png")
-        button_hover.append("Images/Alinor/"+str(name)+str(i)+"akt.png")
+        global buttons_quantity
+        global gotoarray
+        button_name=[]
+        button_hover=[]
+        buttons_quantity=quantity
+        gotoarray=goto_array
+        for i in range(quantity):
+            button_name.append("Images/Alinor/"+str(name)+str(i+1)+".png")
+            button_hover.append("Images/Alinor/"+str(name)+str(i+1)+"akt.png")
 
 init:
 
 #=====================Фоны=====================================
-    image dom = "Images/Alinor/dom.jpg"
+    image dom = "Images/Alinor/dom_gamestart.jpg"
     image sad dvorca = "Images/Alinor/sad_dvorca.jpg"
     image koridor dvorca = "Images/Alinor/koridor1.jpg"
     image kabinet dvorca = "Images/Alinor/kabinet1.jpg"
     image kabinet dvorca1 = "Images/Alinor/kabinet2.jpg"
     image sad dvorca1 = "Images/Alinor/sad_dvorca1.jpg"
-    image vorota dvorca = "Images/Alinor/vorota1.jpg"
-    image vorota dvorca zakat = "Images/Alinor/vorota2.jpg"
-    image alinor stolploshad = "Images/Alinor/ul2.jpg"
-    image alinor stolploshadzakat = "Images/Alinor/ul2.1.jpg"
+    image vorota dvorca = "Images/Alinor/vorota_day.jpg"
+    image vorota dvorca zakat = "Images/Alinor/vorota_zakat.jpg"
+    image alinor stolploshad = "Images/Alinor/ul2_day.jpg"
+    image alinor stolploshadzakat = "Images/Alinor/ul2_zakat.jpg"
     image alinor ulvashdom = "Images/Alinor/ul1_day.jpg"
-    image alinor ulvashdomzakat = "Images/Alinor/ul1.1.jpg"
-    image alinor glavul = "Images/Alinor/ul3.jpg"
+    image alinor ulvashdomzakat = "Images/Alinor/ul1_zakat.jpg"
+    image alinor glavul = "Images/Alinor/ul3_day.jpg"
     image alinor vashdom = "Images/Alinor/dom1.jpg"
-    image alinor domspal = "Images/Alinor/domspal.jpg"
-    image alinor pereulok = "Images/Alinor/ul4.jpg"
-    image alinor pereulokzakat = "Images/Alinor/ul4.1.jpg"
-    image alinor cerkov = "Images/Alinor/cerkov1.jpg"
-    image alinor cerkovzakat = "Images/Alinor/cerkov2.jpg"
+    image alinor domspal = "Images/Alinor/dom_spal.jpg"
+    image alinor pereulok = "Images/Alinor/ul_day.jpg"
+    image alinor pereulokzakat = "Images/Alinor/ul4_zakat.jpg"
+    image alinor cerkov = "Images/Alinor/cerkov_day.jpg"
+    image alinor cerkovzakat = "Images/Alinor/cerkov_zakat.jpg"
     
 #==============Диалоги с персонажами=====================================
     image shopper girl = "Images/Character/Shopper_Girl.jpg"
@@ -187,19 +195,14 @@ init:
     $ no_fade = False # Эта переменная нужна, чтобы после отключения меню не сработал fade эффект (ох, костыли!)
     $ scene_p = "Nope" # Эта переменная нужна, чтобы показать нужную сцену перед иммедж картой
     $ day_time = "day" # Эта переменная нужна, чтобы включить закатную сцену вечером
-    $ name = ""
-    $ q = 0
-    $ i = 0
-    $ button_name = []
-    $ button_hover = []
     
-label fade:
-    if not no_fade:
-        with fade
-    else:
-        $ no_fade = False
-    return
+    $ gotoarray = [] # Этот массив нужен для переадресации с кнопок на нужные лейблы
+    $ buttons_quantity = 0 # В эту переменную на каждой локе заносится количество кнопок
+    $ button_name = [] # Массив с иддл-именами кнопок
+    $ button_hover = [] # Массив с ховер-именами кнопок
     
+    $location_image=''
+
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
     
 label location:
@@ -209,6 +212,11 @@ label location:
         $ muz_title = "Music/Alinor/stolica.ogg"
     elif muz=="Alinor_vash_dom":
         $ muz_title= "Music/Alinor/Vash_dom.ogg"
+        
+    if not no_fade:
+        with fade
+    else:
+        $ no_fade = False
     
     if muzika == muz: #Если играющая музыка равна новой музыке
         pass
@@ -220,38 +228,67 @@ label location:
 #=========================
         
 screen imagebutton_example(): #ПРОВЕРКА-------СДЕЛАТЬ WHILE В ЭКРАНЕ. И СДЕЛАТЬ ССЫЛКИ НА ЛЕЙБЛЫ В ПЕРЕМЕННЫХ, ДЛЯ ЭТОГО ОТРЕДАЧИТЬ ФУНКЦИЮ
-    if i>=1:
+    imagebutton:
+           idle 'Images/menu.png'
+           hover 'Images/menuakt.png'
+           focus_mask True
+           action Jump("button_menu")
+            
+    if buttons_quantity>0:
         imagebutton:
             idle button_name[0]
             hover button_hover[0]
             focus_mask True
-            action Jump(".call_menu")
-    if i>=2:
+            action Jump("button_one")
+            
+    if buttons_quantity>1:
         imagebutton:
             idle button_name[1]
             hover button_hover[1]
             focus_mask True
-            action Jump(".to_jack_home")
-    if i>=3:
+            action Jump("button_two")
+            
+    if buttons_quantity>2:
         imagebutton:
             idle button_name[2]
             hover button_hover[2]
             focus_mask True
-            action Jump(".ploshad")
-    if i>=4:
+            action Jump("button_three")
+            
+    if buttons_quantity>3:
         imagebutton:
             idle button_name[3]
             hover button_hover[3]
             focus_mask True
-            action Jump("ddd")
-label ddd:
-    if i==1:
-        "Привет"
-    else:
-        "Пока"
+            action Jump("button_four")
+            
+    if buttons_quantity>4:
+        imagebutton:
+            idle button_name[4]
+            hover button_hover[4]
+            focus_mask True
+            action Jump("button_five")
+            
+    if buttons_quantity>5:
+        imagebutton:
+            idle button_name[5]
+            hover button_hover[5]
+            focus_mask True
+            action Jump("button_six")
+            
     
-label proverka_knopok:
-    while i<q:
-        $ buttons()
-        "[button_name] [i]"
-        call screen imagebutton_example
+label button_menu:
+    call call_menu
+    jump expression gotoarray[0]
+label button_one:
+    jump expression gotoarray[0]+gotoarray[1]
+label button_two:
+    jump expression gotoarray[0]+gotoarray[2]
+label button_three:
+    jump expression gotoarray[0]+gotoarray[3]
+label button_four:
+    jump expression gotoarray[0]+gotoarray[4]
+label button_five:
+    jump expression gotoarray[0]+gotoarray[5]
+label button_six:
+    jump expression gotoarray[0]+gotoarray[6]

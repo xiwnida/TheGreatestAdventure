@@ -2,13 +2,10 @@
 errors listed below, and try again.
 
 
-File "game/System.rpy", line 193: expected statement.
-    button_name = []
-                ^
+File "game/System.rpy", line 10: invalid syntax
+        call location
+                     ^
+    
 
-File "game/System.rpy", line 194: expected statement.
-    button_hover = []
-                 ^
-
-Ren'Py Version: Ren'Py 6.99.14.1.3218
-Wed Nov 14 16:25:57 2018
+Ren'Py Version: Ren'Py 7.1.3.1092
+Wed Dec 05 10:46:18 2018

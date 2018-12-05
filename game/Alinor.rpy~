@@ -1,8 +1,7 @@
 label alinor_vorota_dvorca:        # Алинор. Королевский дворец и сад
-    scene vorota dvorca
+    $ location("Alinor", "vorota", "alinor_stolica")
+    call location #Попробовать вписать в функцию автоматическое показывание картинок. Слить в один call фейд и скрин.
     call fade
-    $ muz="Alinor_stolica"
-    call muz_on
         
     call screen alinor_vorota_dvorca
     jump alinor_vorota_dvorca
@@ -21,8 +20,12 @@ label alinor_vorota_dvorca:        # Алинор. Королевский дво
 
 screen alinor_vorota_dvorca:# Алинор. Королевский дворец и сад (карта)
     imagemap:
-        ground "vorota dvorca"
-        hover "vorota dvorca akt"
+        if day_time=="day":
+            ground "Images/Alinor/vorota_day.jpg"
+            hover "images/Alinor/vorota1akt.jpg"
+        else:
+            ground "Images/Alinor/vorota_zakat.jpg"
+            hover "images/Alinor/vorota2akt.jpg"
         hotspot (705, 1, 26, 37) clicked Call ("call_menu")
         hotspot (285, 255, 205, 248) clicked Jump ("alinor_vorota_dvorca.garden")
         hotspot (225, 535, 385, 64) clicked Jump ("alinor_vorota_dvorca.on_main_street")
@@ -74,11 +77,17 @@ label alinor_ul_dom:    # Алинор. Улица, на которой ваш �
         scene alinor ulvashdomzakat 
     call fade
     $ muz="Alinor_stolica"
-    call muz_on
+    #call muz_on
         
-    call screen alinor_ul_dom
+    #call screen alinor_ul_dom
+    $buttons_quantity=3
+    $name="ula"
+    call screen imagebutton_example
     jump alinor_ul_dom
         
+        
+    label .call_menu:
+        call call_menu
     label .to_jack_home:
         $ in_home = True
         call time1 from _call_time1_3
@@ -88,17 +97,17 @@ label alinor_ul_dom:    # Алинор. Улица, на которой ваш �
         jump alinor_gorod
 jump alinor_ul_dom
         
-screen alinor_ul_dom:   # Алинор. Улица, где дом Джека (карта)
-    imagemap:
-        if day_time:
-            ground "Images/Alinor/ul1.png"
-            hover "images/Alinor/ul1akt.png"
-        else:
-            ground "Images/Alinor/ul1.1.png"
-            hover "images/Alinor/ul1.1akt.png"
-        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
-        hotspot (288, 202, 122, 182) clicked Jump ("alinor_ul_dom.to_jack_home")
-        hotspot (441, 204, 112, 176) clicked Jump ("alinor_ul_dom.ploshad")
+#screen alinor_ul_dom:   # Алинор. Улица, где дом Джека (карта)
+#    imagemap:
+#        if day_time:
+#            ground "Images/Alinor/ul1.png"
+#            hover "images/Alinor/ul1akt.png"
+#        else:
+#            ground "Images/Alinor/ul1.1.png"
+#            hover "images/Alinor/ul1.1akt.png"
+#        hotspot (705, 1, 26, 37) clicked Call ("call_menu")
+#        hotspot (288, 202, 122, 182) clicked Jump ("alinor_ul_dom.to_jack_home")
+#        hotspot (441, 204, 112, 176) clicked Jump ("alinor_ul_dom.ploshad")
         
         
 label alinor_vash_dom:         # Алинор. Дом Джека.
@@ -170,7 +179,7 @@ label alinor_glav_ul:      # Алинор. Главная улица столи�
     $ muz="Alinor_stolica"
     call muz_on
         
-    call screen alinor_glav_ul
+    #call screen alinor_glav_ul
     jump alinor_glav_ul
         
     label .alinor_pereulok:
