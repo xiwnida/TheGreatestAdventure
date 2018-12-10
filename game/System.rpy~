@@ -1,6 +1,6 @@
 init python:
     
-    
+#==============Функция, меняющая фон и музыку локаций=======================
     def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
         global location_image
         global day_time
@@ -8,22 +8,36 @@ init python:
             location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
         else:
             location_image = "Images/"+str(city)+"/"+str(loca)+".jpg"
-        global muz
-        muz=music
+        global loca_music
+        loca_music=music
+        renpy.call('location_image_and_music')
         
-        
-    def buttons(name, quantity, goto_array): # Дописать закатные кнопки
+#==============Функция, вклчающая кнопки передвижения на локациях=======================
+    def buttons(name, quantity, goto_array, inside=False): # Дописать закатные кнопки
         global button_name
         global button_hover
         global buttons_quantity
         global gotoarray
+        global day_time
         button_name=[]
         button_hover=[]
         buttons_quantity=quantity
         gotoarray=goto_array
         for i in range(quantity):
-            button_name.append("Images/Alinor/"+str(name)+str(i+1)+".png")
-            button_hover.append("Images/Alinor/"+str(name)+str(i+1)+"akt.png")
+            if not inside:
+                button_name.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+".png")
+                button_hover.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+"akt.png")
+            else:
+                button_name.append("Images/Alinor/"+str(name)+str(i+1)+".png")
+                button_hover.append("Images/Alinor/"+str(name)+str(i+1)+"akt.png")
+        renpy.call_screen('location_buttons')
+        
+    def goto_button(i):
+        renpy.jump(gotoarray[i])
+        
+        
+#==========Превращение функций в экшен-действия для кнопок=============
+    goto_button = renpy.curry(goto_button)
 
 init:
 
@@ -34,19 +48,16 @@ init:
     image kabinet dvorca = "Images/Alinor/kabinet1.jpg"
     image kabinet dvorca1 = "Images/Alinor/kabinet2.jpg"
     image sad dvorca1 = "Images/Alinor/sad_dvorca1.jpg"
-    image vorota dvorca = "Images/Alinor/vorota_day.jpg"
-    image vorota dvorca zakat = "Images/Alinor/vorota_zakat.jpg"
-    image alinor stolploshad = "Images/Alinor/ul2_day.jpg"
-    image alinor stolploshadzakat = "Images/Alinor/ul2_zakat.jpg"
-    image alinor ulvashdom = "Images/Alinor/ul1_day.jpg"
-    image alinor ulvashdomzakat = "Images/Alinor/ul1_zakat.jpg"
-    image alinor glavul = "Images/Alinor/ul3_day.jpg"
-    image alinor vashdom = "Images/Alinor/dom1.jpg"
     image alinor domspal = "Images/Alinor/dom_spal.jpg"
-    image alinor pereulok = "Images/Alinor/ul_day.jpg"
-    image alinor pereulokzakat = "Images/Alinor/ul4_zakat.jpg"
-    image alinor cerkov = "Images/Alinor/cerkov_day.jpg"
-    image alinor cerkovzakat = "Images/Alinor/cerkov_zakat.jpg"
+    
+#Вокзал
+    image voknight = "Images/Vok/voknoch.jpg"
+    image vokday = "Images/Vok/vok.jpg"
+    image vokzakat = "Images/Vok/vokzakat.jpg"
+    
+#Названия города на стене вокзального помещения
+    image vokname_alinornight = "Images/Vok/alinornoch.png"
+    image vokname_alinor = "Images/Vok/alinor.png"
     
 #==============Диалоги с персонажами=====================================
     image shopper girl = "Images/Character/Shopper_Girl.jpg"
@@ -188,10 +199,9 @@ init:
     $ sobrat_veshi = False # Эта переменная не даст уйти из гостиной, пока вы не собрались в путешествие.
     $ vzat_blank = False # Эта переменная не даст уйти из гостинной, пока вы не взяли блокнот.
     $ lech_na_krovat = False # Эта переменная позволяет полежать на кровати только один раз.
-    $ muz = "Nope" # Эта переменная нужна, чтобы задать музыку в локации.
-    $ muzika = "Nope" #  А эта переменная нужна, чтобы запустить ее.
-    $ muz_title = "Nope" # Эта переменная хранит адреса музыки.
-    $ event = "Nope" # Эта переменная отвечает за одноразовые события.
+    $ loca_music = "Nope" # Эта переменная хранит название музыки локации.
+    $ playing_music = "Nope" #  А эта переменная хранит название играющей музыки.
+    $ music_title = "Nope" # Эта переменная хранит адреса музыки.
     $ no_fade = False # Эта переменная нужна, чтобы после отключения меню не сработал fade эффект (ох, костыли!)
     $ scene_p = "Nope" # Эта переменная нужна, чтобы показать нужную сцену перед иммедж картой
     $ day_time = "day" # Эта переменная нужна, чтобы включить закатную сцену вечером
@@ -204,91 +214,45 @@ init:
     $location_image=''
 
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
-    
-label location:
+
+label location_image_and_music:
     show expression location_image 
 
-    if muz=="alinor_stolica":
-        $ muz_title = "Music/Alinor/stolica.ogg"
-    elif muz=="Alinor_vash_dom":
-        $ muz_title= "Music/Alinor/Vash_dom.ogg"
+    if loca_music=="alinor_stolica":
+        $ music_title = "Music/Alinor/stolica.ogg"
+    elif loca_music=="alinor_vash_dom":
+        $ music_title= "Music/Alinor/Vash_dom.ogg"
         
     if not no_fade:
         with fade
     else:
         $ no_fade = False
     
-    if muzika == muz: #Если играющая музыка равна новой музыке
+    if playing_music == loca_music: #Если играющая музыка равна новой музыке
         pass
     else:
-        play music muz_title
-        $ muzika = muz
+        play music music_title
+        $ playing_music = loca_music
     return
 
-#=========================
+#=========================Кнопки навигации по локации=====================
         
-screen imagebutton_example(): #ПРОВЕРКА-------СДЕЛАТЬ WHILE В ЭКРАНЕ. И СДЕЛАТЬ ССЫЛКИ НА ЛЕЙБЛЫ В ПЕРЕМЕННЫХ, ДЛЯ ЭТОГО ОТРЕДАЧИТЬ ФУНКЦИЮ
+screen location_buttons():
     imagebutton:
            idle 'Images/menu.png'
            hover 'Images/menuakt.png'
            focus_mask True
            action Jump("button_menu")
-            
-    if buttons_quantity>0:
+       
+    for i in range(buttons_quantity):
         imagebutton:
-            idle button_name[0]
-            hover button_hover[0]
+            idle button_name[i]
+            hover button_hover[i]
             focus_mask True
-            action Jump("button_one")
+            action goto_button(i+1)
             
-    if buttons_quantity>1:
-        imagebutton:
-            idle button_name[1]
-            hover button_hover[1]
-            focus_mask True
-            action Jump("button_two")
-            
-    if buttons_quantity>2:
-        imagebutton:
-            idle button_name[2]
-            hover button_hover[2]
-            focus_mask True
-            action Jump("button_three")
-            
-    if buttons_quantity>3:
-        imagebutton:
-            idle button_name[3]
-            hover button_hover[3]
-            focus_mask True
-            action Jump("button_four")
-            
-    if buttons_quantity>4:
-        imagebutton:
-            idle button_name[4]
-            hover button_hover[4]
-            focus_mask True
-            action Jump("button_five")
-            
-    if buttons_quantity>5:
-        imagebutton:
-            idle button_name[5]
-            hover button_hover[5]
-            focus_mask True
-            action Jump("button_six")
             
     
 label button_menu:
     call call_menu
     jump expression gotoarray[0]
-label button_one:
-    jump expression gotoarray[0]+gotoarray[1]
-label button_two:
-    jump expression gotoarray[0]+gotoarray[2]
-label button_three:
-    jump expression gotoarray[0]+gotoarray[3]
-label button_four:
-    jump expression gotoarray[0]+gotoarray[4]
-label button_five:
-    jump expression gotoarray[0]+gotoarray[5]
-label button_six:
-    jump expression gotoarray[0]+gotoarray[6]

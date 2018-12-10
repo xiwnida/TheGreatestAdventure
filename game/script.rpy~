@@ -318,18 +318,10 @@ label koroldal1:
     
     
 #==================Ворота в сад======================
-label alinor_vorota_dvorca1:            
-    
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-    
-    if first_start == False:    
-        scene vorota dvorca
-        show jack smile
-        with fade
+label alinor_vorota_dvorca1:  
+    $ location("Alinor", "vorota", "alinor_stolica")
+    if first_start == False:
+        show jack smile with dissolve
         "{i}Информация для справки.{/i}"
         "{i}У вас есть доступ к рюкзаку и карте. Для этого необходимо открыть меню, нажав на его краюшек в верхнем правом углу.{/i}"
         "{i}В рюкзаке хранятся все ваши вещи, которые вы будете получать по ходу путешествия.{/i}"
@@ -342,98 +334,46 @@ label alinor_vorota_dvorca1:
         j_smile "Между прочим, сейчас неплохо было бы сходить домой, собрать пару походных комплектов одежды."
         hide jack smile with dissolve
         $ first_start = True
-    else:
-        scene vorota dvorca
-        if no_fade == False:
-            with fade
-            
-    $ result = renpy.imagemap("Images/Alinor/vorota_day.jpg", "Images/Alinor/vorota1akt.jpg", [
-    (705, 1, 731, 38, "Меню"),
-    (285, 255, 490, 503, "Cад"),
-    (225, 535, 610, 599, "На главную улицу")
-    ])
-    if result == "Cад":
-        show jack smile at left with dissolve
-        j_smile "Сейчас мне незачем возвращаться."
-        j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
-        hide jack smile with dissolve
-    if result == "На главную улицу":
-        jump alinor_glavn_ul1
-    elif result == "Меню":
-        call call_menu
-jump alinor_vorota_dvorca1
+    $ buttons('vorota', 2, ['alinor_vorota_dvorca1' , 'alinor_vorota_dvorca1.garden' , 'alinor_glavn_ul1'])
+    jump alinor_vorota_dvorca1
+
+label .garden:
+    show jack smile at left with dissolve
+    j_smile "Сейчас мне незачем возвращаться."
+    j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
+    hide jack smile with dissolve
+    $ no_fade = True
+    jump alinor_vorota_dvorca1
 
 
 #==================Главная улица столицы======================
 label alinor_glavn_ul1:
     $ location("Alinor", "ul_plaza", "alinor_stolica")
-    call location
-    $buttons('ul_plaza', 2, ['alinor_glavn_ul1' , '.pereulok' , '.to_palace'])
-    call screen imagebutton_example
-    jump alinor_glavn_ul1
-        
-    label .pereulok:
-        jump alinor_pereulok1
-    label .to_palace:
-        jump alinor_vorota_dvorca1    
-        
+    $buttons('ul_plaza', 2, ['alinor_glavn_ul1' , 'alinor_pereulok1' , 'alinor_vorota_dvorca1'])
 jump alinor_glavn_ul1
 
 #==================Переулок======================
 label alinor_pereulok1:
     $ location("Alinor", "pereulok", "alinor_stolica")
-    call location
-    $buttons('pereulok', 2, ['alinor_pereulok1' , '.ploshad' , '.glav_ul'])
-    call screen imagebutton_example
-    jump alinor_pereulok1
-        
-    label .ploshad:
-        jump alinor_gorod1
-    label .glav_ul:
-        jump alinor_glavn_ul1
+    $buttons('pereulok', 2, ['alinor_pereulok1' , 'alinor_gorod1' , 'alinor_glavn_ul1'])
 jump alinor_pereulok1
 
 #==================Торговая площадь======================
 label alinor_gorod1: 
-    $ location("Alinor", "ul_gorod", "alinor_stolica")
-    call location
-    $buttons('ul_gorod', 2, ['alinor_gorod1' , '.jack_home_street' , '.pereulok'])
-    call screen imagebutton_example
-    jump alinor_gorod1
-
-    label .jack_home_street:
-        jump alinor_ul_dom1
-    label .pereulok:
-        jump alinor_pereulok1
+    $ location("Alinor", "trading_area", "alinor_stolica")
+    $buttons('trading_area', 2, ['alinor_gorod1' , 'alinor_ul_dom1' , 'alinor_pereulok1'])
 jump alinor_gorod1
 
 #==================Улица где дом Джека======================
 label alinor_ul_dom1:
     $ location("Alinor", "ul_dom", "alinor_stolica")
-    call location
-    $buttons('ul_dom', 2, ['alinor_ul_dom1' , '.to_jack_home' , '.ploshad'])
-    call screen imagebutton_example
-    jump alinor_ul_dom1
-        
-        
-    label .to_jack_home:
-        jump alinor_vash_dom1
-    label .ploshad:
-        jump alinor_gorod1
+    $buttons('ul_dom', 2, ['alinor_ul_dom1' , 'alinor_vash_dom1' , 'alinor_gorod1'])
 jump alinor_ul_dom1
 
 #==================Дом Джека======================
 label alinor_vash_dom1:
     $ location("Alinor", "dom", "alinor_vash_dom", True)
-    call location
-    $buttons('dom', 2, ['alinor_vash_dom1' , '.dom_spal' , '.ul_dom'])
-    call screen imagebutton_example
-    jump alinor_vash_dom1
-
-    label .dom_spal:
-        jump alinor_dom_spal1
-    label .ul_dom: 
-        jump alinor_ul_dom1
+    $buttons('dom', 2, ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom1'], True)
 jump alinor_vash_dom1
 
 #==================Спальня======================
@@ -442,11 +382,6 @@ label alinor_dom_spal1:
     if no_fade == False:
        with fade
     
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
 label alinor_dom_spal10:
     $ result = renpy.imagemap("Images/Alinor/domspal.png", "Images/Alinor/domspalakt.png", [
     (705, 1, 731, 38, "Меню"),
@@ -456,7 +391,7 @@ label alinor_dom_spal10:
     (40, 235, 204, 327, "Осмотреть книги")
     ])
     if result == "Меню":
-        call call_menu from _call_call_menu_6
+        call call_menu
     elif result == "В гостиную":
         if sobrat_veshi == True:
             if vzat_blank == True:
@@ -505,7 +440,7 @@ label alinor_dom_spal10:
             j_serdit "Делать нечего, нужно выходить прямо сейчас, чтобы не терять больше времени!"
             hide jack serdit with dissolve
             $ lech_na_krovat = True
-            $ event = u"Ограбление"
+            $ day_time='zakat'
             jump alinor_dom_spal10
         else:
             show jack serdit with dissolve
@@ -558,88 +493,31 @@ label alinor_dom_spal10:
             jump alinor_dom_spal10
 jump alinor_dom_spal1
 
+#==================Дом Джека======================
 label alinor_vash_dom2:
-    scene alinor vashdom
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
-    $ result = renpy.imagemap("Images/Alinor/dom1.png", "Images/Alinor/dom1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (292, 186, 421, 498, "В спальную"),
-    (224, 525, 629, 599, "На улицу")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_7
-    elif result == "В спальную":
-        jump alinor_dom_spal1
-    elif result == "На улицу":
-        jump alinor_ul_dom2
+    $ location("Alinor", "dom", "alinor_vash_dom", True)
+    $buttons('dom', 2, ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom2'], True)
 jump alinor_vash_dom2
 
+#==================Улица где дом Джека======================
 label alinor_ul_dom2:
-    scene alinor ulvashdomzakat
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul1.1.png", "Images/Alinor/ul1.1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (290, 243, 410, 360, "Домой"),
-    (440, 247, 557, 365, "На площадь")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_8
-    elif result == "Домой":
-        jump alinor_vash_dom2
-    elif result == "На площадь":
-        jump alinor_gorod2
+    $ location("Alinor", "ul_dom", "alinor_stolica")
+    $buttons('ul_dom', 2, ['alinor_ul_dom1' , 'alinor_vash_dom2' , 'alinor_gorod2'])
 jump alinor_ul_dom2
 
+#==================Торговая площадь======================
 label alinor_gorod2: 
-    scene alinor stolploshadzakat
-    if no_fade == False:
-       with fade
-        
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul2.1.png", "Images/Alinor/ul2.1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (288, 353, 391, 454, "К вокзалу"),
-    (192, 500, 643, 599, "К вашему дому")
-    ])
-    if result == "Меню":
-        call call_menu from _call_call_menu_9
-    elif result == "К вашему дому":
-        jump alinor_ul_dom2
-    elif result == "К вокзалу":
-        jump vokzal_night_ograb
+    $ location("Alinor", "trading_area", "alinor_stolica")
+    $buttons('ograb', 2, ['alinor_gorod1' , 'alinor_ul_dom2' , 'vokzal_night_ograb'])
 jump alinor_gorod2
 
+#==================Ночной вокзал. Ограбление======================
 label vokzal_night_ograb:
 
     scene voknight
     show vokname_alinornight
     with fade
-    
-    if muzika == "Vok_night":
-        pass
-    else:
-        play music "Music/Alinor/Vok_night.ogg"
-        $ muzika = "Vok_night"
+    play music "Music/Alinor/Vok_night.ogg"
         
     show jack smile with dissolve
     j_smile "А вот и наш замечательный вокзал! Никогда не бывал тут ночью."
@@ -792,5 +670,5 @@ label vokzal_night_ograb:
     scene black with dissolve
     $renpy.pause (3.0)
     $ in_home = True
-    call time2 from _call_time2_3
-    jump alinor_dom_spal
+    $ day_time='day'
+    jump alinor_capital_dom_spal

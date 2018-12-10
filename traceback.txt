@@ -1,22 +1,22 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 674, in script
-    jump alinor_dom_spal
-ScriptError: could not find label 'alinor_dom_spal'.
+  File "game/script.rpy", line 10, in script
+    jump proverka2
+ScriptError: could not find label 'proverka2'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 674, in script
-    jump alinor_dom_spal
+  File "game/script.rpy", line 10, in script
+    jump proverka2
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1573, in execute
     rv = renpy.game.script.lookup(target)
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 871, in lookup
     raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'alinor_dom_spal'.
+ScriptError: could not find label 'proverka2'.
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Wed Dec 05 23:23:07 2018
+Sun Dec 09 01:13:59 2018

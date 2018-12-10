@@ -1,4 +1,9 @@
 init python:
+   
+    config.automatic_images_minimum_components = 1
+    config.automatic_images = [' ', '_', '/']
+    config.automatic_images_strip = ['Chara']
+
     
 #==============Функция, меняющая фон и музыку локаций=======================
     def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки

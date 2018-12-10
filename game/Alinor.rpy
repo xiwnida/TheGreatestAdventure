@@ -12,7 +12,7 @@ label alinor_capital_vorota_dvorca:
         $ no_fade = True
         jump alinor_capital_vorota_dvorca
     jump alinor_capital_vorota_dvorca
-        
+    
 #=======================Столица. Главная улица=================================
 label alinor_capital_plaza:
     $ location("Alinor", "ul_plaza", "alinor_stolica")
