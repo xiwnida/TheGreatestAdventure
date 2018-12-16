@@ -12,7 +12,8 @@ init:
 
     $shop_item_quantity=1 #Переменная для функции, позволяющий купить больше одного предмета
     
-    $shop_XY=[117,154,191, 228, 265, 302, 339] #Координаты для создания сетки предметов
+    $shop_Y=[117, 117, 154, 154, 191, 191,  228, 228, 265, 265, 302, 302, 339, 339] #Координаты для создания сетки предметов
+    $shop_X=0
     
     $shop_item_exist=0
     
@@ -150,51 +151,28 @@ screen game_shop:
             selected_hover 'Shop/icon_paper_hover.png'
             action [SelectedIf(icon_paper), SetVariable('icon_sword',False), SetVariable('icon_ring',False), SetVariable('icon_bottle',False), SetVariable('icon_bread',False), SetVariable('icon_bone',False),  SetVariable('icon_paper',True)]
             
-    $shop_item_exist=0
-    $shop_i_plus=0
             
-    for i in range(7):
-        if shop_item_exist<len(shop_items): #ПОТОМ ИЗМЕНИТЬ НА ФУНКЦИЮ, ЧТОБЫ ИМЯ МАГАЗИНА САМО ПОДСТАВЛЯЛОСЬ
-            $shop_item_exist+=1
+    for i in range(14):
+        if i<len(shop_items):
+            if i%2==0:
+                $shop_X=20
+            else:
+                $shop_X=368
             $shop_item_idenfity(i)
             imagebutton:
-                xpos 20 ypos shop_XY[i]-6
+                xpos shop_X ypos shop_Y[i]-6
                 idle shop_item_icon
                 action NullAction()
                     
-            text "{size=16}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_name]{/color}{/font}{/size}" xpos 51 ypos shop_XY[i]+2
-            text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_number]{/color}{/font}{/size}" xpos 350 ypos shop_XY[i]-3 xanchor 1.0
+            text "{size=16}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_name]{/color}{/font}{/size}" xpos shop_X+31 ypos shop_Y[i]+2
+            text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_number]{/color}{/font}{/size}" xpos shop_X+330 ypos shop_Y[i]-3 xanchor 1.0
         
             imagebutton:
-                xpos 20 ypos shop_XY[i]-6
+                xpos shop_X ypos shop_Y[i]-6
                 idle 'Shop/item_choice.png'
                 selected_idle 'Shop/item_choice_hover.png'
                 selected_hover 'Shop/item_choice_hover.png'
-                action shop_item_position(i)
-                
-            
-        if shop_item_exist<len(shop_items):
-            $shop_item_exist+=1
-            $shop_item_idenfity(i)
-            imagebutton:
-                xpos 368 ypos shop_XY[i]-6
-                idle shop_item_icon
-                action NullAction()
-                
-            text ("{size=16}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_name]{/color}{/font}{/size}") xpos 400 ypos shop_XY[i]+2
-            text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_number]{/color}{/font}{/size}" xpos 696 ypos shop_XY[i]-3 xanchor 1.0
-        
-            imagebutton:
-                xpos 368 ypos shop_XY[i]-6
-                idle 'Shop/item_choice.png'
-                hover 'Shop/item_choice.png'
-                action shop_item_position(i, True)
-            
-    if shop_item_select:
-        imagebutton:
-            xpos shop_item_select_X ypos shop_item_select_Y
-            idle 'Shop/item_choice_hover.png'
-            action NullAction()
+                action [SelectedIf(shop_item_select==i+1), shop_item_position(i)]
                 
     imagebutton:
         xpos 25 ypos 457

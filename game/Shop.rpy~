@@ -9,8 +9,28 @@ init:
     
     $shop_buy=True
     $shop_sell=False
+
+    $shop_item_quantity=1 #Переменная для функции, позволяющий купить больше одного предмета
     
-    $shop_item_quantity=1
+    $shop_XY=[117,154,191, 228, 265, 302, 339] #Координаты для создания сетки предметов
+    
+    $shop_item_exist=0
+    
+    $shop_item_select=False #Чтобы определить, выбран ли предмет
+    $shop_item_select_X=0
+    $shop_item_select_Y=0
+    $positions=[111, 148, 185, 222, 259, 296, 333]
+    
+    $shop_name=''
+    $shop_items=[]
+    
+    $shop_i_plus=0 #Чтобы порядок предметов шел правильно
+    
+    $shop_item_name=''
+    $shop_item_number=0
+    $shop_item_description=''
+    $shop_item_effect=''
+    $shop_item_icon=''
     
 
 screen game_shop:
@@ -82,10 +102,10 @@ screen game_shop:
         idle 'Shop/sell.png'
         action [SetVariable('shop_buy',False),SetVariable('shop_sell',True)]
         
-    text ("{color=#fde7c6}{font=Fonts/DS_Goose.ttf}Лавка кондитера{/font}{/color}") xpos 506 ypos 33 xanchor 0.5 yanchor 0.5
-    text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}5434{/font}{/color}{/size}") xpos 772 ypos 109 xanchor 1.0
-    text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}44{/font}{/color}{/size}") xpos 772 ypos 145 xanchor 1.0
-    text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}73{/font}{/color}{/size}") xpos 772 ypos 179 xanchor 1.0
+    text ("{color=#fde7c6}{font=Fonts/DS_Goose.ttf}[shop_name]{/font}{/color}") xpos 506 ypos 33 xanchor 0.5 yanchor 0.5
+    text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_gold]{/font}{/color}{/size}") xpos 772 ypos 109 xanchor 1.0
+    text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_silver]{/font}{/color}{/size}") xpos 772 ypos 145 xanchor 1.0
+    text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_bronz]{/font}{/color}{/size}") xpos 772 ypos 179 xanchor 1.0
     
     hbox:
         imagebutton:
@@ -129,3 +149,61 @@ screen game_shop:
             selected_idle 'Shop/icon_paper_hover.png'
             selected_hover 'Shop/icon_paper_hover.png'
             action [SelectedIf(icon_paper), SetVariable('icon_sword',False), SetVariable('icon_ring',False), SetVariable('icon_bottle',False), SetVariable('icon_bread',False), SetVariable('icon_bone',False),  SetVariable('icon_paper',True)]
+            
+    $shop_item_exist=0
+    $shop_i_plus=0
+            
+    for i in range(7):
+        if shop_item_exist<len(shop_items): #ПОТОМ ИЗМЕНИТЬ НА ФУНКЦИЮ, ЧТОБЫ ИМЯ МАГАЗИНА САМО ПОДСТАВЛЯЛОСЬ
+            $shop_item_exist+=1
+            $shop_item_idenfity(i)
+            imagebutton:
+                xpos 20 ypos shop_XY[i]-6
+                idle shop_item_icon
+                action NullAction()
+                    
+            text "{size=16}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_name]{/color}{/font}{/size}" xpos 51 ypos shop_XY[i]+2
+            text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_number]{/color}{/font}{/size}" xpos 350 ypos shop_XY[i]-3 xanchor 1.0
+        
+            imagebutton:
+                xpos 20 ypos shop_XY[i]-6
+                idle 'Shop/item_choice.png'
+                selected_idle 'Shop/item_choice_hover.png'
+                selected_hover 'Shop/item_choice_hover.png'
+                action shop_item_position(i)
+                
+            
+        if shop_item_exist<len(shop_items):
+            $shop_item_exist+=1
+            $shop_item_idenfity(i)
+            imagebutton:
+                xpos 368 ypos shop_XY[i]-6
+                idle shop_item_icon
+                action NullAction()
+                
+            text ("{size=16}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_name]{/color}{/font}{/size}") xpos 400 ypos shop_XY[i]+2
+            text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_number]{/color}{/font}{/size}" xpos 696 ypos shop_XY[i]-3 xanchor 1.0
+        
+            imagebutton:
+                xpos 368 ypos shop_XY[i]-6
+                idle 'Shop/item_choice.png'
+                hover 'Shop/item_choice.png'
+                action shop_item_position(i, True)
+            
+    if shop_item_select:
+        imagebutton:
+            xpos shop_item_select_X ypos shop_item_select_Y
+            idle 'Shop/item_choice_hover.png'
+            action NullAction()
+                
+    imagebutton:
+        xpos 25 ypos 457
+        idle 'Items/Amy_cake.png'
+        action NullAction()
+        
+    text "{color=#fde7c6}{font=Fonts/DS_goose.ttf}[amy_cake.name]{/color}{/font}" xpos 203 ypos 426 xanchor 0.5 yanchor 0.5
+    text "{size=16}{color=#fde7c6}{font=Fonts/DS_goose.ttf}[amy_cake.description]{/color}{/font}{/size}" xpos 165 ypos 465
+    
+    
+label lololo:
+    "Бу"
