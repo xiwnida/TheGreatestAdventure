@@ -2,9 +2,10 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 349: Line is indented, but the preceding one-line python statement statement does not expect a block. Please check this line's indentation.
-    jump alinor_vorota_dvorca1
-    ^
+File "game/System.rpy", line 94: invalid syntax
+        $shop_item_exist=0
+         ^
+    
 
 Ren'Py Version: Ren'Py 6.99.14.1.3218
-Wed Dec 05 23:05:21 2018
+Sun Dec 16 23:49:36 2018

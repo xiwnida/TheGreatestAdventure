@@ -1,3 +1,27 @@
+init python:
+    class Item:
+        def __init__(self, name, description, picture, icon):
+            self.name=name
+            self.description=description
+            self.picture='Items/'+str(picture)+'.png'
+            self.icon='Icons/'+str(icon)+'.png'
+            
+    class Food(Item):
+        def __init__(self, name, description, picture, icon, effect):
+            Item.__init__(self, name, description, picture, icon)
+            self.effect=effect
+
+
+
+
+    amy_cake=Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой", "amy_cake", "cake", "Восстанавливает 1 здоровья")
+    amy_candies=Food("Кулек конфет", "Мешочек с вкусными желейными конфетами", "amy_candies", "candy", "Восстанавливает 1 здоровья")
+
+    amy_shop=[[amy_cake, 8], [amy_candies, 2]]
+
+
+
+
 init:
     image bitem dopusk = "Invent/Bitems/dopusk.png"
     image itemmenu1 = "Invent/itemmenu1.png"

@@ -1,4 +1,9 @@
 init python:
+   
+    config.automatic_images_minimum_components = 1
+    config.automatic_images = [' ', '_', '/']
+    config.automatic_images_strip = ['Chara']
+
     
 #==============Функция, меняющая фон и музыку локаций=======================
     def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
@@ -35,9 +40,20 @@ init python:
     def goto_button(i):
         renpy.jump(gotoarray[i])
         
+    def shop_plus():
+        global shop_item_quantity
+        shop_item_quantity+=1
+        
+    def shop_minus():
+        global shop_item_quantity
+        if shop_item_quantity !=1:
+            shop_item_quantity-=1
+        
         
 #==========Превращение функций в экшен-действия для кнопок=============
     goto_button = renpy.curry(goto_button)
+    shop_plus= renpy.curry(shop_plus)
+    shop_minus= renpy.curry(shop_minus)
 
 init:
 

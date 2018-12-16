@@ -1,39 +1,39 @@
-Sun Dec 09 01:23:39 2018
+Mon Dec 17 00:00:05 2018
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
 
-Bootstrap to the start of init.init took 0.14s
+Bootstrap to the start of init.init took 0.15s
 Early init took 0.01s
 Loader init took 0.03s
 Loading error handling took 0.03s
-Loading script took 0.56s
-Loading save slot metadata. took 0.05s
+Loading script took 0.36s
+Loading save slot metadata. took 0.07s
 Loading persistent took 0.00s
 Importing _renpysteam: ImportError('No module named _renpysteam',)
-Running init code took 0.13s
-Loading analysis data took 0.07s
-Analyze and compile ATL took 0.00s
+Running init code took 0.14s
+Loading analysis data took 0.18s
+Analyze and compile ATL took 0.01s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Ayri\\AppData\\Roaming/RenPy/backups\\The Greatest Adventure':
-Dump and make backups. took 0.10s
+Dump and make backups. took 0.11s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc. took 0.03s
+Initial gc. took 0.04s
 DPI scale factor: 1.000000
 Creating interface object took 0.04s
 Cleaning stores took 0.00s
 Init translation took 0.01s
 Build styles took 0.00s
 Load screen analysis took 0.00s
-Analyze screens took 0.03s
-Save screen analysis took 0.07s
-Prepare screens took 0.07s
-Save pyanalysis. took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.09s
+Prepare screens took 0.09s
+Save pyanalysis. took 0.60s
 Save bytecode. took 0.11s
 Running _start took 0.00s
 Performance test:
-Interface start took 0.03s
+Interface start took 0.05s
 
 primary display bounds: (0, 0, 1920, 1080)
 swap interval: 1 frames
@@ -161,11 +161,83 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
-Total time until interface ready: 1.99899983406s
+Total time until interface ready: 2.66899991035s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
 - Frame drawn at 0.007000 seconds.
-- Frame drawn at 0.010000 seconds.
-- Frame drawn at 0.013000 seconds.
-- Frame drawn at 0.017000 seconds.
-- 0.017000 seconds to render 5 frames.
+- Frame drawn at 0.011000 seconds.
+- Frame drawn at 0.014000 seconds.
+- Frame drawn at 0.018000 seconds.
+- 0.018000 seconds to render 5 frames.
+
+Full traceback:
+  File "game/Alinor.rpy", line 26, in script
+    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 848, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\python.py", line 1812, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/Alinor.rpy", line 26, in <module>
+    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop)
+  File "game/System.rpy", line 47, in call_shop
+    renpy.call_screen('game_shop')
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in interact_core
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 401, in visit_all
+    callback(self)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in <lambda>
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 411, in per_interact
+    self.update()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 592, in update
+    self.screen.function(**self.scope)
+  File "game/Shop.rpy", line 36, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 36, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 156, in execute
+    for i in range(7):
+  File "game/Shop.rpy", line 157, in execute
+    if shop_item_exist<len(shop_items): #ÐÐÐ¢ÐÐ ÐÐÐÐÐÐÐ¢Ð¬ ÐÐ Ð¤Ð£ÐÐÐ¦ÐÐ®, Ð§Ð¢ÐÐÐ« ÐÐÐ¯ ÐÐÐÐÐÐÐÐ Ð¡ÐÐÐ ÐÐÐÐ¡Ð¢ÐÐÐÐ¯ÐÐÐ¡Ð¬
+  File "game/Shop.rpy", line 159, in execute
+    $shop_item_idenfity(i)
+  File "game/Shop.rpy", line 159, in <module>
+    $shop_item_idenfity(i)
+  File "game/System.rpy", line 60, in shop_item_idenfity
+    shop_item_name=shop_items[i+shop_i_plus][0].name
+IndexError: list index out of range
+
+While running game code:
+  File "game/Alinor.rpy", line 26, in script
+    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop)
+  File "game/Alinor.rpy", line 26, in <module>
+    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop)
+  File "game/System.rpy", line 47, in call_shop
+    renpy.call_screen('game_shop')
+  File "game/Shop.rpy", line 36, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 36, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 156, in execute
+    for i in range(7):
+  File "game/Shop.rpy", line 157, in execute
+    if shop_item_exist<len(shop_items): #ÐÐÐ¢ÐÐ ÐÐÐÐÐÐÐ¢Ð¬ ÐÐ Ð¤Ð£ÐÐÐ¦ÐÐ®, Ð§Ð¢ÐÐÐ« ÐÐÐ¯ ÐÐÐÐÐÐÐÐ Ð¡ÐÐÐ ÐÐÐÐ¡Ð¢ÐÐÐÐ¯ÐÐÐ¡Ð¬
+  File "game/Shop.rpy", line 159, in execute
+    $shop_item_idenfity(i)
+  File "game/Shop.rpy", line 159, in <module>
+    $shop_item_idenfity(i)
+  File "game/System.rpy", line 60, in shop_item_idenfity
+    shop_item_name=shop_items[i+shop_i_plus][0].name
+IndexError: list index out of range

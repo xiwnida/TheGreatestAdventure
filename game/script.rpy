@@ -6,6 +6,8 @@ label start:
     $ muzika = "Alinor_vash_dom"
     scene dom with fade
     
+    jump alinor_capital_gorod
+    
     "Это был обычный день, такой же, как и все."
     "Вы сидели в кресле у камина и отдыхали, размышляя над тем, как бы завтра подзаработать."
     show jack smile at left with dissolve
