@@ -10,7 +10,8 @@ init:
     $shop_buy=True
     $shop_sell=False
 
-    $shop_item_quantity=1 #Переменная для функции, позволяющий купить больше одного предмета
+    $shop_item_quantity='' #Переменная для функции, позволяющий купить больше одного предмета
+    $shop_item_quantity_for=''
     
     $shop_Y=[117, 117, 154, 154, 191, 191,  228, 228, 265, 265, 302, 302, 339, 339] #Координаты для создания сетки предметов
     $shop_X=0
@@ -28,6 +29,8 @@ init:
     $shop_i_plus=0 #Чтобы порядок предметов шел правильно
     
     $shop_item_name=''
+    $shop_item_name_item=''
+    $shop_item_picture=''
     $shop_item_number=0
     $shop_item_description=''
     $shop_item_effect=''
@@ -61,37 +64,39 @@ screen game_shop:
         hover'Shop/pointer_down_hover.png'
         focus_mask True
         action NullAction()
-    if shop_buy:
-        imagebutton:
-            idle 'Shop/item_buy.png'
-            hover 'Shop/item_buy_hover.png'
-            focus_mask True
-            action NullAction()
-    if shop_sell:
-        imagebutton:
-            idle 'Shop/item_sell.png'
-            hover 'Shop/item_sell_hover.png'
-            focus_mask True
-            action NullAction()
+        
+    if shop_item_quantity:
+        if shop_buy:
+            imagebutton:
+                idle 'Shop/item_buy.png'
+                hover 'Shop/item_buy_hover.png'
+                focus_mask True
+                action NullAction()
+        if shop_sell:
+            imagebutton:
+                idle 'Shop/item_sell.png'
+                hover 'Shop/item_sell_hover.png'
+                focus_mask True
+                action NullAction()
             
-    imagebutton:
-        idle 'Shop/item_quantity.png'
-        focus_mask True
-        action NullAction()
+        imagebutton:
+            idle 'Shop/item_quantity.png'
+            focus_mask True
+            action NullAction()
         
-    text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[shop_item_quantity]{/font}{/color}{/size}") xpos 770 ypos 562 xanchor 0.5 yanchor 0.5
+        text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[shop_item_quantity]{/font}{/color}{/size}") xpos 770 ypos 562 xanchor 0.5 yanchor 0.5
         
-    imagebutton:
-        idle 'Shop/item_pointer_up.png'
-        hover'Shop/item_pointer_up_hover.png'
-        focus_mask True
-        action shop_plus()  #Написать функцию, чтобы нельзя было поставить значение меньше одного и больше существующего
+        imagebutton:
+            idle 'Shop/item_pointer_up.png'
+            hover'Shop/item_pointer_up_hover.png'
+            focus_mask True
+            action shop_plus()
         
-    imagebutton:
-        idle 'Shop/item_pointer_down.png'
-        hover'Shop/item_pointer_down_hover.png'
-        focus_mask True
-        action shop_minus()
+        imagebutton:
+            idle 'Shop/item_pointer_down.png'
+            hover'Shop/item_pointer_down_hover.png'
+            focus_mask True
+            action shop_minus()
         
     imagebutton:
         xpos 31 ypos 67
@@ -173,14 +178,15 @@ screen game_shop:
                 selected_idle 'Shop/item_choice_hover.png'
                 selected_hover 'Shop/item_choice_hover.png'
                 action [SelectedIf(shop_item_select==i+1), shop_item_position(i)]
-                
-    imagebutton:
-        xpos 25 ypos 457
-        idle 'Items/Amy_cake.png'
-        action NullAction()
+    
+    if shop_item_picture:
+        imagebutton:
+            xpos 25 ypos 457
+            idle shop_item_picture
+            action NullAction()
         
-    text "{color=#fde7c6}{font=Fonts/DS_goose.ttf}[amy_cake.name]{/color}{/font}" xpos 203 ypos 426 xanchor 0.5 yanchor 0.5
-    text "{size=16}{color=#fde7c6}{font=Fonts/DS_goose.ttf}[amy_cake.description]{/color}{/font}{/size}" xpos 165 ypos 465
+    text "{color=#fde7c6}{font=Fonts/DS_goose.ttf}[shop_item_name_item]{/color}{/font}" xpos 203 ypos 426 xanchor 0.5 yanchor 0.5
+    text "{size=16}{color=#fde7c6}{font=Fonts/DS_goose.ttf}[shop_item_description]{/color}{/font}{/size}" xpos 165 ypos 465
     
     
 label lololo:

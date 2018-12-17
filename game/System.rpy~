@@ -56,16 +56,11 @@ init python:
         global shop_item_icon
         global shop_item_exist
         global shop_items
-        global shop_i_plus
-        shop_item_name=shop_items[i+shop_i_plus][0].name
-        shop_item_number=shop_items[i+shop_i_plus][1]
-        shop_item_description=shop_items[i+shop_i_plus][0].description
-        shop_item_effect=shop_items[i+shop_i_plus][0].effect
-        shop_item_icon=shop_items[i+shop_i_plus][0].icon
-        if shop_item_exist+1<len(shop_items):
-            shop_i_plus=shop_i_plus+1
-        else:
-            shop_i_plus=0
+        shop_item_name=shop_items[i][0].name
+        shop_item_number=shop_items[i][1]
+        shop_item_description=shop_items[i][0].description
+        shop_item_effect=shop_items[i][0].effect
+        shop_item_icon=shop_items[i][0].icon
         
         
 #================Функции для перевода в экшен кнопки====================
@@ -77,7 +72,6 @@ init python:
         global shop_item_quantity
         global shop_i_plus
         shop_item_quantity+=1
-        shop_i_plus=0
         renpy.restart_interaction()
         
     def shop_minus():
@@ -85,22 +79,11 @@ init python:
         global shop_i_plus
         if shop_item_quantity !=1:
             shop_item_quantity-=1
-        shop_i_plus=0
         renpy.restart_interaction()
         
-    def shop_item_position(var, second=False):
+    def shop_item_position(i):
         global shop_item_select
-        global shop_item_select_X
-        global shop_item_select_Y
-        global positions
-        global shop_i_plus
-        shop_item_select=True
-        if second:
-            shop_item_select_X=368
-        else:
-            shop_item_select_X=20
-        shop_item_select_Y=positions[var]
-        shop_i_plus=0
+        shop_item_select=i+1
         renpy.restart_interaction()
         
         
