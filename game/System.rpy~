@@ -39,7 +39,7 @@ init python:
         
         
 #================Функция для вызова магазина=================
-    def call_shop(name, shop):
+    def call_shop(name, shop):  #Добавить аргумент-массив с доступными режимами магазина. Остальные должны быть недоступны. Автоматически должен выбираться первый из доступных.
         global shop_name
         global shop_items
         shop_name=name
@@ -58,7 +58,6 @@ init python:
         global shop_items
         shop_item_name=shop_items[i][0].name
         shop_item_number=shop_items[i][1]
-        shop_item_description=shop_items[i][0].description
         shop_item_effect=shop_items[i][0].effect
         shop_item_icon=shop_items[i][0].icon
         
@@ -68,23 +67,54 @@ init python:
     def goto_button(i):
         renpy.jump(gotoarray[i])
         
+#================Прибавить один к покупке\продаже в магазине===========        
     def shop_plus():
         global shop_item_quantity
         global shop_i_plus
-        shop_item_quantity+=1
-        renpy.restart_interaction()
+        global shop_item_quantity_for
         
+        if shop_item_quantity<shop_item_quantity_for:
+            shop_item_quantity+=1
+        else:
+            shop_item_quantity=1
+            
+        renpy.restart_interaction()
+       
+#================Отнять один к покупке\продаже в магазине===========              
     def shop_minus():
         global shop_item_quantity
         global shop_i_plus
+        global shop_item_quantity_for
+        
         if shop_item_quantity !=1:
             shop_item_quantity-=1
+        else:
+            shop_item_quantity=shop_item_quantity_for
+            
         renpy.restart_interaction()
         
+#================Выбор предмета и изменение его информации===========              
     def shop_item_position(i):
+        global shop_item_quantity
+        global shop_item_quantity_for
         global shop_item_select
+        global shop_item_name_item
+        global shop_item_number
+        global shop_item_picture
+        global shop_item_description
+        global shop_item_effect
+        global shop_items
+        shop_item_quantity=1
+        shop_item_description=shop_items[i][0].description
+        shop_item_name_item=shop_items[i][0].name
+        shop_item_effect=shop_items[i][0].effect
+        shop_item_quantity_for=shop_items[i][1]
+        shop_item_picture=shop_items[i][0].picture
         shop_item_select=i+1
         renpy.restart_interaction()
+        
+        
+        
         
         
         
