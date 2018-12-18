@@ -1,40 +1,31 @@
 init:
     #================Переменные================
-    $icon_sword=False
-    $icon_ring=False
-    $icon_bottle=False
-    $icon_bread=False
-    $icon_bone=False
-    $icon_paper=False
+    $shop_active_mode='' #Для выделения одной из иконок режимов
+    $shop_modes=[] #Хранит активные режимы для каждого магазина
     
-    $shop_buy=True
-    $shop_sell=False
+    $shop_buy=True  #Режим покупки
+    $shop_sell=False  #Режим продажи
 
     $shop_item_quantity='' #Переменная для функции, позволяющий купить больше одного предмета
-    $shop_item_quantity_for=''
+    $shop_item_quantity_for='' #Переменная для определения границ счетчика покупки\продажи
     
     $shop_Y=[117, 117, 154, 154, 191, 191,  228, 228, 265, 265, 302, 302, 339, 339] #Координаты для создания сетки предметов
-    $shop_X=0
+    $shop_X=0 
     
     $shop_item_exist=0
     
     $shop_item_select=False #Чтобы определить, выбран ли предмет
-    $shop_item_select_X=0
-    $shop_item_select_Y=0
-    $positions=[111, 148, 185, 222, 259, 296, 333]
     
-    $shop_name=''
-    $shop_items=[]
+    $shop_name=''  #Хранит название активного магазина
+    $shop_items=[]  #Хранит товары активного магазина
     
-    $shop_i_plus=0 #Чтобы порядок предметов шел правильно
-    
-    $shop_item_name=''
-    $shop_item_name_item=''
-    $shop_item_picture=''
-    $shop_item_number=0
-    $shop_item_description=''
-    $shop_item_effect=''
-    $shop_item_icon=''
+    $shop_item_name=''           #Название предмета в сетке
+    $shop_item_name_item=''  #Название предмета
+    $shop_item_picture=''         #Картинка предмета
+    $shop_item_number=0       #Количество предметов в сетке
+    $shop_item_description=''  #Описание предмета
+    $shop_item_effect=''           #Эффект предмета
+    $shop_item_icon=''             #Иконка предмета в сетке
     
 
 screen game_shop:
@@ -119,42 +110,42 @@ screen game_shop:
             idle 'Shop/icon_sword.png'
             selected_idle 'Shop/icon_sword_hover.png'
             selected_hover 'Shop/icon_sword_hover.png'
-            action [SelectedIf(icon_sword), SetVariable('icon_sword',True), SetVariable('icon_ring',False), SetVariable('icon_bottle',False), SetVariable('icon_bread',False), SetVariable('icon_bone',False),  SetVariable('icon_paper',False)]
+            action [SelectedIf(shop_active_mode=='sword'), SetVariable('shop_active_mode', 'sword')]
             
         imagebutton:
             xpos 510 ypos 71
             idle 'Shop/icon_ring.png'
             selected_idle 'Shop/icon_ring_hover.png'
             selected_hover 'Shop/icon_ring_hover.png'
-            action [SelectedIf(icon_ring), SetVariable('icon_sword',False), SetVariable('icon_ring',True), SetVariable('icon_bottle',False), SetVariable('icon_bread',False), SetVariable('icon_bone',False),  SetVariable('icon_paper',False)]
+            action [SelectedIf(shop_active_mode=='ring'), SetVariable('shop_active_mode', 'ring')]
            
         imagebutton:
             xpos 510 ypos 71
             idle 'Shop/icon_bottle.png'
             selected_idle 'Shop/icon_bottle_hover.png'
             selected_hover 'Shop/icon_bottle_hover.png'
-            action [SelectedIf(icon_bottle), SetVariable('icon_sword',False), SetVariable('icon_ring',False), SetVariable('icon_bottle',True), SetVariable('icon_bread',False), SetVariable('icon_bone',False),  SetVariable('icon_paper',False)]
+            action [SelectedIf(shop_active_mode=='bottle'), SetVariable('shop_active_mode', 'bottle')]
             
         imagebutton:
             xpos 510 ypos 71
             idle 'Shop/icon_bread.png'
             selected_idle 'Shop/icon_bread_hover.png'
             selected_hover 'Shop/icon_bread_hover.png'
-            action [SelectedIf(icon_bread), SetVariable('icon_sword',False), SetVariable('icon_ring',False), SetVariable('icon_bottle',False), SetVariable('icon_bread',True), SetVariable('icon_bone',False),  SetVariable('icon_paper',False)]
+            action [SelectedIf(shop_active_mode=='bread'), SetVariable('shop_active_mode', 'bread')]
             
         imagebutton:
             xpos 510 ypos 71
             idle 'Shop/icon_bone.png'
             selected_idle 'Shop/icon_bone_hover.png'
             selected_hover 'Shop/icon_bone_hover.png'
-            action [SelectedIf(icon_bone), SetVariable('icon_sword',False), SetVariable('icon_ring',False), SetVariable('icon_bottle',False), SetVariable('icon_bread',False), SetVariable('icon_bone',True),  SetVariable('icon_paper',False)]
+            action [SelectedIf(shop_active_mode=='bone'), SetVariable('shop_active_mode', 'bone')]
             
         imagebutton:
             xpos 510 ypos 71
             idle 'Shop/icon_paper.png'
             selected_idle 'Shop/icon_paper_hover.png'
             selected_hover 'Shop/icon_paper_hover.png'
-            action [SelectedIf(icon_paper), SetVariable('icon_sword',False), SetVariable('icon_ring',False), SetVariable('icon_bottle',False), SetVariable('icon_bread',False), SetVariable('icon_bone',False),  SetVariable('icon_paper',True)]
+            action [SelectedIf(shop_active_mode=='paper'), SetVariable('shop_active_mode', 'paper')]
             
             
     for i in range(14):

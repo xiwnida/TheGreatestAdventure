@@ -3,8 +3,7 @@ init:
     $shop_active_mode='' #Для выделения одной из иконок режимов
     $shop_modes=[] #Хранит активные режимы для каждого магазина
     
-    $shop_buy=True  #Режим покупки
-    $shop_sell=False  #Режим продажи
+    $shop_buySell=0 #Управление покупкой/продажей
 
     $shop_item_quantity='' #Переменная для функции, позволяющий купить больше одного предмета
     $shop_item_quantity_for='' #Переменная для определения границ счетчика покупки\продажи
@@ -27,13 +26,15 @@ init:
     $shop_item_effect=''           #Эффект предмета
     $shop_item_icon=''             #Иконка предмета в сетке
     
+    $shop_item_finder=0          #Переменная, чтобы выбирать из полного списка подходящие по вкладке предметы 
+    
 
 screen game_shop:
-    if shop_buy:
+    if shop_buySell==0:
         button:
             background 'Shop/ground_buy.jpg'
             action NullAction()
-    if shop_sell:
+    if shop_buySell==1:
         button:
             background 'Shop/ground_sell.jpg'
             action NullAction()
@@ -57,13 +58,13 @@ screen game_shop:
         action NullAction()
         
     if shop_item_quantity:
-        if shop_buy:
+        if shop_buySell==0:
             imagebutton:
                 idle 'Shop/item_buy.png'
                 hover 'Shop/item_buy_hover.png'
                 focus_mask True
                 action NullAction()
-        if shop_sell:
+        if shop_buySell==1:
             imagebutton:
                 idle 'Shop/item_sell.png'
                 hover 'Shop/item_sell_hover.png'
@@ -92,12 +93,12 @@ screen game_shop:
     imagebutton:
         xpos 31 ypos 67
         idle 'Shop/buy.png'
-        action [SetVariable('shop_buy',True),SetVariable('shop_sell',False)]
+        action [SetVariable('shop_buySell',0),SetVariable('shop_buySell',0)]
         
     imagebutton:
         xpos 166 ypos 67
         idle 'Shop/sell.png'
-        action [SetVariable('shop_buy',False),SetVariable('shop_sell',True)]
+        action [SetVariable('shop_buySell',1),SetVariable('shop_buySell',1)]
         
     text ("{color=#fde7c6}{font=Fonts/DS_Goose.ttf}[shop_name]{/font}{/color}") xpos 506 ypos 33 xanchor 0.5 yanchor 0.5
     text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_gold]{/font}{/color}{/size}") xpos 772 ypos 109 xanchor 1.0
@@ -105,70 +106,73 @@ screen game_shop:
     text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_bronz]{/font}{/color}{/size}") xpos 772 ypos 179 xanchor 1.0
     
     hbox:
-        imagebutton:
-            xpos 510 ypos 71
-            idle 'Shop/icon_sword.png'
-            selected_idle 'Shop/icon_sword_hover.png'
-            selected_hover 'Shop/icon_sword_hover.png'
-            action [SelectedIf(shop_active_mode=='sword'), SetVariable('shop_active_mode', 'sword')]
+        xpos 706 ypos 71 xanchor 1.0
+        if shop_modes[shop_buySell][0]==1:
+            imagebutton:
+                idle 'Shop/icon_sword.png'
+                selected_idle 'Shop/icon_sword_hover.png'
+                selected_hover 'Shop/icon_sword_hover.png'
+                action [SelectedIf(shop_active_mode==1), SetVariable('shop_active_mode', 1)]
             
-        imagebutton:
-            xpos 510 ypos 71
-            idle 'Shop/icon_ring.png'
-            selected_idle 'Shop/icon_ring_hover.png'
-            selected_hover 'Shop/icon_ring_hover.png'
-            action [SelectedIf(shop_active_mode=='ring'), SetVariable('shop_active_mode', 'ring')]
+        if shop_modes[shop_buySell][1]==1:
+            imagebutton:
+                idle 'Shop/icon_ring.png'
+                selected_idle 'Shop/icon_ring_hover.png'
+                selected_hover 'Shop/icon_ring_hover.png'
+                action [SelectedIf(shop_active_mode==2), SetVariable('shop_active_mode', 2)]
            
-        imagebutton:
-            xpos 510 ypos 71
-            idle 'Shop/icon_bottle.png'
-            selected_idle 'Shop/icon_bottle_hover.png'
-            selected_hover 'Shop/icon_bottle_hover.png'
-            action [SelectedIf(shop_active_mode=='bottle'), SetVariable('shop_active_mode', 'bottle')]
-            
-        imagebutton:
-            xpos 510 ypos 71
-            idle 'Shop/icon_bread.png'
-            selected_idle 'Shop/icon_bread_hover.png'
-            selected_hover 'Shop/icon_bread_hover.png'
-            action [SelectedIf(shop_active_mode=='bread'), SetVariable('shop_active_mode', 'bread')]
-            
-        imagebutton:
-            xpos 510 ypos 71
-            idle 'Shop/icon_bone.png'
-            selected_idle 'Shop/icon_bone_hover.png'
-            selected_hover 'Shop/icon_bone_hover.png'
-            action [SelectedIf(shop_active_mode=='bone'), SetVariable('shop_active_mode', 'bone')]
-            
-        imagebutton:
-            xpos 510 ypos 71
-            idle 'Shop/icon_paper.png'
-            selected_idle 'Shop/icon_paper_hover.png'
-            selected_hover 'Shop/icon_paper_hover.png'
-            action [SelectedIf(shop_active_mode=='paper'), SetVariable('shop_active_mode', 'paper')]
-            
-            
-    for i in range(14):
-        if i<len(shop_items):
-            if i%2==0:
-                $shop_X=20
-            else:
-                $shop_X=368
-            $shop_item_idenfity(i)
+        if shop_modes[shop_buySell][2]==1:
             imagebutton:
-                xpos shop_X ypos shop_Y[i]-6
-                idle shop_item_icon
-                action NullAction()
-                    
-            text "{size=16}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_name]{/color}{/font}{/size}" xpos shop_X+31 ypos shop_Y[i]+2
-            text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_number]{/color}{/font}{/size}" xpos shop_X+330 ypos shop_Y[i]-3 xanchor 1.0
-        
+                idle 'Shop/icon_bottle.png'
+                selected_idle 'Shop/icon_bottle_hover.png'
+                selected_hover 'Shop/icon_bottle_hover.png'
+                action [SelectedIf(shop_active_mode==3), SetVariable('shop_active_mode', 3)]
+            
+        if shop_modes[shop_buySell][3]==1:
             imagebutton:
-                xpos shop_X ypos shop_Y[i]-6
-                idle 'Shop/item_choice.png'
-                selected_idle 'Shop/item_choice_hover.png'
-                selected_hover 'Shop/item_choice_hover.png'
-                action [SelectedIf(shop_item_select==i+1), shop_item_position(i)]
+                idle 'Shop/icon_bread.png'
+                selected_idle 'Shop/icon_bread_hover.png'
+                selected_hover 'Shop/icon_bread_hover.png'
+                action [SelectedIf(shop_active_mode==4), SetVariable('shop_active_mode', 4)]
+            
+        if shop_modes[shop_buySell][4]==1:
+            imagebutton:
+                idle 'Shop/icon_bone.png'
+                selected_idle 'Shop/icon_bone_hover.png'
+                selected_hover 'Shop/icon_bone_hover.png'
+                action [SelectedIf(shop_active_mode==5), SetVariable('shop_active_mode', 5)]
+            
+        if shop_modes[shop_buySell][5]==1:
+            imagebutton:
+                idle 'Shop/icon_paper.png'
+                selected_idle 'Shop/icon_paper_hover.png'
+                selected_hover 'Shop/icon_paper_hover.png'
+                action [SelectedIf(shop_active_mode==6), SetVariable('shop_active_mode', 6)]
+            
+            
+    #for i in range(14):
+    #    if shop_item_finder<len(shop_items):
+    #        if i%2==0:
+    #            $shop_X=20
+    #        else:
+    #            $shop_X=368
+    #        $shop_item_idenfity(i)
+    #        imagebutton:
+    #            xpos shop_X ypos shop_Y[i]-6
+    #            idle shop_item_icon
+    #            action NullAction()
+    #                
+    #        text "{size=16}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_name]{/color}{/font}{/size}" xpos shop_X+31 ypos shop_Y[i]+2
+    #        text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[shop_item_number]{/color}{/font}{/size}" xpos shop_X+330 ypos shop_Y[i]-3 xanchor 1.0
+    #    
+    #        imagebutton:
+    #            xpos shop_X ypos shop_Y[i]-6
+    #            idle 'Shop/item_choice.png'
+    #            selected_idle 'Shop/item_choice_hover.png'
+    #            selected_hover 'Shop/item_choice_hover.png'
+    #            action [SelectedIf(shop_item_select==i+1), shop_item_position(shop_item_finder)]
+    #$shop_refresh()
+            
     
     if shop_item_picture:
         imagebutton:

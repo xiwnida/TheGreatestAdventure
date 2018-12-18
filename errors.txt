@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/Shop.rpy", line 110: u'shop_active_mode' is not a keyword argument or valid child for the hbox statement.
-    shop_active_mode=shop_modes[0][0]
-                    ^
+File "game/Shop.rpy", line 178: reached end of line when expecting ':'.
+    if shop_item_finder<=shop_items
+                                   ^
 
-Ren'Py Version: Ren'Py 7.1.3.1092
-Mon Dec 17 12:25:35 2018
+Ren'Py Version: Ren'Py 6.99.14.1.3218
+Mon Dec 17 19:49:47 2018

@@ -39,14 +39,15 @@ init python:
         
         
 #================Функция для вызова магазина=================
-    def call_shop(name, shop, modes_buy=[], modes_sell=[]):  #Добавить аргумент-массив с доступными режимами магазина. Остальные должны быть недоступны. Автоматически должен выбираться первый из доступных.
+    def call_shop(name, shop, modes_buy, modes_sell):  #Добавить аргумент-массив с доступными режимами магазина. Остальные должны быть недоступны. Автоматически должен выбираться первый из доступных.
         global shop_name
         global shop_items
         global shop_modes
+        global shop_active_mode
         shop_modes.append(modes_buy)
         shop_modes.append(modes_sell)
-        if len(shop_modes[0])>=0:       #Дописать тут, если магазин отлько для продажи
-            $shop_active_mode=shop_modes[0][0]
+        shop_active_mode=shop_modes[0][0]
+        
         shop_name=name
         shop_items=shop
         renpy.call_screen('game_shop')
@@ -61,10 +62,15 @@ init python:
         global shop_item_icon
         global shop_item_exist
         global shop_items
-        shop_item_name=shop_items[i][0].name
-        shop_item_number=shop_items[i][1]
-        shop_item_effect=shop_items[i][0].effect
-        shop_item_icon=shop_items[i][0].icon
+        global shop_item_finder
+        global shop_active_mode
+        
+        shop_item_name=shop_items[shop_item_finder][0].name
+        shop_item_number=shop_items[shop_item_finder][1]
+        shop_item_effect=shop_items[shop_item_finder][0].effect
+        shop_item_icon=shop_items[shop_item_finder][0].icon
+        shop_item_finder=shop_item_finder+1
+            
         
         
 #================Функции для перевода в экшен кнопки====================
@@ -109,6 +115,10 @@ init python:
         global shop_item_description
         global shop_item_effect
         global shop_items
+        global shop_item_finder
+        
+        
+        
         shop_item_quantity=1
         shop_item_description=shop_items[i][0].description
         shop_item_name_item=shop_items[i][0].name
@@ -119,9 +129,9 @@ init python:
         renpy.restart_interaction()
         
         
-        
-        
-        
+    
+    def shop_refresh():
+        shop_item_finder=0
         
 #==========Превращение функций в экшен-действия для кнопок=============
     goto_button = renpy.curry(goto_button)

@@ -1,42 +1,64 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After loading the script.
-TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+While running game code:
+  File "game/Alinor.rpy", line 26, in script
+    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
+  File "game/Alinor.rpy", line 26, in <module>
+    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
+  File "game/System.rpy", line 53, in call_shop
+    renpy.call_screen('game_shop')
+Exception: Grid not completely full.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\bootstrap.py", line 313, in bootstrap
-    renpy.main.main()
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\main.py", line 415, in main
-    if renpy.parser.report_parse_errors():
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\parser.py", line 2787, in report_parse_errors
-    renpy.display.error.report_parse_errors(full_text, error_fn)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\error.py", line 187, in report_parse_errors
-    error_fn=error_fn,
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\game.py", line 281, in invoke_in_new_context
-    return callable(*args, **kwargs)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\error.py", line 45, in call_exception_screen
-    return renpy.ui.interact(mouse="screen", type="screen", suppress_overlay=True, suppress_underlay=True)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\ui.py", line 289, in interact
+  File "game/Alinor.rpy", line 26, in script
+    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 848, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\python.py", line 1812, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/Alinor.rpy", line 26, in <module>
+    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
+  File "game/System.rpy", line 53, in call_shop
+    renpy.call_screen('game_shop')
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\core.py", line 2672, in interact
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\core.py", line 3350, in interact_core
-    self.quit_event()
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\core.py", line 2376, in quit_event
-    renpy.exports.take_screenshot()
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\exports.py", line 1599, in take_screenshot
-    renpy.game.interface.take_screenshot(scale, background=background)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\core.py", line 2122, in take_screenshot
-    surf = renpy.display.scale.smoothscale(surf, scale)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\scale.py", line 95, in real_smoothscale
-    dest = pgrender.surface_unscaled(size, src)
-  File "D:\JKTVR18Krjutskova\renpy-7.1.3-sdk\renpy\display\pgrender.py", line 118, in surface
-    surf = Surface((width + 4, height + 4), 0, sample)
-TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 3098, in interact_core
+    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2038, in draw_screen
+    renpy.config.screen_height,
+  File "render.pyx", line 485, in renpy.display.render.render_screen
+  File "render.pyx", line 233, in renpy.display.render.render
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 145, in renpy.display.render.render
+  File "render.pyx", line 233, in renpy.display.render.render
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 145, in renpy.display.render.render
+  File "render.pyx", line 233, in renpy.display.render.render
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 145, in renpy.display.render.render
+  File "render.pyx", line 233, in renpy.display.render.render
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 639, in render
+    child = renpy.display.render.render(self.child, w, h, st, at)
+  File "render.pyx", line 145, in renpy.display.render.render
+  File "render.pyx", line 233, in renpy.display.render.render
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 145, in renpy.display.render.render
+  File "render.pyx", line 233, in renpy.display.render.render
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 421, in render
+    raise Exception("Grid not completely full.")
+Exception: Grid not completely full.
 
-Windows-8-6.2.9200
-Ren'Py 7.1.3.1092
+Windows-7-6.1.7601-SP1
+Ren'Py 6.99.14.1.3218
  
-Mon Dec 17 12:25:49 2018
+Mon Dec 17 19:53:46 2018

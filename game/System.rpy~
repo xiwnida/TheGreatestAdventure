@@ -39,9 +39,14 @@ init python:
         
         
 #================Функция для вызова магазина=================
-    def call_shop(name, shop):  #Добавить аргумент-массив с доступными режимами магазина. Остальные должны быть недоступны. Автоматически должен выбираться первый из доступных.
+    def call_shop(name, shop, modes_buy=[], modes_sell=[]):  #Добавить аргумент-массив с доступными режимами магазина. Остальные должны быть недоступны. Автоматически должен выбираться первый из доступных.
         global shop_name
         global shop_items
+        global shop_modes
+        shop_modes.append(modes_buy)
+        shop_modes.append(modes_sell)
+        if len(shop_modes[0])>=0:       #Дописать тут, если магазин отлько для продажи
+            $shop_active_mode=shop_modes[0][0]
         shop_name=name
         shop_items=shop
         renpy.call_screen('game_shop')
