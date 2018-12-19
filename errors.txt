@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/Shop.rpy", line 178: reached end of line when expecting ':'.
-    if shop_item_finder<=shop_items
-                                   ^
+File "game/Shop.rpy", line 171: u'shop_item_lists' is not a keyword argument or valid child for the for statement.
+    shop_item_lists()
+                   ^
 
 Ren'Py Version: Ren'Py 6.99.14.1.3218
-Mon Dec 17 19:49:47 2018
+Wed Dec 19 20:37:45 2018

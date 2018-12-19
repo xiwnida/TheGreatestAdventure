@@ -1,22 +1,22 @@
-Mon Dec 17 19:53:41 2018
+Wed Dec 19 21:31:18 2018
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
 
-Bootstrap to the start of init.init took 0.18s
+Bootstrap to the start of init.init took 0.15s
 Early init took 0.01s
 Loader init took 0.03s
 Loading error handling took 0.03s
-Loading script took 0.31s
+Loading script took 0.41s
 Loading save slot metadata. took 0.08s
 Loading persistent took 0.00s
 Importing _renpysteam: ImportError('No module named _renpysteam',)
-Running init code took 0.17s
-Loading analysis data took 0.23s
+Running init code took 0.15s
+Loading analysis data took 0.24s
 Analyze and compile ATL took 0.01s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Ayri\\AppData\\Roaming/RenPy/backups\\The Greatest Adventure':
-Dump and make backups. took 0.12s
+Dump and make backups. took 0.11s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
 Initial gc. took 0.04s
@@ -27,8 +27,8 @@ Init translation took 0.01s
 Build styles took 0.00s
 Load screen analysis took 0.00s
 Analyze screens took 0.02s
-Save screen analysis took 0.10s
-Prepare screens took 0.10s
+Save screen analysis took 0.09s
+Prepare screens took 0.09s
 Save pyanalysis. took 0.00s
 Save bytecode. took 0.11s
 Running _start took 0.00s
@@ -161,67 +161,11 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
-Total time until interface ready: 2.1930000782s
+Total time until interface ready: 2.22899985313s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
-- Frame drawn at 0.007000 seconds.
-- Frame drawn at 0.010000 seconds.
+- Frame drawn at 0.009000 seconds.
+- Frame drawn at 0.011000 seconds.
 - Frame drawn at 0.014000 seconds.
 - Frame drawn at 0.020000 seconds.
 - 0.020000 seconds to render 5 frames.
-
-Full traceback:
-  File "game/Alinor.rpy", line 26, in script
-    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 848, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\python.py", line 1812, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/Alinor.rpy", line 26, in <module>
-    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
-  File "game/System.rpy", line 53, in call_shop
-    renpy.call_screen('game_shop')
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 3098, in interact_core
-    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2038, in draw_screen
-    renpy.config.screen_height,
-  File "render.pyx", line 485, in renpy.display.render.render_screen
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 639, in render
-    child = renpy.display.render.render(self.child, w, h, st, at)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 421, in render
-    raise Exception("Grid not completely full.")
-Exception: Grid not completely full.
-
-While running game code:
-  File "game/Alinor.rpy", line 26, in script
-    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
-  File "game/Alinor.rpy", line 26, in <module>
-    $ call_shop('ÐÐ°Ð²ÐºÐ° ÐºÐ¾Ð½Ð´Ð¸ÑÐµÑÐ°', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
-  File "game/System.rpy", line 53, in call_shop
-    renpy.call_screen('game_shop')
-Exception: Grid not completely full.

@@ -2,25 +2,37 @@
 
 While running game code:
   File "game/Alinor.rpy", line 26, in script
-    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
+    $ call_shop(amy_shop, paper=True)
   File "game/Alinor.rpy", line 26, in <module>
-    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
-  File "game/System.rpy", line 53, in call_shop
+    $ call_shop(amy_shop, paper=True)
+  File "game/System.rpy", line 67, in call_shop
     renpy.call_screen('game_shop')
-Exception: Grid not completely full.
+  File "game/Shop.rpy", line 28, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 28, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 104, in execute
+    hbox:
+  File "game/Shop.rpy", line 127, in execute
+    if shop_buy and shop_name.buy_food or shop_sell and shop_name.sell_food:
+  File "game/Shop.rpy", line 128, in execute
+    imagebutton:
+  File "game/Shop.rpy", line 128, in keywords
+    imagebutton:
+NameError: name 'shop_sctive_mode' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
   File "game/Alinor.rpy", line 26, in script
-    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
+    $ call_shop(amy_shop, paper=True)
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 848, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\python.py", line 1812, in py_exec_bytecode
     exec bytecode in globals, locals
   File "game/Alinor.rpy", line 26, in <module>
-    $ call_shop('Лавка кондитера', amy_shop, [1,0,0,1,0,0],[0,0,0,0,0,0])
-  File "game/System.rpy", line 53, in call_shop
+    $ call_shop(amy_shop, paper=True)
+  File "game/System.rpy", line 67, in call_shop
     renpy.call_screen('game_shop')
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
     rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
@@ -28,37 +40,38 @@ Full traceback:
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 3098, in interact_core
-    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2038, in draw_screen
-    renpy.config.screen_height,
-  File "render.pyx", line 485, in renpy.display.render.render_screen
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 639, in render
-    child = renpy.display.render.render(self.child, w, h, st, at)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 711, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 145, in renpy.display.render.render
-  File "render.pyx", line 233, in renpy.display.render.render
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 421, in render
-    raise Exception("Grid not completely full.")
-Exception: Grid not completely full.
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in interact_core
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
+    d.visit_all(callback)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 401, in visit_all
+    callback(self)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in <lambda>
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 411, in per_interact
+    self.update()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 592, in update
+    self.screen.function(**self.scope)
+  File "game/Shop.rpy", line 28, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 28, in execute
+    screen game_shop:
+  File "game/Shop.rpy", line 104, in execute
+    hbox:
+  File "game/Shop.rpy", line 127, in execute
+    if shop_buy and shop_name.buy_food or shop_sell and shop_name.sell_food:
+  File "game/Shop.rpy", line 128, in execute
+    imagebutton:
+  File "game/Shop.rpy", line 128, in keywords
+    imagebutton:
+  File "<screen language>", line 132, in <module>
+NameError: name 'shop_sctive_mode' is not defined
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Mon Dec 17 19:53:46 2018
+Wed Dec 19 21:25:48 2018

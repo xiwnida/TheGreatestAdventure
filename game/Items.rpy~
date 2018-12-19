@@ -1,23 +1,25 @@
 init python:
     class Item:
-        def __init__(self, name, description, picture, icon):
+        def __init__(self, name, description, picture, icon, mode):
             self.name=name
             self.description=description
             self.picture='Items/'+str(picture)+'.png'
             self.icon='Icons/'+str(icon)+'.png'
+            self.mode=mode
             
     class Food(Item):
-        def __init__(self, name, description, picture, icon, effect):
-            Item.__init__(self, name, description, picture, icon)
+        def __init__(self, name, description, picture, icon, mode, effect):
+            Item.__init__(self, name, description, picture, icon, mode)
             self.effect=effect
 
 
 
 
-    amy_cake=Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой", "amy_cake", "cake", "Восстанавливает 1 здоровья")
-    amy_candies=Food("Кулек конфет", "Мешочек с вкусными желейными конфетами", "amy_candies", "candy", "Восстанавливает 1 здоровья")
+    amy_cake=Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой", "amy_cake", "cake", 4, "Восстанавливает 1 здоровья")
+    amy_candies=Food("Кулек конфет", "Мешочек с вкусными желейными конфетами", "amy_candies", "candy", 4,  "Восстанавливает 1 здоровья")
+    amy_mech=Food("МЕЧ", "Это меч", "amy_candies", "candy", 1, "Восстанавливает 1 здоровья")
 
-    amy_shop=[[amy_cake, 8], [amy_candies, 2]]
+    amy_shop=[[amy_cake, 8], [amy_candies, 2], [amy_mech, 5]]
 
 
 

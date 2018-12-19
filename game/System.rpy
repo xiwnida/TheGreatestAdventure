@@ -39,39 +39,32 @@ init python:
         
         
 #================Функция для вызова магазина=================
-    def call_shop(name, shop, modes_buy, modes_sell):  #Добавить аргумент-массив с доступными режимами магазина. Остальные должны быть недоступны. Автоматически должен выбираться первый из доступных.
+    def call_shop(shop, weapon=False, jeveler=False, alchemy=False, food=False, drop=False, paper=False): #Системное имя, режимы для продажи
         global shop_name
-        global shop_items
-        global shop_modes
         global shop_active_mode
-        shop_modes.append(modes_buy)
-        shop_modes.append(modes_sell)
-        shop_active_mode=shop_modes[0][0]
+        shop_name=shop
         
-        shop_name=name
-        shop_items=shop
+        shop_name.sell_weapon=weapon
+        shop_name.sell_jeveler=jeveler
+        shop_name.sell_alchemy=alchemy
+        shop_name.sell_food=food
+        shop_name.sell_drop=drop
+        shop_name.sell_paper=paper
+        
+        if shop_name.buy_weapon:
+            shop_active_mode='weapon'
+        elif shop_name.buy_jeveler:
+            shop_active_mode='jeveler'
+        elif shop_name.buy_alchemy:
+            shop_active_mode='alchemy'
+        elif shop_name.buy_food:
+            shop_active_mode='food'
+        elif shop_name.buy_drop:
+            shop_active_mode='drop'
+        elif shop_name.buy_paper:
+            shop_active_mode='paper'
+        
         renpy.call_screen('game_shop')
-        
-        
-#=================Костыль, чтобы нормально подставлять текст в текстовые кнопки==============
-    def shop_item_idenfity(i):
-        global shop_item_name
-        global shop_item_number
-        global shop_item_description
-        global shop_item_effect
-        global shop_item_icon
-        global shop_item_exist
-        global shop_items
-        global shop_item_finder
-        global shop_active_mode
-        
-        shop_item_name=shop_items[shop_item_finder][0].name
-        shop_item_number=shop_items[shop_item_finder][1]
-        shop_item_effect=shop_items[shop_item_finder][0].effect
-        shop_item_icon=shop_items[shop_item_finder][0].icon
-        shop_item_finder=shop_item_finder+1
-            
-        
         
 #================Функции для перевода в экшен кнопки====================
         
@@ -81,7 +74,6 @@ init python:
 #================Прибавить один к покупке\продаже в магазине===========        
     def shop_plus():
         global shop_item_quantity
-        global shop_i_plus
         global shop_item_quantity_for
         
         if shop_item_quantity<shop_item_quantity_for:
@@ -94,7 +86,6 @@ init python:
 #================Отнять один к покупке\продаже в магазине===========              
     def shop_minus():
         global shop_item_quantity
-        global shop_i_plus
         global shop_item_quantity_for
         
         if shop_item_quantity !=1:
@@ -105,7 +96,7 @@ init python:
         renpy.restart_interaction()
         
 #================Выбор предмета и изменение его информации===========              
-    def shop_item_position(i):
+    def shop_item_position(i, shop_mode):
         global shop_item_quantity
         global shop_item_quantity_for
         global shop_item_select
@@ -113,31 +104,71 @@ init python:
         global shop_item_number
         global shop_item_picture
         global shop_item_description
-        global shop_item_effect
-        global shop_items
-        global shop_item_finder
-        
-        
-        
+        global shop_item_lists
+
         shop_item_quantity=1
-        shop_item_description=shop_items[i][0].description
-        shop_item_name_item=shop_items[i][0].name
-        shop_item_effect=shop_items[i][0].effect
-        shop_item_quantity_for=shop_items[i][1]
-        shop_item_picture=shop_items[i][0].picture
-        shop_item_select=i+1
+        shop_item_description=(getattr(shop_name, shop_mode))[i][0].description
+        shop_item_name_item=(getattr(shop_name, shop_mode))[i][0].name
+        shop_item_quantity_for=(getattr(shop_name, shop_mode))[i][1]
+        shop_item_picture=(getattr(shop_name, shop_mode))[i][0].picture
+        shop_item_select=i+1-shop_item_lists
         renpy.restart_interaction()
         
+#==============Автоматический выбор активного режима магазина==========
+    def active_mode():
+        global shop_name
+        global shop_active_mode
+        global shop_buy
+        global shop_sell
         
-    
-    def shop_refresh():
-        shop_item_finder=0
+        if shop_buy:
+            if shop_name.buy_weapon:
+                shop_active_mode='weapon'
+            elif shop_name.buy_jeveler:
+                shop_active_mode='jeveler'
+            elif shop_name.buy_alchemy:
+                shop_active_mode='alchemy'
+            elif shop_name.buy_food:
+                shop_active_mode='food'
+            elif shop_name.buy_drop:
+                shop_active_mode='drop'
+            elif shop_name.buy_paper:
+                shop_active_mode='paper'
+            
+        if shop_sell:
+            if shop_name.sell_weapon:
+                shop_active_mode='weapon'
+            elif shop_name.sell_jeveler:
+                shop_active_mode='jeveler'
+            elif shop_name.sell_alchemy:
+                shop_active_mode='alchemy'
+            elif shop_name.sell_food:
+                shop_active_mode='food'
+            elif shop_name.sell_drop:
+                shop_active_mode='drop'
+            elif shop_name.sell_paper:
+                shop_active_mode='paper'
+     
+#============Прокрутка магазина вниз=============
+    def scroll_down():
+        global shop_item_lists
+        shop_item_lists+=14
+        renpy.restart_interaction()
         
+#============Прокрутка магазина вверх=============
+    def scroll_up():
+        global shop_item_lists
+        shop_item_lists-=14
+        renpy.restart_interaction()
+               
 #==========Превращение функций в экшен-действия для кнопок=============
     goto_button = renpy.curry(goto_button)
     shop_plus= renpy.curry(shop_plus)
     shop_minus= renpy.curry(shop_minus)
     shop_item_position = renpy.curry(shop_item_position)
+    active_mode=renpy.curry(active_mode)
+    scroll_down=renpy.curry(scroll_down)
+    scroll_up=renpy.curry(scroll_up)
 
 init:
 

@@ -8,18 +8,71 @@ init python:
             self.mode=mode
             
     class Food(Item):
-        def __init__(self, name, description, picture, icon, mode, effect):
+        def __init__(self, name, description, picture, icon, mode):
             Item.__init__(self, name, description, picture, icon, mode)
-            self.effect=effect
 
 
+            
+    class Shop:
+        def __init__(self, system_name, game_name, items):
+            self.ststem_name=system_name
+            self.game_name=game_name
+            self.items=items
+        
+            self.weapon=[]
+            self.jeveler=[]
+            self.alchemy=[]
+            self.food=[]
+            self.drop=[]
+            self.paper=[]
+        
+            self.buy_weapon=False
+            self.buy_jeveler=False
+            self.buy_alchemy=False
+            self.buy_food=False
+            self.buy_drop=False
+            self.buy_paper=False
+        
+            self.sell_weapon=False
+            self.sell_jeveler=False
+            self.sell_alchemy=False
+            self.sell_food=False
+            self.sell_drop=False
+            self.sell_paper=False
+            
+            self.sorting()
+        
+        def sorting(self):
+            
+            self.weapon, self.jeveler, self.alchemy, self.food, self.drop, self.paper=[],[],[],[],[],[]
+            self.buy_weapon, self.buy_jeveler, self.buy_alchemy, self.buy_food, self.buy_drop, self.buy_paper=False, False, False, False, False, False
+            
+            for i in range(len(self.items)):
+                var=(self.items[i])[0].mode
+                if var=='weapon':
+                    self.buy_weapon=True
+                    self.weapon.append(self.items[i])
+                if var=='jeveler':
+                    self.buy_jeveler=True
+                    self.jeveler.append(self.items[i])
+                if var=='alchemy':
+                    self.buy_alchemy=True
+                    self.alchemy.append(self.items[i])
+                if var=='food':
+                    self.buy_food=True
+                    self.food.append(self.items[i])
+                if var=='drop':
+                    self.buy_drop=True
+                    self.drop.append(self.items[i])
+                if var=='paper':
+                    self.buy_paper=True
+                    self.paper.append(self.items[i])
 
 
-    amy_cake=Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой", "amy_cake", "cake", 4, "Восстанавливает 1 здоровья")
-    amy_candies=Food("Кулек конфет", "Мешочек с вкусными желейными конфетами", "amy_candies", "candy", 4,  "Восстанавливает 1 здоровья")
-    amy_mech=Food("МЕЧ", "Это меч", "amy_candies", "candy", 1, "Восстанавливает 1 здоровья")
+    amy_cake=Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой \nВосстанавливает 1 здоровья", "amy_cake", "cake", 'food')
+    amy_candies=Food("Кулек конфет", "Мешочек с вкусными желейными конфетами  \nВосстанавливает 1 здоровья", "amy_candies", "candy", 'food')
 
-    amy_shop=[[amy_cake, 8], [amy_candies, 2], [amy_mech, 5]]
+    amy_shop=Shop('amy_shop', 'Лавка кондитера', [[amy_cake, 8], [amy_candies, 2]])
 
 
 
