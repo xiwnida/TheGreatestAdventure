@@ -1,77 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Alinor.rpy", line 26, in script
-    $ call_shop(amy_shop, paper=True)
-  File "game/Alinor.rpy", line 26, in <module>
-    $ call_shop(amy_shop, paper=True)
-  File "game/System.rpy", line 67, in call_shop
-    renpy.call_screen('game_shop')
-  File "game/Shop.rpy", line 28, in execute
-    screen game_shop:
-  File "game/Shop.rpy", line 28, in execute
-    screen game_shop:
-  File "game/Shop.rpy", line 104, in execute
-    hbox:
-  File "game/Shop.rpy", line 127, in execute
-    if shop_buy and shop_name.buy_food or shop_sell and shop_name.sell_food:
-  File "game/Shop.rpy", line 128, in execute
-    imagebutton:
-  File "game/Shop.rpy", line 128, in keywords
-    imagebutton:
-NameError: name 'shop_sctive_mode' is not defined
+  File "game/Alinor.rpy", line 25, in script call
+    $ location("Alinor", "trading_area", "alinor_stolica")
+  File "game/System.rpy", line 423, in script
+    show expression show_random_button1
+TypeError: argument of type 'int' is not iterable
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/Alinor.rpy", line 26, in script
-    $ call_shop(amy_shop, paper=True)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 848, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\python.py", line 1812, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/Alinor.rpy", line 26, in <module>
-    $ call_shop(amy_shop, paper=True)
-  File "game/System.rpy", line 67, in call_shop
-    renpy.call_screen('game_shop')
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in interact_core
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
-    d.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
-    d.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
-    d.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 401, in visit_all
-    callback(self)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in <lambda>
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 411, in per_interact
-    self.update()
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 592, in update
-    self.screen.function(**self.scope)
-  File "game/Shop.rpy", line 28, in execute
-    screen game_shop:
-  File "game/Shop.rpy", line 28, in execute
-    screen game_shop:
-  File "game/Shop.rpy", line 104, in execute
-    hbox:
-  File "game/Shop.rpy", line 127, in execute
-    if shop_buy and shop_name.buy_food or shop_sell and shop_name.sell_food:
-  File "game/Shop.rpy", line 128, in execute
-    imagebutton:
-  File "game/Shop.rpy", line 128, in keywords
-    imagebutton:
-  File "<screen language>", line 132, in <module>
-NameError: name 'shop_sctive_mode' is not defined
+  File "game/Alinor.rpy", line 25, in script call
+    $ location("Alinor", "trading_area", "alinor_stolica")
+  File "game/System.rpy", line 423, in script
+    show expression show_random_button1
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1110, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1069, in show_imspec
+    expression = renpy.easy.displayable(expression)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\easy.py", line 99, in displayable
+    return renpy.display.image.DynamicImage(d, scope=scope)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\image.py", line 486, in __init__
+    if ("[prefix_" in i):
+TypeError: argument of type 'int' is not iterable
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Wed Dec 19 21:25:48 2018
+Thu Dec 27 19:47:56 2018

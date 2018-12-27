@@ -2,9 +2,7 @@
 errors listed below, and try again.
 
 
-File "game/Shop.rpy", line 171: u'shop_item_lists' is not a keyword argument or valid child for the for statement.
-    shop_item_lists()
-                   ^
+File "game/System.rpy", line 427: indentation mismatch.
 
 Ren'Py Version: Ren'Py 6.99.14.1.3218
-Wed Dec 19 20:37:45 2018
+Thu Dec 27 19:49:03 2018
