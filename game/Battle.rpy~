@@ -1,0 +1,124 @@
+init python:
+    import random
+    
+    class BattleChara:
+        
+        def __init__(self, level, name, health_max,strenght, scatter, physical_defense, magical_defense, agility, accuracy, speed, luck, picture):
+            self.level=level
+            self.name=name
+            
+            self.health_max=health_max
+            self.health=health_max
+            
+            self.strenght=strenght
+            self.domage_scatter=[strenght-scatter, strenght]
+            
+            self.p_defense=physical_defense
+            self.m_defense=magical_defense
+            
+            self.agility=agility
+            self.accuracy=accuracy
+            self.speed=speed
+            self.luck=luck
+            
+            self.picture=picture
+            
+        def hit(self):
+            hero.health-=2
+            
+            
+            
+    hero=BattleChara(1, 'Джек', 10, 2, 1, 1, 0, 2, 0, 2, 1, 'Battle/GG/norm.png')
+    alinor_rat=BattleChara(1, 'Драная крыса', 15, 3, 2, 1, 0, 5, 0, 5, 2, 'Battle/Enemies/alinor_rat.png')
+    
+    
+    def battle_domage(who, domage):
+        who.health-=domage
+        renpy.restart_interaction()
+        
+    battle_domage=renpy.curry(battle_domage)    
+    
+    
+#Переменные
+    enemy=''
+    adrenalin=0
+    battle_choice=''
+    
+    
+    
+screen Battle_window:
+    button:
+        background 'Battle/down.png'
+        action NullAction()
+        
+    button:
+        background hero.picture
+        action NullAction()
+        
+    button:
+        background getattr(eval(enemy), 'picture')
+        action NullAction()
+        
+    bar:
+        xpos 22 ypos 38
+        left_bar "Battle/hp_full.png"
+        right_bar "Battle/hp_empty.png"
+        thumb_offset 7
+        thumb 'Battle/lol.png'
+        ymaximum 26
+        xmaximum 297 
+        value AnimatedValue(value=hero.health, range=hero.health_max, delay=0.6) 
+        range hero.health_max
+    text "[hero.health]/[hero.health_max]" xalign 0.5 yalign 0.5 xpos 170 ypos 51 size 12
+    
+    bar:
+        xpos 479 ypos 38
+        left_bar "Battle/hp_full.png"
+        right_bar "Battle/hp_empty.png"
+        thumb_offset 7
+        thumb 'Battle/lol.png'
+        ymaximum 26
+        xmaximum 297 
+        value AnimatedValue(value=getattr(eval(enemy), 'health'), range=getattr(eval(enemy), 'health_max'), delay=0.6) 
+        range getattr(eval(enemy), 'health_max')
+    $var1=getattr(eval(enemy), 'health')
+    $var2=getattr(eval(enemy), 'health_max')
+    text "[var1]/[var2]" xalign 0.5 yalign 0.5 xpos 627 ypos 51 size 12
+    
+    bar:
+        xpos 147 ypos 3
+        left_bar "Battle/adren_full.png"
+        right_bar "Battle/adren_empty.png"
+        thumb_offset 7
+        thumb 'Battle/lol.png'
+        ymaximum 31
+        xmaximum 507
+        value AnimatedValue(value=adrenalin, range=100, delay=0.6) 
+        range 100
+    text "[adrenalin]/100" xalign 0.5 yalign 0.5 xpos 400 ypos 18 size 10
+    
+    imagebutton:
+        idle 'Battle/1_hit.png'
+        hover 'Battle/1_hit_h.png'
+        focus_mask True
+        action SetVariable('battle_choice', 'hit')
+        
+    imagebutton:
+        idle 'Battle/1_skill.png'
+        hover 'Battle/1_skill_h.png'
+        focus_mask True
+        action SetVariable('battle_choice', 'skill')
+        
+    imagebutton:
+        idle 'Battle/1_item.png'
+        hover 'Battle/1_item_h.png'
+        focus_mask True
+        action SetVariable('battle_choice', 'item')
+        
+    imagebutton:
+        idle 'Battle/1_run.png'
+        hover 'Battle/1_run_h.png'
+        focus_mask True
+        action SetVariable('battle_choice', 'run')
+        
+    text 

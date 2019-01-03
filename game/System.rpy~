@@ -1,14 +1,25 @@
 init python:
+    import random
    
     config.automatic_images_minimum_components = 1
     config.automatic_images = [' ', '_', '/']
     config.automatic_images_strip = ['Chara']
+    
+    
+    style.hpbar = Style(style.default)
+    style.hpbar.left_bar = Frame("Images/hp_full.png", 0, 0)
+    style.hpbar.right_bar = Frame("Images/hp_empty.png", 0, 0)
+    style.hpbar.xmaximum = 297 
+    style.hpbar.ymaximum = 26
+
 
     
 #==============Функция, меняющая фон и музыку локаций=======================
     def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
         global location_image
         global day_time
+        global this_location
+        this_location=city+'_'+loca
         if not inside:
             location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
         else:
@@ -37,6 +48,65 @@ init python:
                 button_hover.append("Images/Alinor/"+str(name)+str(i+1)+"akt.png")
         renpy.call_screen('location_buttons')
         
+#================Функция для расположения рандомных кнопок================
+    def EverydayRandom():
+        global random_today
+        if not random_today:
+            CharaRandom()
+            MonsterRandom()
+
+        #А здесь функцию заполнения кнопками персонажей
+     
+#================Функция рандомных кнопок монстров==================Потом перенести в другой файл мб
+    def MonsterRandom():
+        global strana
+        global random_today
+#                                                          Монстры Алинора
+        if strana=='Алинор':
+            #                                              КРЫСА
+            ratQuan=random.randint(1,3)
+            ratQuan=6
+            ratLoca=[ ['Alinor_vorota',622,199], [ 'Alinor_ul_plaza', 45, 371],  ['Alinor_trading_area',0,390],  ['Alinor_ul_dom', 34, 103],  ['Alinor_pereulok',533,311],  ['Alinor_cerkov',204, 406]]
+            random.shuffle(ratLoca)
+            for i in range(ratQuan):
+                random_today.append(['rat', ratLoca[i][0], ratLoca[i][1], ratLoca[i][2]])
+                 
+#================Функция рандомных кнопок персонажей=======================         !!!!!!!!!!!!!!ПРОПИСАТЬ ДО КОНЦА, КОГДА НАПИШУ СИСТЕМУ СМЕНЫ ДНЯ!!!!!!!!!!!!!!!
+    def CharaRandom():
+        global strana
+        global day_time
+        global random_today
+        if strana=='Алинор':
+            #                                        Баба для проверки
+            womanLoca=['Alinor_trading_area',172,307]
+            random_today.append(['woman',womanLoca[0], womanLoca[1], womanLoca[2]])
+            
+                
+#================Функция для того, чтобы картинки под рандомные кнопки показывались сразу же без паузы=============                
+    def show_random_button_fun(array,loca):
+        global show_random_button1
+        global show_random_button2
+        global show_random_button3
+        global show_random_button4
+        global show_random_button5
+        show_random_button1=[]
+        show_random_button2=[]
+        show_random_button3=[]
+        show_random_button4=[]
+        show_random_button5=[]
+        for i in range(len(array)):
+            if array[i][1]==loca:
+                if not show_random_button1:
+                    show_random_button1=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
+                elif not show_random_button2:
+                    show_random_button2=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
+                elif not show_random_button2:
+                    show_random_button3=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
+                elif not show_random_button2:
+                    show_random_button4=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
+                elif not show_random_button2:
+                    show_random_button5=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
+            
         
 #================Функция для вызова магазина=================
     def call_shop(shop, weapon=False, jeveler=False, alchemy=False, food=False, drop=False, paper=False): #Системное имя, режимы для продажи
@@ -343,11 +413,37 @@ init:
     $ button_hover = [] # Массив с ховер-именами кнопок
     
     $location_image=''
+    
+    $random_today=[] #Хранит рандомные кнопки на сегодня
+    $this_location='' #Хранит название текущей локации
+    $show_random_button1=''    #Показывает картинки рандомных кнопок, чтобы они появлялись сразу же без паузы
+    $show_random_button2=''
+    $show_random_button3=''
+    $show_random_button4=''
+    $show_random_button5=''
+    
 
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
 
 label location_image_and_music:
-    show expression location_image 
+    scene expression location_image 
+    
+    $show_random_button_fun(random_today, this_location)
+    if show_random_button1:
+        show expression show_random_button1[0]:
+            xpos show_random_button1[1] ypos show_random_button1[2]
+    if show_random_button2:
+        show expression show_random_button2[0]:
+            xpos show_random_button2[1] ypos show_random_button2[2]
+    if show_random_button3:
+        show expression show_random_button3[0]:
+            xpos show_random_button3[1] ypos show_random_button3[2]
+    if show_random_button4:
+        show expression show_random_button4[0]:
+            xpos show_random_button4[1] ypos show_random_button4[2]
+    if show_random_button5:
+        show expression show_random_button5[0]:
+            xpos show_random_button5[1] ypos show_random_button5[2]
 
     if loca_music=="alinor_stolica":
         $ music_title = "Music/Alinor/stolica.ogg"
@@ -381,6 +477,30 @@ screen location_buttons():
             hover button_hover[i]
             focus_mask True
             action goto_button(i+1)
+            
+    for i in range (len(random_today)):
+        if random_today[i][1] == this_location:
+            imagebutton:
+                xpos random_today[i][2] ypos random_today[i][3]
+                idle 'Images/'+random_today[i][0]+'.png'
+                hover 'Images/'+random_today[i][0]+'_hover.png'
+                focus_mask True
+                action NullAction()
+    #frame:
+    #   ymaximum 26
+    #   xmaximum 297 
+    #   xpos 400 ypos 200
+    #   bar:
+    #       left_bar "Images/hp_full.png"
+    #       right_bar "Images/hp_empty.png"
+    #       thumb_offset 7
+    #       thumb 'Images/lol.png'
+    #       ymaximum 26
+    #       xmaximum 297 
+    #       value AnimatedValue(value=your_hp, range=max_hp, delay=1.0) 
+    #       range max_hp
+    #   text "[your_hp]/[max_hp]" xalign 0.5 yalign 0.5
+
             
             
     

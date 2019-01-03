@@ -4,6 +4,14 @@ init python:
     config.automatic_images_minimum_components = 1
     config.automatic_images = [' ', '_', '/']
     config.automatic_images_strip = ['Chara']
+    
+    
+    style.hpbar = Style(style.default)
+    style.hpbar.left_bar = Frame("Images/hp_full.png", 0, 0)
+    style.hpbar.right_bar = Frame("Images/hp_empty.png", 0, 0)
+    style.hpbar.xmaximum = 297 
+    style.hpbar.ymaximum = 26
+
 
     
 #==============Функция, меняющая фон и музыку локаций=======================
@@ -318,7 +326,7 @@ init:
     image hidmenu = "Talking/Hidden_menu.png"
     image callmenu = "Talking/menu.png" 
     image gold = "Invent/Money/gold.png"
-
+    
 #==============Реплики=====================================
     $ bangirl = Character(u'Красивая девушка', color="d24f4b")
     
@@ -414,6 +422,19 @@ init:
     $show_random_button4=''
     $show_random_button5=''
     
+    
+#==============Трансформации для экранов=================
+    transform battle_dissolve:
+        on show:
+            alpha 0.0
+            pause(1)
+            linear .5 alpha 1.0
+            
+        on hide:
+            alpha 1.0
+            pause(1)
+            linear .5 alpha 0.0
+    
 
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
 
@@ -478,6 +499,21 @@ screen location_buttons():
                 hover 'Images/'+random_today[i][0]+'_hover.png'
                 focus_mask True
                 action NullAction()
+    #frame:
+    #   ymaximum 26
+    #   xmaximum 297 
+    #   xpos 400 ypos 200
+    #   bar:
+    #       left_bar "Images/hp_full.png"
+    #       right_bar "Images/hp_empty.png"
+    #       thumb_offset 7
+    #       thumb 'Images/lol.png'
+    #       ymaximum 26
+    #       xmaximum 297 
+    #       value AnimatedValue(value=your_hp, range=max_hp, delay=1.0) 
+    #       range max_hp
+    #   text "[your_hp]/[max_hp]" xalign 0.5 yalign 0.5
+
             
             
     

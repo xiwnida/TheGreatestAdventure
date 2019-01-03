@@ -1,30 +1,64 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Alinor.rpy", line 25, in script call
-    $ location("Alinor", "trading_area", "alinor_stolica")
-  File "game/System.rpy", line 423, in script
-    show expression show_random_button1
-TypeError: argument of type 'int' is not iterable
+  File "game/Alinor.rpy", line 29, in script
+    call screen Battle_window()
+  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/Battle.rpy", line 57, in Dogfight
+    renpy.call_screen('EnemyTurnScreen')
+Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/Alinor.rpy", line 25, in script call
-    $ location("Alinor", "trading_area", "alinor_stolica")
-  File "game/System.rpy", line 423, in script
-    show expression show_random_button1
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1110, in execute
-    show_imspec(self.imspec, atl=getattr(self, "atl", None))
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1069, in show_imspec
-    expression = renpy.easy.displayable(expression)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\easy.py", line 99, in displayable
-    return renpy.display.image.DynamicImage(d, scope=scope)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\image.py", line 486, in __init__
-    if ("[prefix_" in i):
-TypeError: argument of type 'int' is not iterable
+  File "game/Alinor.rpy", line 29, in script
+    call screen Battle_window()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1801, in execute
+    self.call("execute")
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1789, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\statements.py", line 169, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 3417, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 667, in event
+    rv = self.child.event(ev, x, y, st)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 897, in event
+    return handle_click(self.clicked)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 832, in handle_click
+    rv = run(action)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 306, in run
+    return action(*args, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\curry.py", line 38, in __call__
+    **dict(self.kwargs.items() + kwargs.items()))
+  File "game/Battle.rpy", line 57, in Dogfight
+    renpy.call_screen('EnemyTurnScreen')
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2602, in interact
+    raise Exception("Cannot start an interaction in the middle of an interaction, without creating a new context.")
+Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Thu Dec 27 19:47:56 2018
+Fri Jan 04 01:01:16 2019
