@@ -72,7 +72,8 @@ init python:
     amy_cake=Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой \nВосстанавливает 1 здоровья", "amy_cake", "cake", 'food')
     amy_candies=Food("Кулек конфет", "Мешочек с вкусными желейными конфетами  \nВосстанавливает 1 здоровья", "amy_candies", "candy", 'food')
 
-    amy_shop=Shop('amy_shop', 'Лавка кондитера', [[amy_cake, 8], [amy_candies, 2]])
+    amy_shop=Shop('amy_shop', 'Лавка кондитера', [[amy_cake, 8], [amy_candies, 2], [amy_candies, 9], [amy_candies, 20], [amy_cake, 211], [amy_candies, 28], [amy_candies, 6], [amy_cake, 3], [amy_candies, 8], [amy_candies, 1], [amy_cake, 14], [amy_candies, 32], 
+        [amy_candies, 34], [amy_candies, 46], [amy_cake, 111], [amy_candies, 666], [amy_candies, 23], [amy_candies, 62], [amy_candies, 73], [amy_cake, 2]])
 
 
 

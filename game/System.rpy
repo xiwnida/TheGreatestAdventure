@@ -169,7 +169,6 @@ init python:
     def shop_item_position(i, shop_mode):
         global shop_item_quantity
         global shop_item_quantity_for
-        global shop_item_select
         global shop_item_name_item
         global shop_item_number
         global shop_item_picture
@@ -181,7 +180,6 @@ init python:
         shop_item_name_item=(getattr(shop_name, shop_mode))[i][0].name
         shop_item_quantity_for=(getattr(shop_name, shop_mode))[i][1]
         shop_item_picture=(getattr(shop_name, shop_mode))[i][0].picture
-        shop_item_select=i+1-shop_item_lists
         renpy.restart_interaction()
         
 #==============Автоматический выбор активного режима магазина==========
@@ -222,13 +220,13 @@ init python:
 #============Прокрутка магазина вниз=============
     def scroll_down():
         global shop_item_lists
-        shop_item_lists+=14
+        shop_item_lists+=2
         renpy.restart_interaction()
         
 #============Прокрутка магазина вверх=============
     def scroll_up():
         global shop_item_lists
-        shop_item_lists-=14
+        shop_item_lists-=2
         renpy.restart_interaction()
                
 #==========Превращение функций в экшен-действия для кнопок=============
@@ -422,19 +420,34 @@ init:
     $show_random_button4=''
     $show_random_button5=''
     
+    $effect1='Battle/1.png'
     
 #==============Трансформации для экранов=================
     transform battle_dissolve:
         on show:
             alpha 0.0
             pause(1)
-            linear .5 alpha 1.0
+            linear .2 alpha 1.0
             
         on hide:
             alpha 1.0
             pause(1)
-            linear .5 alpha 0.0
-    
+            linear .2 alpha 0.0
+            
+    image effect1:
+        'Battle/1.png'
+        pause 0.1
+        'Battle/2.png'
+        pause 0.1
+        'Battle/3.png'
+        pause 0.1
+        'Battle/4.png'
+        pause 0.1
+        'Battle/5.png'
+        pause 0.1
+        'Battle/0.png'
+
+
 
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
 

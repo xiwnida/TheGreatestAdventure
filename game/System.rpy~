@@ -326,7 +326,7 @@ init:
     image hidmenu = "Talking/Hidden_menu.png"
     image callmenu = "Talking/menu.png" 
     image gold = "Invent/Money/gold.png"
-
+    
 #==============Реплики=====================================
     $ bangirl = Character(u'Красивая девушка', color="d24f4b")
     
@@ -421,6 +421,19 @@ init:
     $show_random_button3=''
     $show_random_button4=''
     $show_random_button5=''
+    
+    
+#==============Трансформации для экранов=================
+    transform battle_dissolve:
+        on show:
+            alpha 0.0
+            pause(1)
+            linear .5 alpha 1.0
+            
+        on hide:
+            alpha 1.0
+            pause(1)
+            linear .5 alpha 0.0
     
 
 #==============Колл. Показывает изображение, чье название собрано функцией location====================

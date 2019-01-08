@@ -62,24 +62,35 @@ init python:
         
         
         
-        
-        
-        
-        
-        
-        
 
         
     def EnemyTurn(enemy):
         global battle_first_hit
+        global effectlol
         battle_first_hit=True
         hero.health-=random.randint(enemy.domage_scatter[0], enemy.domage_scatter[1])
         renpy.hide_screen('EnemyTurnScreen')
+        renpy.restart_interaction()
+        
+    def BattleSkillMinus():
+        global battle_skills_list
+        battle_skills_list-=1
+        renpy.restart_interaction()
+        
+    def BattleSkillPlus():
+        global battle_skills_list
+        battle_skills_list+=1
+        renpy.restart_interaction()
+        
+    def Refresh_Screens():
         renpy.restart_interaction()
          
     EnemyTurn=renpy.curry(EnemyTurn)  
     Dogfight=renpy.curry(Dogfight)  
     DefenseStance=renpy.curry(DefenseStance)
+    BattleSkillMinus=renpy.curry(BattleSkillMinus)
+    BattleSkillPlus=renpy.curry(BattleSkillPlus)
+    Refresh_Screens=renpy.curry(Refresh_Screens)
     
 #Переменные
     battle_first_hit=False
@@ -100,8 +111,16 @@ init python:
     dogfight="Удар кулаком.\nНаносит "+str(hero.domage_scatter[0])+"-"+str(hero.domage_scatter[1])+" урона."
 
     #Защитная стойка
-    defense_stance ="Джек примет защитную стойку.\nФизическая защита + "+str(int(math.ceil(hero.p_defense*0.3)))
+    defense_stance ="Джек примет защитную стойку.\nФизическая защита + "+str(int(math.ceil(hero.p_defense*0.3)))+" на один ход."
     
+    two='blah'
+    two1='blah1'
+    two2='blah2'
+    two3='blah3'
+    two4='blah4'
+    two5='blah5'
+    two6='blah6'
+    two7='blah7'
     
     
     
@@ -164,7 +183,7 @@ screen Battle_window:
         idle 'Battle/1_hit.png'
         hover 'Battle/1_hit_h.png'
         focus_mask True
-        action [SetVariable('battle_choice', 'hit'), SetVariable('battle_skill_chioce', '')]
+        action [SetVariable('battle_choice', 'hit'), SetVariable('battle_skill_chioce', ''), SetVariable('battle_skills_list', 0)]
         
     imagebutton:
         idle 'Battle/1_skill.png'
@@ -176,13 +195,13 @@ screen Battle_window:
         idle 'Battle/1_item.png'
         hover 'Battle/1_item_h.png'
         focus_mask True
-        action [SetVariable('battle_choice', 'item'), SetVariable('battle_skill_chioce', '')]
+        action [SetVariable('battle_choice', 'item'), SetVariable('battle_skill_chioce', ''), SetVariable('battle_skills_list', 0)]
         
     imagebutton:
         idle 'Battle/1_run.png'
         hover 'Battle/1_run_h.png'
         focus_mask True
-        action [SetVariable('battle_choice', 'run'), SetVariable('battle_skill_chioce', '')]
+        action [SetVariable('battle_choice', 'run'), SetVariable('battle_skill_chioce', ''), SetVariable('battle_skills_list', 0)]
        
     if battle_choice=='hit':
         text '[dogfight]' xpos 434 ypos 454 size 14 color '#fde7c6' font 'Fonts/comic.ttf'
@@ -198,9 +217,22 @@ screen Battle_window:
             for i in range(4):
                 if i+battle_skills_list<len(hero.skills):
                     imagebutton:
-                        idle 'Battle/Skills/'+hero.skills[i][1]+'.png'
-                        hover 'Battle/Skills/'+hero.skills[i][1]+'_h.png'
-                        action [SetVariable('battle_skill_chioce', hero.skills[i][2]), SetVariable('battle_skill_call', hero.skills[i][0])]
+                        idle 'Battle/Skills/'+hero.skills[i+battle_skills_list][1]+'.png'
+                        selected_idle 'Battle/Skills/'+hero.skills[i+battle_skills_list][1]+'_h.png'
+                        selected_hover 'Battle/Skills/'+hero.skills[i+battle_skills_list][1]+'_h.png'
+                        action [SetVariable('battle_skill_chioce', hero.skills[i+battle_skills_list][2]), SetVariable('battle_skill_call', hero.skills[i+battle_skills_list][0]), SelectedIf(battle_skill_chioce==hero.skills[i+battle_skills_list][2])]
+                        
+        imagebutton:
+            idle 'Battle/pointer_up.png'
+            hover 'Battle/pointer_up_h.png'
+            focus_mask True
+            action [SensitiveIf(battle_skills_list>0), BattleSkillMinus()]
+            
+        imagebutton:
+            idle 'Battle/pointer_down.png'
+            hover 'Battle/pointer_down_h.png'
+            focus_mask True
+            action [SensitiveIf(4+battle_skills_list<len(hero.skills)), BattleSkillPlus()]
                         
         if battle_skill_chioce:
             text '[battle_skill_chioce]' xpos 434 ypos 454 size 14 color '#fde7c6' font 'Fonts/comic.ttf'
@@ -213,10 +245,10 @@ screen Battle_window:
                 
     if battle_first_hit==False:
         if hero.speed<enemy.speed:
-            imagebutton at battle_dissolve:
+            imagebutton:
                 idle 'Battle/attack.png'
                 action EnemyTurn(enemy)
-            
+                
        
                 
 screen EnemyTurnScreen:
@@ -225,4 +257,8 @@ screen EnemyTurnScreen:
     imagebutton at battle_dissolve:
         idle 'Battle/attack.png'
         action EnemyTurn(enemy)
+        
+screen EnemyLol:        
+    zorder 52
+    add effect1
         

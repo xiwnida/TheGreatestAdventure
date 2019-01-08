@@ -46,13 +46,13 @@ screen game_shop:
         idle 'Shop/pointer_up.png'
         hover'Shop/pointer_up_hover.png'
         focus_mask True
-        action [SensitiveIf(13+shop_item_lists>13), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), scroll_up()]
+        action [SensitiveIf(shop_item_lists>0), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), scroll_up()]
     
     imagebutton:
         idle 'Shop/pointer_down.png'
         hover'Shop/pointer_down_hover.png'
         focus_mask True
-        action [SensitiveIf(13+shop_item_lists<len(getattr(shop_name, shop_active_mode))), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), scroll_down()]
+        action [SensitiveIf(14+shop_item_lists<len(getattr(shop_name, shop_active_mode))), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), scroll_down()]
         
 #Кнопки покупки\продажи и количества=======
     if shop_item_quantity:
@@ -92,12 +92,12 @@ screen game_shop:
     imagebutton:
         xpos 31 ypos 67
         idle 'Shop/buy.png'
-        action [SetVariable('shop_buy', True),SetVariable('shop_sell',False), active_mode(), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0)]
+        action [SetVariable('shop_buy', True),SetVariable('shop_sell',False), active_mode(), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description','')]
         
     imagebutton:
         xpos 166 ypos 67
         idle 'Shop/sell.png'
-        action [SetVariable('shop_sell', True),SetVariable('shop_buy',False), active_mode(), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0)]
+        action [SetVariable('shop_sell', True),SetVariable('shop_buy',False), active_mode(), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description','')]
         
 #Название магазина и деньги====
     text ("{color=#fde7c6}{font=Fonts/DS_Goose.ttf}[shop_name.game_name]{/font}{/color}") xpos 506 ypos 33 xanchor 0.5 yanchor 0.5
@@ -172,7 +172,7 @@ screen game_shop:
                  idle 'Shop/item_choice.png'
                  selected_idle 'Shop/item_choice_hover.png'
                  selected_hover 'Shop/item_choice_hover.png'
-                 action [SelectedIf(shop_item_select==i+1), shop_item_position(i+shop_item_lists,shop_active_mode)]
+                 action [SelectedIf(shop_item_select==i+shop_item_lists+1), SetVariable('shop_item_select', i+shop_item_lists+1), shop_item_position(i+shop_item_lists,shop_active_mode)]  #Если шоп итем селлект равен какому то параметру предмета. Потому что одинаковых предметов не будет
                  
             
 #Рамка выбора предмета и его описание ниже====

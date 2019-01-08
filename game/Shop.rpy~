@@ -41,6 +41,7 @@ screen game_shop:
         focus_mask True
         action NullAction()
         
+#Указатели===
     imagebutton:
         idle 'Shop/pointer_up.png'
         hover'Shop/pointer_up_hover.png'
@@ -53,6 +54,7 @@ screen game_shop:
         focus_mask True
         action [SensitiveIf(13+shop_item_lists<len(getattr(shop_name, shop_active_mode))), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), scroll_down()]
         
+#Кнопки покупки\продажи и количества=======
     if shop_item_quantity:
         if shop_buy:
             imagebutton:
@@ -86,6 +88,7 @@ screen game_shop:
             focus_mask True
             action shop_minus()
         
+#Режимы покупки\продажи
     imagebutton:
         xpos 31 ypos 67
         idle 'Shop/buy.png'
@@ -96,11 +99,13 @@ screen game_shop:
         idle 'Shop/sell.png'
         action [SetVariable('shop_sell', True),SetVariable('shop_buy',False), active_mode(), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0)]
         
+#Название магазина и деньги====
     text ("{color=#fde7c6}{font=Fonts/DS_Goose.ttf}[shop_name.game_name]{/font}{/color}") xpos 506 ypos 33 xanchor 0.5 yanchor 0.5
     text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_gold]{/font}{/color}{/size}") xpos 772 ypos 109 xanchor 1.0
     text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_silver]{/font}{/color}{/size}") xpos 772 ypos 145 xanchor 1.0
     text ("{size=19}{color=#fde7c6}{font=Fonts/comic.ttf}[money_bronz]{/font}{/color}{/size}") xpos 772 ypos 179 xanchor 1.0
     
+#Иконки отделов====
     hbox:
         xpos 706 ypos 71 xanchor 1.0
         if shop_buy and shop_name.buy_weapon or shop_sell and shop_name.sell_weapon:
@@ -144,7 +149,8 @@ screen game_shop:
                 selected_idle 'Shop/icon_paper_hover.png'
                 selected_hover 'Shop/icon_paper_hover.png'
                 action [SelectedIf(shop_active_mode=='paper'), SetVariable('shop_active_mode', 'paper'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0)]
-                
+      
+#Предметы====
     for i in range(14):
          if i+shop_item_lists<(len(getattr(shop_name, shop_active_mode))) and shop_buy:
              if i%2==0:
@@ -169,7 +175,7 @@ screen game_shop:
                  action [SelectedIf(shop_item_select==i+1), shop_item_position(i+shop_item_lists,shop_active_mode)]
                  
             
-    
+#Рамка выбора предмета и его описание ниже====
     if shop_item_picture:
         imagebutton:
             xpos 25 ypos 457

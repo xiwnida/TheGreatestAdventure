@@ -1,18 +1,18 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Alinor.rpy", line 29, in script
+  File "game/Alinor.rpy", line 31, in script
     call screen Battle_window()
   File "renpy/common/000statements.rpy", line 485, in execute_call_screen
     store._return = renpy.call_screen(name, *args, **kwargs)
-  File "game/Battle.rpy", line 57, in Dogfight
-    renpy.call_screen('EnemyTurnScreen')
-Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
+  File "game/Battle.rpy", line 87, in EnemyTurn
+    effect11()
+NameError: global name 'effect11' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/Alinor.rpy", line 29, in script
+  File "game/Alinor.rpy", line 31, in script
     call screen Battle_window()
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1801, in execute
     self.call("execute")
@@ -48,17 +48,11 @@ Full traceback:
     return action(*args, **kwargs)
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\curry.py", line 38, in __call__
     **dict(self.kwargs.items() + kwargs.items()))
-  File "game/Battle.rpy", line 57, in Dogfight
-    renpy.call_screen('EnemyTurnScreen')
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2602, in interact
-    raise Exception("Cannot start an interaction in the middle of an interaction, without creating a new context.")
-Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
+  File "game/Battle.rpy", line 87, in EnemyTurn
+    effect11()
+NameError: global name 'effect11' is not defined
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Fri Jan 04 01:01:16 2019
+Fri Jan 04 20:20:54 2019
