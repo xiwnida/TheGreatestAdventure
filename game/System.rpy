@@ -433,21 +433,6 @@ init:
             alpha 1.0
             pause(1)
             linear .2 alpha 0.0
-            
-    image effect1:
-        'Battle/1.png'
-        pause 0.1
-        'Battle/2.png'
-        pause 0.1
-        'Battle/3.png'
-        pause 0.1
-        'Battle/4.png'
-        pause 0.1
-        'Battle/5.png'
-        pause 0.1
-        'Battle/0.png'
-
-
 
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
 

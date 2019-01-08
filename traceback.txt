@@ -1,58 +1,66 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Alinor.rpy", line 31, in script
-    call screen Battle_window()
-  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+  File "game/Alinor.rpy", line 31, in script call
+    call battle_label
+  File "game/Battle.rpy", line 203, in script
+    call screen Battle_window
+  File "renpy/common/000statements.rpy", line 519, in execute_call_screen
     store._return = renpy.call_screen(name, *args, **kwargs)
-  File "game/Battle.rpy", line 87, in EnemyTurn
-    effect11()
-NameError: global name 'effect11' is not defined
+  File "game/Battle.rpy", line 75, in EnemyTurn
+    BattleEffect('effect_bite', 'hero', all_domage)
+  File "game/Battle.rpy", line 97, in BattleEffect
+    thetext = Text('{outlinecolor=#ffffff}- '+str(domage)+'{/outlinecolor}'(style="text_domage"))
+TypeError: 'unicode' object is not callable
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/Alinor.rpy", line 31, in script
-    call screen Battle_window()
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1801, in execute
+  File "game/Alinor.rpy", line 31, in script call
+    call battle_label
+  File "game/Battle.rpy", line 203, in script
+    call screen Battle_window
+  File "D:\renpy-7.1.3-sdk\renpy\ast.py", line 1861, in execute
     self.call("execute")
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 1789, in call
+  File "D:\renpy-7.1.3-sdk\renpy\ast.py", line 1849, in call
     return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\statements.py", line 169, in call
+  File "D:\renpy-7.1.3-sdk\renpy\statements.py", line 203, in call
     return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 485, in execute_call_screen
+  File "renpy/common/000statements.rpy", line 519, in execute_call_screen
     store._return = renpy.call_screen(name, *args, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
+  File "D:\renpy-7.1.3-sdk\renpy\exports.py", line 2755, in call_screen
     rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
+  File "D:\renpy-7.1.3-sdk\renpy\ui.py", line 289, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
+  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 2672, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 3417, in interact_core
+  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 3477, in interact_core
     rv = root_widget.event(ev, x, y, 0)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 998, in event
     rv = i.event(ev, x - xo, y - yo, cst)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 998, in event
     rv = i.event(ev, x - xo, y - yo, cst)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 998, in event
     rv = i.event(ev, x - xo, y - yo, cst)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 667, in event
+  File "D:\renpy-7.1.3-sdk\renpy\display\screen.py", line 697, in event
     rv = self.child.event(ev, x, y, st)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\layout.py", line 986, in event
+  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 998, in event
     rv = i.event(ev, x - xo, y - yo, cst)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 897, in event
+  File "D:\renpy-7.1.3-sdk\renpy\display\behavior.py", line 910, in event
     return handle_click(self.clicked)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 832, in handle_click
+  File "D:\renpy-7.1.3-sdk\renpy\display\behavior.py", line 845, in handle_click
     rv = run(action)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 306, in run
+  File "D:\renpy-7.1.3-sdk\renpy\display\behavior.py", line 315, in run
     return action(*args, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\curry.py", line 38, in __call__
+  File "D:\renpy-7.1.3-sdk\renpy\curry.py", line 40, in __call__
     **dict(self.kwargs.items() + kwargs.items()))
-  File "game/Battle.rpy", line 87, in EnemyTurn
-    effect11()
-NameError: global name 'effect11' is not defined
+  File "game/Battle.rpy", line 75, in EnemyTurn
+    BattleEffect('effect_bite', 'hero', all_domage)
+  File "game/Battle.rpy", line 97, in BattleEffect
+    thetext = Text('{outlinecolor=#ffffff}- '+str(domage)+'{/outlinecolor}'(style="text_domage"))
+TypeError: 'unicode' object is not callable
 
-Windows-7-6.1.7601-SP1
-Ren'Py 6.99.14.1.3218
+Windows-8-6.2.9200
+Ren'Py 7.1.3.1092
  
-Fri Jan 04 20:20:54 2019
+Tue Jan 08 10:15:38 2019
