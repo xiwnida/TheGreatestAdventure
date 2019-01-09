@@ -54,7 +54,7 @@ init python:
                 all_domage=1
         
         BattleEffect('effect_hit', 'enemy', all_domage)
-        enemy.health-=all_domage
+        HealthControl(enemy, all_domage)
         renpy.show_screen('EnemyTurnScreen')
         renpy.restart_interaction()
        
@@ -70,7 +70,7 @@ init python:
         global effectlol
         battle_first_hit=True
         all_domage=random.randint(enemy.domage_scatter[0], enemy.domage_scatter[1])
-        hero.health-=all_domage
+        HealthControl(hero, all_domage)
         renpy.hide_screen('EnemyTurnScreen')
         BattleEffect('effect_bite', 'hero', all_domage)
         renpy.restart_interaction()
@@ -94,13 +94,20 @@ init python:
     def BattleEffect(effect, who, domage):
         global battle_effect
         battle_effect=effect
-        thetext = Text('{color=#700d0d}{=text_domage}- '+str(domage)+'{/=text_domage}{/color}')
+        thetext = Text('{=text_domage}- '+str(domage)+'{/=text_domage}')
         if who=='hero':
             renpy.show(effect, at_list=[battle_cords_hero])
             renpy.show("mytext", at_list=[battle_hero_domage], what=thetext)
         elif who=='enemy':
             renpy.show(effect, at_list=[battle_cords_enemy])
             renpy.show("mytext", at_list=[battle_enemy_domage], what=thetext)
+           
+#========Функция проверки хп=========
+    def HealthControl(who, amount):
+        if who.health-amount<=0:
+            who.health=0
+        else:
+            who.health-=amount
         
         
         
@@ -147,9 +154,8 @@ init python:
 #========Эффекты========
 init:
     style text_domage:
-        
-        outlines [ (absolute(2), "#ffffff", absolute(1), absolute(1)) ]
         color '#700d0d'
+        drop_shadow True
     
     transform battle_cords_hero:
         xpos 20 ypos 69
