@@ -1,18 +1,18 @@
-Fri Jan 04 20:46:47 2019
+Fri Feb 01 19:12:44 2019
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
 
-Bootstrap to the start of init.init took 0.14s
-Early init took 0.01s
-Loader init took 0.04s
-Loading error handling took 0.03s
-Loading script took 0.33s
+Bootstrap to the start of init.init took 0.15s
+Early init took 0.04s
+Loader init took 0.06s
+Loading error handling took 0.04s
+Loading script took 0.81s
 Loading save slot metadata. took 0.05s
 Loading persistent took 0.00s
 Importing _renpysteam: ImportError('No module named _renpysteam',)
-Running init code took 0.14s
-Loading analysis data took 0.39s
+Running init code took 0.15s
+Loading analysis data took 0.42s
 Analyze and compile ATL took 0.01s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Ayri\\AppData\\Roaming/RenPy/backups\\The Greatest Adventure':
@@ -21,15 +21,15 @@ Cleaning cache took 0.00s
 Making clean stores took 0.00s
 Initial gc. took 0.08s
 DPI scale factor: 1.000000
-Creating interface object took 0.06s
+Creating interface object took 0.05s
 Cleaning stores took 0.00s
 Init translation took 0.01s
 Build styles took 0.00s
 Load screen analysis took 0.00s
 Analyze screens took 0.03s
 Save screen analysis took 0.10s
-Prepare screens took 0.12s
-Save pyanalysis. took 1.32s
+Prepare screens took 0.11s
+Save pyanalysis. took 1.33s
 Save bytecode. took 0.12s
 Running _start took 0.00s
 Performance test:
@@ -161,11 +161,11 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
-Total time until interface ready: 3.76999998093s
+Total time until interface ready: 4.36199998856s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
 - Frame drawn at 0.009000 seconds.
 - Frame drawn at 0.013000 seconds.
-- Frame drawn at 0.018000 seconds.
-- Frame drawn at 0.040000 seconds.
-- 0.040000 seconds to render 5 frames.
+- Frame drawn at 0.016000 seconds.
+- Frame drawn at 0.039000 seconds.
+- 0.039000 seconds to render 5 frames.

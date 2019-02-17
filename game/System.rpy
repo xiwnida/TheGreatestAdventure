@@ -12,8 +12,6 @@ init python:
     style.hpbar.xmaximum = 297 
     style.hpbar.ymaximum = 26
 
-
-    
 #==============Функция, меняющая фон и музыку локаций=======================
     def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
         global location_image

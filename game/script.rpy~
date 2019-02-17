@@ -36,7 +36,7 @@ label start:
     (254, 218, 546, 343, "Развернуть свиток")
     ])
     if result == "Развернуть свиток":
-     jump svitok1
+        jump svitok1
 
 label svitok1:
 
@@ -45,7 +45,7 @@ label svitok1:
     (258, 112, 540, 516, "Убрать свиток")
     ])
     if result == "Убрать свиток":
-     jump svitok2
+        jump svitok2
 label svitok2:
     
     scene dom
@@ -165,9 +165,9 @@ label svitok2:
     (185, 303, 615, 351, "Отклонить")
     ])
     if result == "Принять":
-     jump prinyat
+        jump prinyat
     elif result == "Отклонить":
-     jump otklonit
+        jump otklonit
     
 label otklonit:
     show jack neponsmile2 at left
@@ -578,7 +578,9 @@ label vokzal_night_ograb:
     show ograblenie with dissolve
     $ renpy.pause (1.5)
     hide ograblenie with dissolve
+    
     call time2 from _call_time2_2
+    
     man_voice "рень..."
     man_voice "Парень! Эй, парень!"
     j_nepon2 "А...Что за фигня?"
