@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/System.rpy", line 437: expected statement.
-    animation effect1:
-                     ^
+File "game/Battle.rpy", line 152: style property drop_shadow appears twice.
+    drop_shadow "#31893b" 
+               ^
 
-Ren'Py Version: Ren'Py 6.99.14.1.3218
-Fri Jan 04 20:31:23 2019
+Ren'Py Version: Ren'Py 7.1.3.1092
+Wed Jan 09 07:54:42 2019

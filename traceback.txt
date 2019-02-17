@@ -1,5 +1,6 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
+<<<<<<< HEAD
 While running game code:
   File "game/script.rpy", line 10, in script
     $variable = input_ut()
@@ -8,10 +9,21 @@ While running game code:
   File "game/System.rpy", line 17, in input_ut
     your_text = input("Blaj")
 EOFError: EOF when reading a line
+=======
+While processing text tag {text_domage} in u'{color=#700d0d}{text_domage}- 1{/text_domage}{/color}'.:
+  File "game/Alinor.rpy", line 31, in script call
+    call battle_label
+  File "game/Battle.rpy", line 204, in script
+    call screen Battle_window
+  File "renpy/common/000statements.rpy", line 519, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+Exception: Unknown text tag u'text_domage'
+>>>>>>> 3534c03b9f6c8d7df1ac2e21a3d6e34df19e6883
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
+<<<<<<< HEAD
   File "game/script.rpy", line 10, in script
     $variable = input_ut()
   File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 848, in execute
@@ -23,8 +35,59 @@ Full traceback:
   File "game/System.rpy", line 17, in input_ut
     your_text = input("Blaj")
 EOFError: EOF when reading a line
+=======
+  File "game/Alinor.rpy", line 31, in script call
+    call battle_label
+  File "game/Battle.rpy", line 204, in script
+    call screen Battle_window
+  File "D:\renpy-7.1.3-sdk\renpy\ast.py", line 1861, in execute
+    self.call("execute")
+  File "D:\renpy-7.1.3-sdk\renpy\ast.py", line 1849, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "D:\renpy-7.1.3-sdk\renpy\statements.py", line 203, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 519, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "D:\renpy-7.1.3-sdk\renpy\exports.py", line 2755, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "D:\renpy-7.1.3-sdk\renpy\ui.py", line 289, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 2672, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
+  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 3158, in interact_core
+    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
+  File "D:\renpy-7.1.3-sdk\renpy\display\core.py", line 2075, in draw_screen
+    renpy.config.screen_height,
+  File "render.pyx", line 487, in renpy.display.render.render_screen
+  File "render.pyx", line 235, in renpy.display.render.render
+  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 722, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 147, in renpy.display.render.render
+  File "render.pyx", line 235, in renpy.display.render.render
+  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 722, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 147, in renpy.display.render.render
+  File "render.pyx", line 235, in renpy.display.render.render
+  File "D:\renpy-7.1.3-sdk\renpy\display\layout.py", line 722, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 147, in renpy.display.render.render
+  File "render.pyx", line 235, in renpy.display.render.render
+  File "accelerator.pyx", line 110, in renpy.display.accelerator.transform_render
+  File "render.pyx", line 235, in renpy.display.render.render
+  File "D:\renpy-7.1.3-sdk\renpy\text\text.py", line 1899, in render
+    virtual_layout = Layout(self, width, height, renders, drawable_res=False, size_only=True)
+  File "D:\renpy-7.1.3-sdk\renpy\text\text.py", line 558, in __init__
+    self.paragraphs = self.segment(text.tokens, style, renders, text)
+  File "D:\renpy-7.1.3-sdk\renpy\text\text.py", line 1117, in segment
+    raise Exception("Unknown text tag %r" % text)
+Exception: Unknown text tag u'text_domage'
+>>>>>>> 3534c03b9f6c8d7df1ac2e21a3d6e34df19e6883
 
-Windows-7-6.1.7601-SP1
-Ren'Py 6.99.14.1.3218
+Windows-8-6.2.9200
+Ren'Py 7.1.3.1092
  
+<<<<<<< HEAD
 Fri Feb 01 19:12:18 2019
+=======
+Wed Jan 09 07:45:09 2019
+>>>>>>> 3534c03b9f6c8d7df1ac2e21a3d6e34df19e6883

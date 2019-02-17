@@ -53,7 +53,8 @@ init python:
             if all_domage<=0:
                 all_domage=1
         
-        enemy.health-=all_domage
+        BattleEffect('effect_hit', 'enemy', all_domage)
+        HealthControl(enemy, all_domage)
         renpy.show_screen('EnemyTurnScreen')
         renpy.restart_interaction()
        
@@ -63,15 +64,18 @@ init python:
         
         
 
-        
-    def EnemyTurn(enemy):
+#Удар врага. ВРЕМЕННАЯ
+    def EnemyTurn(enemy):  #Враг бьет
         global battle_first_hit
         global effectlol
         battle_first_hit=True
-        hero.health-=random.randint(enemy.domage_scatter[0], enemy.domage_scatter[1])
+        all_domage=random.randint(enemy.domage_scatter[0], enemy.domage_scatter[1])
+        HealthControl(hero, all_domage)
         renpy.hide_screen('EnemyTurnScreen')
+        BattleEffect('effect_bite', 'hero', all_domage)
         renpy.restart_interaction()
-        
+
+#Функции прокрутки списка скиллов
     def BattleSkillMinus():
         global battle_skills_list
         battle_skills_list-=1
@@ -82,8 +86,31 @@ init python:
         battle_skills_list+=1
         renpy.restart_interaction()
         
+#Обновление экрана
     def Refresh_Screens():
         renpy.restart_interaction()
+        
+#Функция, показывающая изображение эффекта и домаг        
+    def BattleEffect(effect, who, domage):
+        global battle_effect
+        battle_effect=effect
+        thetext = Text('{=text_domage}- '+str(domage)+'{/=text_domage}')
+        if who=='hero':
+            renpy.show(effect, at_list=[battle_cords_hero])
+            renpy.show("mytext", at_list=[battle_hero_domage], what=thetext)
+        elif who=='enemy':
+            renpy.show(effect, at_list=[battle_cords_enemy])
+            renpy.show("mytext", at_list=[battle_enemy_domage], what=thetext)
+           
+#========Функция проверки хп=========
+    def HealthControl(who, amount):
+        if who.health-amount<=0:
+            who.health=0
+        else:
+            who.health-=amount
+        
+        
+        
          
     EnemyTurn=renpy.curry(EnemyTurn)  
     Dogfight=renpy.curry(Dogfight)  
@@ -105,6 +132,8 @@ init python:
     battle_p_defense=hero.p_defense
     battle_agility=hero.agility
     
+    battle_effect='' #Хранит название применяемого эффека при ударе
+    
     
 #====Описания скиллов====
     #Кулачный урон
@@ -121,22 +150,81 @@ init python:
     two5='blah5'
     two6='blah6'
     two7='blah7'
+
+#========Эффекты========
+init:
+    style text_domage:
+        color '#700d0d'
+        drop_shadow True
+    
+    transform battle_cords_hero:
+        xpos 20 ypos 69
+    transform battle_cords_enemy:
+        xpos 475 ypos 69
+        
+    transform battle_hero_domage:
+        xpos 280 ypos 120
+        linear 0.5 xpos 260 ypos 135
+        pause 0.5
+        'Battle/Effects/empty.png'
+    transform battle_enemy_domage:
+        xpos 735 ypos 120
+        linear 0.5 xpos 715 ypos 135
+        pause 0.5
+        'Battle/Effects/empty.png'
+    
+    image effect_hit:
+        'Battle/Effects/hit1.png'
+        pause 0.1
+        'Battle/Effects/hit2.png'
+        pause 0.1
+        'Battle/Effects/hit3.png'
+        pause 0.1
+        'Battle/Effects/hit4.png'
+        pause 0.1
+        'Battle/Effects/hit5.png'
+        pause 0.1
+        'Battle/Effects/empty.png'
+        
+    image effect_bite:
+        'Battle/Effects/bite1.png'
+        pause 0.1
+        'Battle/Effects/bite2.png'
+        pause 0.1
+        'Battle/Effects/bite3.png'
+        pause 0.1
+        'Battle/Effects/bite4.png'
+        pause 0.1
+        'Battle/Effects/bite5.png'
+        pause 0.1
+        'Battle/Effects/bite6.png'
+        pause 0.1
+        'Battle/Effects/empty.png'
+    
+    
+    
+    
+label battle_label:
+    show expression 'Battle/down.png'
+    show expression hero.picture
+    show expression getattr (enemy, 'picture')
+    call screen Battle_window
     
     
     
 screen Battle_window:
     zorder 50
-    button:
-        background 'Battle/down.png'
-        action NullAction()
+    #button:
+    #    background 'Battle/down.png'
+    #    action NullAction()
         
-    button:
-        background hero.picture
-        action NullAction()
+    #button:
+    #    background hero.picture
+    #    action NullAction()
         
-    button:
-        background getattr(enemy, 'picture')
-        action NullAction()
+    #button:
+    #    background getattr(enemy, 'picture')
+    #    action NullAction()
         
     bar:
         xpos 22 ypos 38
@@ -262,3 +350,7 @@ screen EnemyLol:
     zorder 52
     add effect1
         
+    
+label battle_effect:
+    show expression battle_effect:
+        xpos battle_effect_x ypos battle_effect_y
