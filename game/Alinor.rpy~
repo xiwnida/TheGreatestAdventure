@@ -23,12 +23,12 @@ jump alinor_capital_plaza
 label alinor_capital_gorod:
     $ EverydayRandom()
     $ location("Alinor", "trading_area", "alinor_stolica")
-    #call_shop(amy_shop, weapon=True, food=True)
+    #$call_shop(amy_shop, weapon=True, food=True)
     #$ buttons('trading_area', 4, ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
     $enemy=alinor_rat
     $hero.skills.append([DefenseStance, 'defense_stance', defense_stance])
     $hero.skills.append([DefenseStance, 'two', two])
-    call screen Battle_window()
+    call battle_label
 jump alinor_capital_gorod
         
 #=======================Столица. Улица, на которой дом Джека=================================
