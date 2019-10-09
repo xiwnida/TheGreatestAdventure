@@ -12,12 +12,9 @@ init python:
     style.hpbar.xmaximum = 297 
     style.hpbar.ymaximum = 26
 
-
-    
 #==============Функция, меняющая фон и музыку локаций=======================
     def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
         global location_image
-        global day_time
         global this_location
         this_location=city+'_'+loca
         if not inside:
@@ -121,32 +118,38 @@ init python:
         shop_name.sell_drop=drop
         shop_name.sell_paper=paper
         
-        if shop_name.buy_weapon:
+        if shop_name.weapon:
             shop_active_mode='weapon'
-        elif shop_name.buy_jeveler:
+        elif shop_name.jeveler:
             shop_active_mode='jeveler'
-        elif shop_name.buy_alchemy:
+        elif shop_name.alchemy:
             shop_active_mode='alchemy'
-        elif shop_name.buy_food:
+        elif shop_name.food:
             shop_active_mode='food'
-        elif shop_name.buy_drop:
+        elif shop_name.drop:
             shop_active_mode='drop'
-        elif shop_name.buy_paper:
+        elif shop_name.paper:
             shop_active_mode='paper'
         
         renpy.call_screen('game_shop')
-        
+
 #================Функции для перевода в экшен кнопки====================
         
+#================Для перемещения по кнопкам===============
+
     def goto_button(i):
         renpy.jump(gotoarray[i])
         
-#================Прибавить один к покупке\продаже в магазине===========        
-    def shop_plus():
-        global shop_item_quantity
-        global shop_item_quantity_for
+#================Обновление экрана==============
+
+    def restart_screen():
+        renpy.restart_interaction()
         
-        if shop_item_quantity<shop_item_quantity_for:
+#================Прибавить один к покупке\продаже в магазине===========        
+    def shop_plus(item):
+        global shop_item_quantity
+        
+        if shop_item_quantity<item[1]:
             shop_item_quantity+=1
         else:
             shop_item_quantity=1
@@ -154,53 +157,51 @@ init python:
         renpy.restart_interaction()
        
 #================Отнять один к покупке\продаже в магазине===========              
-    def shop_minus():
+    def shop_minus(item):
         global shop_item_quantity
-        global shop_item_quantity_for
         
         if shop_item_quantity !=1:
             shop_item_quantity-=1
         else:
-            shop_item_quantity=shop_item_quantity_for
+            shop_item_quantity=item[1]
             
         renpy.restart_interaction()
+              
+#================Вычислить цену и прибыль в магазине=================
+
+    def shop_price(shop_name, item, quantity):
+        if item:
+            shop_name.itemPrice = (item[0].price[2] + item[0].price[1]*100 + item[0].price[0]*2000) * quantity          
+        else:
+            shop_name.itemPrice = 0
         
 #================Выбор предмета и изменение его информации===========              
-    def shop_item_position(i, shop_mode):
+    def shop_item_position(i, mode, name):
         global shop_item_quantity
-        global shop_item_quantity_for
-        global shop_item_name_item
-        global shop_item_number
-        global shop_item_picture
-        global shop_item_description
-        global shop_item_lists
+        global selected_item
 
+        selected_item = (getattr(name, mode))[i]
+        
         shop_item_quantity=1
-        shop_item_description=(getattr(shop_name, shop_mode))[i][0].description
-        shop_item_name_item=(getattr(shop_name, shop_mode))[i][0].name
-        shop_item_quantity_for=(getattr(shop_name, shop_mode))[i][1]
-        shop_item_picture=(getattr(shop_name, shop_mode))[i][0].picture
+
         renpy.restart_interaction()
         
 #==============Автоматический выбор активного режима магазина==========
     def active_mode():
-        global shop_name
         global shop_active_mode
-        global shop_buy
-        global shop_sell
         
         if shop_buy:
-            if shop_name.buy_weapon:
+            if shop_name.weapon:
                 shop_active_mode='weapon'
-            elif shop_name.buy_jeveler:
+            elif shop_name.jeveler:
                 shop_active_mode='jeveler'
-            elif shop_name.buy_alchemy:
+            elif shop_name.alchemy:
                 shop_active_mode='alchemy'
-            elif shop_name.buy_food:
+            elif shop_name.food:
                 shop_active_mode='food'
-            elif shop_name.buy_drop:
+            elif shop_name.drop:
                 shop_active_mode='drop'
-            elif shop_name.buy_paper:
+            elif shop_name.paper:
                 shop_active_mode='paper'
             
         if shop_sell:
@@ -216,17 +217,43 @@ init python:
                 shop_active_mode='drop'
             elif shop_name.sell_paper:
                 shop_active_mode='paper'
-     
-#============Прокрутка магазина вниз=============
-    def scroll_down():
-        global shop_item_lists
-        shop_item_lists+=2
+                
+#============Покупка предмета==================
+
+    def shop_buy_item(item, quantity, shop_name, gold, silver, bronze):
+        global selected_item
+        global shop_item_quantity
+        global shop_item_select
+        
+        inventory.addItem(item, quantity)
+        shop_name.delItem(item, quantity)
+        
+        if all(item not in array for array in getattr(shop_name, item.mode)):
+            shop_item_quantity = 0
+            selected_item = 0
+            shop_item_select = 0
+
+        wallet.delMoney(gold, silver, bronze)
+
         renpy.restart_interaction()
         
-#============Прокрутка магазина вверх=============
-    def scroll_up():
-        global shop_item_lists
-        shop_item_lists-=2
+#============Продажа предмета==================
+
+    def shop_sell_item(item, quantity, shop_name, gold, silver, bronze):
+        global selected_item
+        global shop_item_quantity
+        global shop_item_select
+        
+        inventory.delItem(item, quantity)
+        shop_name.addItem(item, quantity)
+        
+        if all(item not in array for array in getattr(inventory, item.mode)):
+            shop_item_quantity = 0
+            selected_item = 0
+            shop_item_select = 0
+
+        wallet.addMoney(gold, silver, bronze)
+
         renpy.restart_interaction()
                
 #==========Превращение функций в экшен-действия для кнопок=============
@@ -235,8 +262,9 @@ init python:
     shop_minus= renpy.curry(shop_minus)
     shop_item_position = renpy.curry(shop_item_position)
     active_mode=renpy.curry(active_mode)
-    scroll_down=renpy.curry(scroll_down)
-    scroll_up=renpy.curry(scroll_up)
+    restart_screen=renpy.curry(restart_screen)
+    shop_buy_item=renpy.curry(shop_buy_item)
+    shop_sell_item=renpy.curry(shop_sell_item)
 
 init:
 
@@ -283,6 +311,55 @@ init:
     image jack hehe = "Chara/GG/hehe.png"
     image jack hehe2 = "Chara/GG/hehe2.png"
     
+    $jack = ['norm', 'normal']
+    image new jack = LiveComposite((420, 479),  
+        (0, 0), ConditionSwitch(
+            "jack[0] == 'auch'", "Chara/GG2/Emotion/auch.png", 
+            "jack[0] == 'duma'", "Chara/GG2/Emotion/duma.png", 
+            "jack[0] == 'hehe'", "Chara/GG2/Emotion/hehe.png",
+            "jack[0] == 'hehe2'", "Chara/GG2/Emotion/hehe2.png",
+            "jack[0] == 'hehe3'", "Chara/GG2/Emotion/hehe3.png",
+            "jack[0] == 'nepon'", "Chara/GG2/Emotion/nepon.png",
+            "jack[0] == 'nepon2'", "Chara/GG2/Emotion/nepon2.png",
+            "jack[0] == 'nepon3'", "Chara/GG2/Emotion/nepon3.png",
+            "jack[0] == 'neponsmile'", "Chara/GG2/Emotion/neponsmile.png",
+            "jack[0] == 'neponsmile2'", "Chara/GG2/Emotion/neponsmile2.png",
+            "jack[0] == 'horm'", "Chara/GG2/Emotion/horm.png",
+            "jack[0] == 'out'", "Chara/GG2/Emotion/out.png",
+            "jack[0] == 'pohab'", "Chara/GG2/Emotion/pohab.png",
+            "jack[0] == 'pohabclose'", "Chara/GG2/Emotion/pohabclose.png",
+            "jack[0] == 'sad'", "Chara/GG2/Emotion/sad.png",
+            "jack[0] == 'sad2'", "Chara/GG2/Emotion/sad2.png",
+            "jack[0] == 'serdit'", "Chara/GG2/Emotion/serdit.png",
+            "jack[0] == 'shock'", "Chara/GG2/Emotion/shock.png",
+            "jack[0] == 'shock2'", "Chara/GG2/Emotion/shock2.png",
+            "jack[0] == 'smeh'", "Chara/GG2/Emotion/smeh.png",
+            "jack[0] == 'smeh2'", "Chara/GG2/Emotion/smeh2.png",
+            "jack[0] == 'smile'", "Chara/GG2/Emotion/smile.png",
+            "jack[0] == 'smile2'", "Chara/GG2/Emotion/smile2.png",
+            "jack[0] == 'smile3'", "Chara/GG2/Emotion/smile3.png",
+            "jack[0] == 'smile3brush'", "Chara/GG2/Emotion/smile3brush.png",
+            "jack[0] == 'smileclose'", "Chara/GG2/Emotion/smileclose.png",
+            "jack[0] == 'smileclose2'", "Chara/GG2/Emotion/smileclose2.png",
+            "jack[0] == 'smileclose3'", "Chara/GG2/Emotion/smileclose3.png",
+            "jack[0] == 'udiv'", "Chara/GG2/Emotion/udiv.png",
+            "jack[0] == 'zol'", "Chara/GG2/Emotion/zol.png",
+            "jack[0] == 'zolkapl'", "Chara/GG2/Emotion/zolkapl.png"
+            ),
+        (0,0), ConditionSwitch(
+            "jack[1] == 'normal'", "Chara/GG2/Pose/normal.png",
+            "jack[1] == 'belt'", "Chara/GG2/Pose/Belt.png",
+            "jack[1] == 'belt_forward'", "Chara/GG2/Pose/Belt_forward.png",
+            "jack[1] == 'forward'", "Chara/GG2/Pose/forward_both.png",
+            "jack[1] == 'forward_left'", "Chara/GG2/Pose/forward_left.png",
+            "jack[1] == 'forward_right'", "Chara/GG2/Pose/forward_right.png",
+            "jack[1] == 'head'", "Chara/GG2/Pose/head.png",
+            "jack[1] == 'head_belt'", "Chara/GG2/Pose/head_belt.png",
+            "jack[1] == 'mouth'", "Chara/GG2/Pose/mouth.png",
+            "jack[1] == 'mouth_belt'", "Chara/GG2/Pose/mouth_belt.png"
+            ))
+        
+    
     image butler norm = "Chara/Butler/norm.png"
     
     image korol norm = "Chara/Korol/norm.png"
@@ -326,7 +403,7 @@ init:
     image gold = "Invent/Money/gold.png"
     
 #==============Реплики=====================================
-    $ bangirl = Character(u'Красивая девушка', color="d24f4b")
+    #$ bangirl = Character(u'Красивая девушка', color="d24f4b")
     
 #==============Головы персонажей Алинора=====================================
     $ bangirl_hah = Character(show_side_image=Image("Chara/Bandits/Bandgirl_hah_mini.png", xalign=0.0, yalign=1.0))
@@ -422,6 +499,8 @@ init:
     
     $effect1='Battle/1.png'
     
+    $screen_name_to_hide = "" #Хранит название экрана, который требуется закрыть
+    
 #==============Трансформации для экранов=================
     transform battle_dissolve:
         on show:
@@ -433,21 +512,6 @@ init:
             alpha 1.0
             pause(1)
             linear .2 alpha 0.0
-            
-    image effect1:
-        'Battle/1.png'
-        pause 0.1
-        'Battle/2.png'
-        pause 0.1
-        'Battle/3.png'
-        pause 0.1
-        'Battle/4.png'
-        pause 0.1
-        'Battle/5.png'
-        pause 0.1
-        'Battle/0.png'
-
-
 
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
 
@@ -531,5 +595,5 @@ screen location_buttons():
             
     
 label button_menu:
-    call call_menu
+    call call_menu from _call_call_menu_1
     jump expression gotoarray[0]

@@ -6,9 +6,6 @@ init python:
     import os
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     # автоматическое объявление изображений
-    config.automatic_images_minimum_components = 1
-    config.automatic_images = [' ', '_', '/']
-    config.automatic_images_strip = ['Images/Invent']
 
     # размеры сетки с инвентарем настраиваются
     columns = 6

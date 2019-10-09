@@ -1,197 +1,33 @@
 ﻿# Здесь будет скрипт вашей визуальной новеллы.
 
-init:
-    # Фоны
-    image dom = "Images/Alinor/dom.jpg"
-    image sad dvorca = "Images/Alinor/sad_dvorca.jpg"
-    image koridor dvorca = "Images/Alinor/koridor1.jpg"
-    image kabinet dvorca = "Images/Alinor/kabinet1.jpg"
-    image kabinet dvorca1 = "Images/Alinor/kabinet2.jpg"
-    image sad dvorca1 = "Images/Alinor/sad_dvorca1.jpg"
-    image vorota dvorca = "Images/Alinor/vorota1.jpg"
-    image vorota dvorca zakat = "Images/Alinor/vorota2.jpg"
-    image alinor stolploshad = "Images/Alinor/ul2.jpg"
-    image alinor stolploshadzakat = "Images/Alinor/ul2.1.jpg"
-    image alinor ulvashdom = "Images/Alinor/ul1.jpg"
-    image alinor ulvashdomzakat = "Images/Alinor/ul1.1.jpg"
-    image alinor glavul = "Images/Alinor/ul3.jpg"
-    image alinor vashdom = "Images/Alinor/dom1.jpg"
-    image alinor domspal = "Images/Alinor/domspal.jpg"
-    image alinor pereulok = "Images/Alinor/ul4.jpg"
-    image alinor pereulokzakat = "Images/Alinor/ul4.1.jpg"
-    image alinor cerkov = "Images/Alinor/cerkov1.jpg"
-    image alinor cerkovzakat = "Images/Alinor/cerkov2.jpg"
-    
-    # Диалоги с персонажами
-    image shopper girl = "Images/Character/Shopper_Girl.jpg"
-    
-    # Персонажи
-    image jack smile = "Chara/GG/smile.png"
-    image jack smile2 = "Chara/GG/smile2.png"
-    image jack smile close = "Chara/GG/smile_close.png"
-    image jack smile close2 = "Chara/GG/smile_close2.png"
-    image jack smile close3 = "Chara/GG/smile_close3.png"
-    image jack nepon = "Chara/GG/nepon.png"
-    image jack nepon2 = "Chara/GG/nepon2.png"
-    image jack serdit = "Chara/GG/serdit.png"
-    image jack neponsmile = "Chara/GG/neponsmile.png"
-    image jack neponsmile2 = "Chara/GG/neponsmile2.png"
-    image jack norm = "Chara/GG/norm.png"
-    image jack smeh = "Chara/GG/smeh.png"
-    image jack smeh2 = "Chara/GG/smeh2.png"
-    image jack duma = "Chara/GG/duma.png"
-    image jack udiv = "Chara/GG/udiv.png"
-    image jack sad = "Chara/GG/sad.png"
-    image jack zol = "Chara/GG/zol.png"
-    image jack zolkapl = "Chara/GG/zolkapl.png"
-    image jack hehe = "Chara/GG/hehe.png"
-    image jack hehe2 = "Chara/GG/hehe2.png"
-    
-    image butler norm = "Chara/Butler/norm.png"
-    
-    image korol norm = "Chara/Korol/norm.png"
-    image korol hvur = "Chara/Korol/hmur.png"
-    image korol udiv = "Chara/Korol/udiv.png"
-    
-    image bankid hah = "Chara/Bandits/Bandkid_hah.png"
-    image bankid norm = "Chara/Bandits/Bandkid_norm.png"
-    image bangirl hah = "Chara/Bandits/Bandgirl_hah.png"
-    image bangirl smile = "Chara/Bandits/Bandgirl_smile.png"
-    image bangirl smile2 = "Chara/Bandits/Bandgirl_smile2.png"
-    image bangirl ero = "Chara/Bandits/Bandgirl_ero.png"
-    image bantop cool = "Chara/Bandits/Bandtop_cool.png"
-    image bantop fight = "Chara/Bandits/Bandtop_fight.png"
-    image bantop hah = "Chara/Bandits/Bandtop_hah.png"
-    image bantop hmur = "Chara/Bandits/Bandtop_hmur.png"
-    image bantop norm = "Chara/Bandits/Bandtop_norm.png"
-    image bantop zlo = "Chara/Bandits/Bandtop_zlo.png"
-    
-    image driver1 norm = "Chara/Train Driver/norm.png"
-    image driver1 duma = "Chara/Train Driver/duma.png"
-    image driver1 udiv = "Chara/Train Driver/udiv.png"
-    image driver1 udiv2 = "Chara/Train Driver/udiv2.png"
-    image driver1 shock = "Chara/Train Driver/shock.png"
-    
-    # Предметы и прочее
-    image svitok1 = "Images/svitok1.jpg"
-    image svitok2 = "Images/svitok2.jpg"
-    image naslutro = "Images/naslutro.png"
-    image tenmin = "Images/10min.png"
-    image viborkorol = "Images/viborkorol.png"
-    image konec1 = "Images/konec1.png"
-    image konec2 = "Images/konec2.png"
-    image konec3 = "Images/konec3.png"
-    image koroldal = "Images/koroldal.jpg"
-    image dopusk = "Images/dopusk.jpg"
-    image ograblenie = "Images/ograblenie.png"
-    image talkmenu = "Talking/Talk_menu.png"
-    image hidmenu = "Talking/Hidden_menu.png"
-    image callmenu = "Talking/menu.png" 
-    image gold = "Invent/Money/gold.png"
-
-    # Реплики
-    $ bangirl = Character(u'Красивая девушка', color="d24f4b")
-    
-    #Головы персонажей Алинора
-    $ bangirl_hah = Character(show_side_image=Image("Chara/Bandits/Bandgirl_hah_mini.png", xalign=0.0, yalign=1.0))
-    $ bangirl_smile = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile_mini.png", xalign=0.0, yalign=1.0))
-    $ bangirl_smile2 = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile2_mini.png", xalign=0.0, yalign=1.0))
-    $ bankid_hah = Character(show_side_image=Image("Chara/Bandits/Bandkid_hah_mini.png", xalign=0.0, yalign=1.0))
-    $ bankid_norm = Character(show_side_image=Image("Chara/Bandits/Bandkid_norm_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_hah = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_hah_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_cool = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_cool_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_hmur = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_hmur_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_norm = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_norm_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_zlo = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_zlo_mini.png", xalign=0.0, yalign=1.0))
-    $ butler = Character(show_side_image=Image("Chara/Butler/Butler_box.png", xalign=0.0, yalign=1.0))
-    $ korol = Character(show_side_image=Image("Chara/Korol/Korol_box.png", xalign=0.0, yalign=1.0))
-    $ man_voice = Character(show_side_image=Image("Chara/Man_voice.png", xalign=0.0, yalign=1.0))
-    $ woman_voice = Character(show_side_image=Image("Chara/Woman_voice.png", xalign=0.0, yalign=1.0))
-    $ driver1_duma = Character(show_side_image=Image("Chara/Train driver/duma_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_norm = Character(show_side_image=Image("Chara/Train driver/norm_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_shock = Character(show_side_image=Image("Chara/Train driver/shock_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_udiv = Character(show_side_image=Image("Chara/Train driver/udiv_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_udiv2 = Character(show_side_image=Image("Chara/Train driver/udiv2_box.png", xalign=0.0, yalign=1.0))
-    
-    #Головы Джека
-    $ j_auch = Character(show_side_image=Image("Chara/Mini GG/Auch.png", xalign=0.0, yalign=1.0))
-    $ j_duma = Character(show_side_image=Image("Chara/Mini GG/Duma.png", xalign=0.0, yalign=1.0))
-    $ j_hehe = Character(show_side_image=Image("Chara/Mini GG/Hehe.png", xalign=0.0, yalign=1.0))
-    $ j_hehe2 = Character(show_side_image=Image("Chara/Mini GG/Hehe2.png", xalign=0.0, yalign=1.0))
-    $ j_hehe3 = Character(show_side_image=Image("Chara/Mini GG/Hehe3.png", xalign=0.0, yalign=1.0))
-    $ j_nepon = Character(show_side_image=Image("Chara/Mini GG/Nepon.png", xalign=0.0, yalign=1.0))
-    $ j_nepon2 = Character(show_side_image=Image("Chara/Mini GG/Nepon2.png", xalign=0.0, yalign=1.0))
-    $ j_nepon3 = Character(show_side_image=Image("Chara/Mini GG/Nepon3.png", xalign=0.0, yalign=1.0))
-    $ j_neponsmile = Character(show_side_image=Image("Chara/Mini GG/Neponsmile.png", xalign=0.0, yalign=1.0))
-    $ j_neponsmile2 = Character(show_side_image=Image("Chara/Mini GG/Neponsmile2.png", xalign=0.0, yalign=1.0))
-    $ j_norm = Character(show_side_image=Image("Chara/Mini GG/Norm.png", xalign=0.0, yalign=1.0))
-    $ j_out = Character(show_side_image=Image("Chara/Mini GG/Out.png", xalign=0.0, yalign=1.0))
-    $ j_pohab = Character(show_side_image=Image("Chara/Mini GG/Pohab.png", xalign=0.0, yalign=1.0))
-    $ j_pohab_close = Character(show_side_image=Image("Chara/Mini GG/Pohab_close.png", xalign=0.0, yalign=1.0))
-    $ j_sad = Character(show_side_image=Image("Chara/Mini GG/Sad.png", xalign=0.0, yalign=1.0))
-    $ j_sad2 = Character(show_side_image=Image("Chara/Mini GG/Sad2.png", xalign=0.0, yalign=1.0))
-    $ j_serdit = Character(show_side_image=Image("Chara/Mini GG/Serdit.png", xalign=0.0, yalign=1.0))
-    $ j_shock = Character(show_side_image=Image("Chara/Mini GG/Shock.png", xalign=0.0, yalign=1.0))
-    $ j_shock2 = Character(show_side_image=Image("Chara/Mini GG/Shock2.png", xalign=0.0, yalign=1.0))
-    $ j_smeh = Character(show_side_image=Image("Chara/Mini GG/Smeh.png", xalign=0.0, yalign=1.0))
-    $ j_smeh2 = Character(show_side_image=Image("Chara/Mini GG/Smeh2.png", xalign=0.0, yalign=1.0))
-    $ j_smile = Character(show_side_image=Image("Chara/Mini GG/Smile.png", xalign=0.0, yalign=1.0))
-    $ j_smile2 = Character(show_side_image=Image("Chara/Mini GG/Smile2.png", xalign=0.0, yalign=1.0))
-    $ j_smile3 = Character(show_side_image=Image("Chara/Mini GG/Smile3.png", xalign=0.0, yalign=1.0))
-    $ j_smile4 = Character(show_side_image=Image("Chara/Mini GG/Smile4.png", xalign=0.0, yalign=1.0))
-    $ j_smile4_blush = Character(show_side_image=Image("Chara/Mini GG/Smile4_blush.png", xalign=0.0, yalign=1.0))
-    $ j_smile_close = Character(show_side_image=Image("Chara/Mini GG/Smile_close.png", xalign=0.0, yalign=1.0))
-    $ j_smile_close2 = Character(show_side_image=Image("Chara/Mini GG/Smile_close2.png", xalign=0.0, yalign=1.0))
-    $ j_smile_close3 = Character(show_side_image=Image("Chara/Mini GG/Smile_close3.png", xalign=0.0, yalign=1.0))
-    $ j_zol = Character(show_side_image=Image("Chara/Mini GG/Zol.png", xalign=0.0, yalign=1.0))
-    $ j_udiv = Character(show_side_image=Image("Chara/Mini GG/Udiv.png", xalign=0.0, yalign=1.0))
-    $ j_zolkapl = Character(show_side_image=Image("Chara/Mini GG/Zolkapl.png", xalign=0.0, yalign=1.0))
-    
-    
-    # Переменные
-    $ korol_dal_karta = False
-    $ korol_dal_money = False
-    $ korol_dal_dokument = False
-    $ money_gold = 0 # Эта переменная покажет, сколько у вас золота.
-    $ money_silver = 0 # Эта переменная покажет, сколько у вас серебра.
-    $ money_bronz = 0 # Эта переменная покажет, сколько у вас бронзы.
-    $ first_start = False # Эта переменная нужна для перехода на второй скрипт.
-    $ ludzem = 1 # Эта переменная покажет, сколько стран вы уже открыли.
-    $ strana = u"Алинор" # Эта переменная указывает, в какой стране вы находитесь.
-    $ alinor_stolica = True # Эти переменные покажут, в каких местах вы уже побывали.
-    $ sobrat_veshi = False # Эта переменная не даст уйти из гостиной, пока вы не собрались в путешествие.
-    $ vzat_blank = False # Эта переменная не даст уйти из гостинной, пока вы не взяли блокнот.
-    $ lech_na_krovat = False # Эта переменная позволяет полежать на кровати только один раз.
-    $ muzika = "Nope" # Эта переменная показывает, какая в данный момент играет музыка.
-    $ event = "Nope" # Эта переменная отвечает за одноразовые события.
-    $ no_fade = False # Эта переменная нужна, чтобы после отключения меню не сработал fade эффект (ох, костыли!)
-    $ scene_p = "Nope" # Эта переменная нужна, чтобы показать нужную сцену перед иммедж картой
-    $ day_time = True # Эта переменная нужна, чтобы включить закатную сцену вечером
-
 # Отсюда начинается игра.
 label start:
     play music "Music/Alinor/Vash_dom.ogg"
     $ muzika = "Alinor_vash_dom"
     scene dom with fade
     
+    jump alinor_capital_gorod
+    
     "Это был обычный день, такой же, как и все."
     "Вы сидели в кресле у камина и отдыхали, размышляя над тем, как бы завтра подзаработать."
-    show jack smile at left with dissolve
+    #show jack smile at left with dissolve
+    $jack = ['smile', 'normal']
+    show new jack at left with dissolve
     j_smile "Ох, ну и удачно сегодня сложились дела!"
-    show jack smile close2 at left
+    $jack[0] = 'smileclose2'
     j_smile_close2 "Если бы каждый день приносил столько денег, я бы работал без выходных!"
-    show jack serdit at left
+    $jack = ['serdit','belt']
     j_serdit "К сожалению, работа по контракту не всегда выходит удачной."
-    show jack smile at left
+    $jack = ['smile', 'normal']
     j_smile "Ну да ладно, подумаю об этом завтра."
     j_smile "А сейчас, пожалуй, пора спать."
     
     play sound "Music/stuk_v_dver.mp3"
     $ renpy.pause (6.0)
     
-    show jack nepon at left
+    $jack[0] = 'nepon'
     j_nepon "Хм? Кто это может быть так поздно?"
-    hide jack nepon with dissolve
+    hide new jack with dissolve
     "Вы подошли к двери и открыли ее."
     "Снаружи оказался почтальон, который передал вам письмо."
     "Вернувшись в уютную комнату и усевшись на кресло, вы распечатали письмо, вчитываясь в аккуратные рукописные строчки."
@@ -202,7 +38,7 @@ label start:
     (254, 218, 546, 343, "Развернуть свиток")
     ])
     if result == "Развернуть свиток":
-     jump svitok1
+        jump svitok1
 
 label svitok1:
 
@@ -211,7 +47,7 @@ label svitok1:
     (258, 112, 540, 516, "Убрать свиток")
     ])
     if result == "Убрать свиток":
-     jump svitok2
+        jump svitok2
 label svitok2:
     
     scene dom
@@ -331,9 +167,9 @@ label svitok2:
     (185, 303, 615, 351, "Отклонить")
     ])
     if result == "Принять":
-     jump prinyat
+        jump prinyat
     elif result == "Отклонить":
-     jump otklonit
+        jump otklonit
     
 label otklonit:
     show jack neponsmile2 at left
@@ -483,181 +319,73 @@ label koroldal1:
     j_smile "{i}Ну, мне тоже пора.{/i}"
     scene black with fade
     $ renpy.pause (1.0)
-
-label alinor_vorota_dvorca1:
     
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
     
-    if first_start == False:    
-        scene vorota dvorca
-        show jack smile
-        with fade
+#==================Ворота в сад======================
+label alinor_vorota_dvorca1:  
+    $ location("Alinor", "vorota", "alinor_stolica")
+    if first_start == False:
+        show jack smile with dissolve
         "{i}Информация для справки.{/i}"
         "{i}У вас есть доступ к рюкзаку и карте. Для этого необходимо открыть меню, нажав на его краюшек в верхнем правом углу.{/i}"
         "{i}В рюкзаке хранятся все ваши вещи, которые вы будете получать по ходу путешествия.{/i}"
         "{i}Кроме того, в нем можно посмотреть, сколько у вас на данный момент монет (кошелек), узнать, у кого и какие задания вы взяли (блокнот), и проверить дату и ваше состояние (календарь).{/i}"
         "{i}Карта позволит вам узнать, где вы находитесь в данный момент, и в целом свериться с обстановкой.{/i}"
-        call time2
+        call time2 from _call_time2
         show jack smeh2
         j_smeh2 "Такие дела!"
         show jack smile
         j_smile "Между прочим, сейчас неплохо было бы сходить домой, собрать пару походных комплектов одежды."
         hide jack smile with dissolve
         $ first_start = True
-    else:
-        scene vorota dvorca
-        if no_fade == False:
-            with fade
+    $ buttons('vorota', 2, ['alinor_vorota_dvorca1' , 'alinor_vorota_dvorca1.garden' , 'alinor_glavn_ul1'])
+    jump alinor_vorota_dvorca1
 
-    $ result = renpy.imagemap("Images/Alinor/vorota1.jpg", "Images/Alinor/vorota1akt.jpg", [
-    (705, 1, 731, 38, "Меню"),
-    (285, 255, 490, 503, "Cад"),
-    (225, 535, 610, 599, "На главную улицу")
-    ])
-    if result == "Cад":
-        show jack smile at left with dissolve
-        j_smile "Сейчас мне незачем возвращаться."
-        j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
-        hide jack smile with dissolve
-    if result == "На главную улицу":
-        jump alinor_glavn_ul1
-    elif result == "Меню":
-        call call_menu
-jump alinor_vorota_dvorca1
+label .garden:
+    show jack smile at left with dissolve
+    j_smile "Сейчас мне незачем возвращаться."
+    j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
+    hide jack smile with dissolve
+    $ no_fade = True
+    jump alinor_vorota_dvorca1
 
+
+#==================Главная улица столицы======================
 label alinor_glavn_ul1:
-    scene alinor glavul
-    if no_fade == False:
-        with fade    
-
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul3.png", "Images/Alinor/ul3akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (290, 548, 625, 599, "На площадь"),
-    (570, 375, 710, 547, "Ко дворцу")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "На площадь":
-        jump alinor_pereulok1
-    elif result == "Ко дворцу":
-        jump alinor_vorota_dvorca1
+    $ location("Alinor", "ul_plaza", "alinor_stolica")
+    $buttons('ul_plaza', 2, ['alinor_glavn_ul1' , 'alinor_pereulok1' , 'alinor_vorota_dvorca1'])
 jump alinor_glavn_ul1
 
+#==================Переулок======================
 label alinor_pereulok1:
-    scene alinor pereulok
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul4.png", "Images/Alinor/ul4akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (225, 535, 610, 599, "На площадь"),
-    (422, 155, 535, 315, "На главную улицу")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "На площадь":
-        jump alinor_gorod1
-    elif result == "На главную улицу":
-        jump alinor_glavn_ul1
+    $ location("Alinor", "pereulok", "alinor_stolica")
+    $buttons('pereulok', 2, ['alinor_pereulok1' , 'alinor_gorod1' , 'alinor_glavn_ul1'])
 jump alinor_pereulok1
 
+#==================Торговая площадь======================
 label alinor_gorod1: 
-    scene alinor stolploshad
-    if no_fade == False:
-       with fade
-        
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul2.png", "Images/Alinor/ul2akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (392, 294, 515, 390, "На главную улицу"),
-    (192, 500, 643, 599, "К вашему дому")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "К вашему дому":
-        jump alinor_ul_dom1
-    if result == "На главную улицу":
-        jump alinor_pereulok1
+    $ location("Alinor", "trading_area", "alinor_stolica")
+    $buttons('trading_area', 2, ['alinor_gorod1' , 'alinor_ul_dom1' , 'alinor_pereulok1'])
 jump alinor_gorod1
 
+#==================Улица где дом Джека======================
 label alinor_ul_dom1:
-    scene alinor ulvashdom
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul1.png", "Images/Alinor/ul1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (290, 243, 410, 360, "Домой"),
-    (440, 247, 557, 365, "На площадь")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "Домой":
-        jump alinor_vash_dom1
-    elif result == "На площадь":
-        jump alinor_gorod1
+    $ location("Alinor", "ul_dom", "alinor_stolica")
+    $buttons('ul_dom', 2, ['alinor_ul_dom1' , 'alinor_vash_dom1' , 'alinor_gorod1'])
 jump alinor_ul_dom1
 
+#==================Дом Джека======================
 label alinor_vash_dom1:
-    scene alinor vashdom
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
-    $ result = renpy.imagemap("Images/Alinor/dom1.png", "Images/Alinor/dom1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (292, 186, 421, 498, "В спальную"),
-    (224, 525, 629, 599, "На улицу")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "В спальную":
-        jump alinor_dom_spal1
-    elif result == "На улицу":
-        jump alinor_ul_dom1
+    $ location("Alinor", "dom", "alinor_vash_dom", True)
+    $buttons('dom', 2, ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom1'], True)
 jump alinor_vash_dom1
 
+#==================Спальня======================
 label alinor_dom_spal1:
     scene alinor domspal
     if no_fade == False:
        with fade
     
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
 label alinor_dom_spal10:
     $ result = renpy.imagemap("Images/Alinor/domspal.png", "Images/Alinor/domspalakt.png", [
     (705, 1, 731, 38, "Меню"),
@@ -708,7 +436,7 @@ label alinor_dom_spal10:
             with vpunch
             j_zolkapl "Я УСНУЛ!!!"
             j_zolkapl "КАКОЙ СЕЙЧАС ГОД?!"
-            call time2
+            call time2 from _call_time2_1
             show jack serdit
             $ renpy.pause (1.0)
             j_serdit "Солнце уже садится..."
@@ -716,7 +444,7 @@ label alinor_dom_spal10:
             j_serdit "Делать нечего, нужно выходить прямо сейчас, чтобы не терять больше времени!"
             hide jack serdit with dissolve
             $ lech_na_krovat = True
-            $ event = u"Ограбление"
+            $ day_time='zakat'
             jump alinor_dom_spal10
         else:
             show jack serdit with dissolve
@@ -769,88 +497,31 @@ label alinor_dom_spal10:
             jump alinor_dom_spal10
 jump alinor_dom_spal1
 
+#==================Дом Джека======================
 label alinor_vash_dom2:
-    scene alinor vashdom
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_vash_dom":
-        pass
-    else:
-        play music "Music/Alinor/Vash_dom.ogg"
-        $ muzika = "Alinor_vash_dom"
-    $ result = renpy.imagemap("Images/Alinor/dom1.png", "Images/Alinor/dom1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (292, 186, 421, 498, "В спальную"),
-    (224, 525, 629, 599, "На улицу")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "В спальную":
-        jump alinor_dom_spal1
-    elif result == "На улицу":
-        jump alinor_ul_dom2
+    $ location("Alinor", "dom", "alinor_vash_dom", True)
+    $buttons('dom', 2, ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom2'], True)
 jump alinor_vash_dom2
 
+#==================Улица где дом Джека======================
 label alinor_ul_dom2:
-    scene alinor ulvashdomzakat
-    if no_fade == False:
-       with fade
-    
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul1.1.png", "Images/Alinor/ul1.1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (290, 243, 410, 360, "Домой"),
-    (440, 247, 557, 365, "На площадь")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "Домой":
-        jump alinor_vash_dom2
-    elif result == "На площадь":
-        jump alinor_gorod2
+    $ location("Alinor", "ul_dom", "alinor_stolica")
+    $buttons('ul_dom', 2, ['alinor_ul_dom1' , 'alinor_vash_dom2' , 'alinor_gorod2'])
 jump alinor_ul_dom2
 
+#==================Торговая площадь======================
 label alinor_gorod2: 
-    scene alinor stolploshadzakat
-    if no_fade == False:
-       with fade
-        
-    if muzika == "Alinor_stolica":
-        pass
-    else:
-        play music "Music/Alinor/stolica.ogg"
-        $ muzika = "Alinor_stolica"
-        
-    $ result = renpy.imagemap("Images/Alinor/ul2.1.png", "Images/Alinor/ul2.1akt.png", [
-    (705, 1, 731, 38, "Меню"),
-    (288, 353, 391, 454, "К вокзалу"),
-    (192, 500, 643, 599, "К вашему дому")
-    ])
-    if result == "Меню":
-        call call_menu
-    elif result == "К вашему дому":
-        jump alinor_ul_dom2
-    elif result == "К вокзалу":
-        jump vokzal_night_ograb
+    $ location("Alinor", "trading_area", "alinor_stolica")
+    $buttons('ograb', 2, ['alinor_gorod1' , 'alinor_ul_dom2' , 'vokzal_night_ograb'])
 jump alinor_gorod2
 
+#==================Ночной вокзал. Ограбление======================
 label vokzal_night_ograb:
 
     scene voknight
     show vokname_alinornight
     with fade
-    
-    if muzika == "Vok_night":
-        pass
-    else:
-        play music "Music/Alinor/Vok_night.ogg"
-        $ muzika = "Vok_night"
+    play music "Music/Alinor/Vok_night.ogg"
         
     show jack smile with dissolve
     j_smile "А вот и наш замечательный вокзал! Никогда не бывал тут ночью."
@@ -874,8 +545,7 @@ label vokzal_night_ograb:
     bangirl_smile "Звучит очень интригующе..."
     show bangirl smile2
     bangirl_smile2 "Не откажешь ли ты мне в толике подробностей?"
-    j_pohab_close "Ох, это {i}очень{/i} секретная миссия, мне не дозволено говорить о ней. 
-    Она настолько важная, что за успешное выполнение король пообещал мне большую награду! И гонорар для выполнения дал!"
+    j_pohab_close "Ох, это {i}очень{/i} секретная миссия, мне не дозволено говорить о ней. Она настолько важная, что за успешное выполнение король пообещал мне большую награду! И гонорар для выполнения дал!"
     j_smile4_blush "Однако... может я смогу рассказать про мою миссию, если ты составишь мне компанию в поездке."
     bangirl_smile2 "Какое прелестное предложение..."
     "Неожиданно вы слышите звук шагов."
@@ -910,7 +580,9 @@ label vokzal_night_ograb:
     show ograblenie with dissolve
     $ renpy.pause (1.5)
     hide ograblenie with dissolve
-    call time2
+    
+    call time2 from _call_time2_2
+    
     man_voice "рень..."
     man_voice "Парень! Эй, парень!"
     j_nepon2 "А...Что за фигня?"
@@ -963,8 +635,7 @@ label vokzal_night_ograb:
     j_smile_close3 "Мистер проводник, а вот этот документ никак не поможет сбросить цену?"
     "Вы достаете допуск, данный вам королем."
     "Он не имеет никакого отношения к скидкам в поезде, но вы не теряете надежды."
-    j_smile_close3 "Я работаю на короля, как вы видете, моя миссия подразумевает много странствий, то есть, другими словами, 
-    мне нужно ездить из города в город по {i}государственным{/i} причинам."
+    j_smile_close3 "Я работаю на короля, как вы видете, моя миссия подразумевает много странствий, то есть, другими словами, мне нужно ездить из города в город по {i}государственным{/i} причинам."
     driver1_norm "Хммм..."
     j_smile_close "{i}Ну же, соглашайся, иначе я разорюсь.{/i}"
     driver1_norm "Что ж, это резонно. Я поговорю с начальником, и думаю, что он согласится на скидку. Попробую выбить для тебя 50 процентов, то есть, будет достаточно одного золотого."
@@ -1005,5 +676,5 @@ label vokzal_night_ograb:
     scene black with dissolve
     $renpy.pause (3.0)
     $ in_home = True
-    call time2
-    jump alinor_dom_spal
+    $ day_time='day'
+    jump alinor_capital_dom_spal

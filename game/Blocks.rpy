@@ -1,6 +1,7 @@
 #Полезные блоки
 label call_menu:   # Блок выдвигающегося меню
     show callmenu with easeintop
+label call_menu1:
     $ result = renpy.imagemap("Talking/menu.png", "Talking/menuakt.png", [
     (645, 8, 790, 59, "Рюкзак"),
     (645, 70, 790, 121, "Карта"),
@@ -11,7 +12,8 @@ label call_menu:   # Блок выдвигающегося меню
     (705, 380, 731, 413, "Назад")
     ])
     if result == "Рюкзак":
-        call invent from _call_invent
+        call screen inventory_screen
+        $ no_fade = True
         return
     elif result == "Карта":
         call karta from _call_karta
@@ -32,3 +34,9 @@ label call_menu:   # Блок выдвигающегося меню
         hide callmenu with easeouttop
         return
 jump call_menu
+
+#Чтобы закрыть экран
+
+label closeScreen:
+    hide screen screen_name_to_hide
+    return

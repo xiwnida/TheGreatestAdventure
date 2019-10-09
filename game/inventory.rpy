@@ -2,7 +2,9 @@ init:
     $inventory_active_mode='weapon'
 
 
-screen inventory:
+screen inventory_screen:
+    $ shop_slide = 0
+    
     button:
         background 'inventory/main.jpg'
         action NullAction()
@@ -11,21 +13,9 @@ screen inventory:
         idle 'Inventory/cross.png'
         hover 'Inventory/cross_hover.png'
         focus_mask True
-        action NullAction()
+        action [SetVariable("screen_name_to_hide", "inventory_screen"), SetVariable('inventory_active_mode', 'weapon'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable("selected_item", ""),
+                    SetVariable('shop_item_select',0), SetVariable("shop_item_quantity", 0), Call("closeScreen")]
         
-#Указатели====
-        
-    imagebutton:
-        idle 'Inventory/pointer_up.png'
-        hover'Inventory/pointer_up_hover.png'
-        focus_mask True
-        action NullAction()
-    
-    imagebutton:
-        idle 'Inventory/pointer_down.png'
-        hover'Inventory/pointer_down_hover.png'
-        focus_mask True
-        action NullAction()
         
 #Кнопки действия=====
         
@@ -59,10 +49,10 @@ screen inventory:
         focus_mask True
         action NullAction()
         
-    imagebutton:
-        idle 'Inventory/item_down.png'
-        focus_mask True
-        action NullAction()
+    #imagebutton:
+    #    idle 'Inventory/item_down.png'
+    #    focus_mask True
+    #    action NullAction()
         
 #Боковые кнопки=====
 
@@ -104,34 +94,82 @@ screen inventory:
             idle 'Inventory/icon_sword.png'
             selected_idle 'Inventory/icon_sword_hover.png'
             selected_hover 'Inventory/icon_sword_hover.png'
-            action [SelectedIf(inventory_active_mode=='weapon'), SetVariable('inventory_active_mode', 'weapon')]
+            action [SelectedIf(inventory_active_mode=='weapon'), SetVariable('inventory_active_mode', 'weapon'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), SetVariable("selected_item", "")]
             
         imagebutton:
             idle 'Inventory/icon_ring.png'
             selected_idle 'Inventory/icon_ring_hover.png'
             selected_hover 'Inventory/icon_ring_hover.png'
-            action [SelectedIf(inventory_active_mode=='jeveler'), SetVariable('inventory_active_mode', 'jeveler')]
+            action [SelectedIf(inventory_active_mode=='jeveler'), SetVariable('inventory_active_mode', 'jeveler'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), SetVariable("selected_item", "")]
 
         imagebutton:
             idle 'Inventory/icon_bottle.png'
             selected_idle 'Inventory/icon_bottle_hover.png'
             selected_hover 'Inventory/icon_bottle_hover.png'
-            action [SelectedIf(inventory_active_mode=='alchemy'), SetVariable('inventory_active_mode', 'alchemy')]
+            action [SelectedIf(inventory_active_mode=='alchemy'), SetVariable('inventory_active_mode', 'alchemy'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), SetVariable("selected_item", "")]
 
         imagebutton:
             idle 'Inventory/icon_bread.png'
             selected_idle 'Inventory/icon_bread_hover.png'
             selected_hover 'Inventory/icon_bread_hover.png'
-            action [SelectedIf(inventory_active_mode=='food'), SetVariable('inventory_active_mode', 'food')]
+            action [SelectedIf(inventory_active_mode=='food'), SetVariable('inventory_active_mode', 'food'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), SetVariable("selected_item", "")]
 
         imagebutton:
             idle 'Inventory/icon_bone.png'
             selected_idle 'Inventory/icon_bone_hover.png'
             selected_hover 'Inventory/icon_bone_hover.png'
-            action [SelectedIf(inventory_active_mode=='drop'), SetVariable('inventory_active_mode', 'drop')]
+            action [SelectedIf(inventory_active_mode=='drop'), SetVariable('inventory_active_mode', 'drop'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), SetVariable("selected_item", "")]
 
         imagebutton:
             idle 'Inventory/icon_paper.png'
             selected_idle 'Inventory/icon_paper_hover.png'
             selected_hover 'Inventory/icon_paper_hover.png'
-            action [SelectedIf(inventory_active_mode=='paper'), SetVariable('inventory_active_mode', 'paper')]
+            action [SelectedIf(inventory_active_mode=='paper'), SetVariable('inventory_active_mode', 'paper'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable('shop_item_select',0), SetVariable("selected_item", "")]
+            
+            
+#Предметы====  ПЕРЕПИСАТЬ ВСЕ НА ИНВЕНТАРЬ
+    vpgrid:
+        cols 2
+        rows len(getattr(inventory, inventory_active_mode))//2
+
+        xpos 21 ypos 72 xysize(720, 260)
+        mousewheel True
+        arrowkeys True
+        for i in range(len(getattr(inventory, inventory_active_mode))):
+             frame:
+                 top_padding 0
+                 left_padding 0
+                 if shop_slide < 2:
+                     background 'Inventory/empty.png'
+                     $shop_slide +=1
+                 else:
+                     if shop_slide == 2:
+                         $shop_slide +=1
+                     else:
+                         $shop_slide = 0
+                     background 'Inventory/slide.png' 
+                 xysize(359, 37)
+                 imagebutton:
+                     idle (getattr(inventory, inventory_active_mode))[i][0].icon
+                     action NullAction()
+                     
+                 $var=(getattr(inventory, inventory_active_mode))[i][0].name
+                 text "{size=16}{color=#432e25}{font=Fonts/comic.ttf}[var]{/color}{/font}{/size}" xpos 31 ypos 7
+                 $var=(getattr(inventory, inventory_active_mode))[i][1]
+                 text "{size=20}{color=#432e25}{font=Fonts/comic.ttf}[var]{/color}{/font}{/size}" xpos 340 ypos 5 xanchor 1.0
+         
+                 imagebutton:
+                     idle 'Inventory/empty.png'
+                     selected_idle 'Inventory/item_choice.png'
+                     selected_hover 'Inventory/item_choice.png'
+                     action [SelectedIf(shop_item_select==i+1), SetVariable('shop_item_select', i+1), shop_item_position(i, inventory_active_mode, inventory) ]  #Если шоп итем селлект равен какому то параметру предмета. Потому что одинаковых предметов не будет
+                
+#Рамка выбора предмета и его описание ниже====
+    if selected_item:
+        imagebutton:
+            xpos 25 ypos 457
+            idle selected_item[0].picture
+            action NullAction()
+    
+        text "{color=#fde7c6}{font=Fonts/DS_goose.ttf}[selected_item[0].name]{/color}{/font}" xpos 203 ypos 426 xanchor 0.5 yanchor 0.5
+        text "{size=16}{color=#fde7c6}{font=Fonts/DS_goose.ttf}[selected_item[0].description]{/color}{/font}{/size}" xpos 165 ypos 465

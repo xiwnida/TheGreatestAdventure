@@ -11,19 +11,19 @@ label call_menu:   # Блок выдвигающегося меню
     (705, 380, 731, 413, "Назад")
     ])
     if result == "Рюкзак":
-        call invent
+        call invent from _call_invent
         return
     elif result == "Карта":
-        call karta
+        call karta from _call_karta
         return
     elif result == "Кошель":
-        call money
+        call money from _call_money
         return
     elif result == "Блокнот":
-        call blank
+        call blank from _call_blank
         return
     elif result == "Календарь":
-        call calendar
+        call calendar from _call_calendar
         return
     #if result == "Мысли":
         #call misli
@@ -32,33 +32,3 @@ label call_menu:   # Блок выдвигающегося меню
         hide callmenu with easeouttop
         return
 jump call_menu
-    
-screen proverka:
-    imagemap:
-        if money_gold == 0:
-            ground "Images/Alinor/vorota1.jpg"
-            hover "images/Alinor/vorota1akt.jpg"
-        if money_gold == 50:
-            ground "Images/Alinor/vorota2.jpg"
-            hover "images/Alinor/vorota2akt.jpg"
-        hotspot (225, 535, 385, 64) clicked Jump ("odin")
-        if money_gold == 50:
-            hotspot (285, 255, 205, 248) clicked Jump ("dva")
-    
-label vorota_dvorca_odin:
-   if money_gold == 0:
-      $ scene_p = "vorota dvorca"
-   else:
-       $ scene_p = "vorota dvorca zakat"
-   if money_gold == 0:
-       with fade
-   call screen proverka 
-label odin:
-    scene expression scene_p
-    "Главная улица"
-    jump vorota_dvorca_odin
-label dva:
-    scene expression scene_p
-    "Сад"
-    jump vorota_dvorca_odin
-    

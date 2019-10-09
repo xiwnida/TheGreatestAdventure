@@ -12,7 +12,7 @@ init:
     
     
 label karta:
-    scene dallud with fade
+    scene dallud #with fade
     $ result = renpy.imagemap("Karta/dallud.jpg", "Karta/dalludakt.jpg", [
     (30, 158, 359, 388, "Людские земли"),
     (697, 557, 799, 599, "Назад")
@@ -25,7 +25,7 @@ label karta:
 # Блок для Людских Земель.        
         
 label lud:
-    scene lud1 with fade        
+    scene lud1 #with fade        
 label lud1:
     if ludzem == 1:                # Указать страны, в которые можно поехать
         $ result = renpy.imagemap("Karta/Lud/lud1.jpg", "Karta/Lud/lud1akt.jpg", [

@@ -10,22 +10,24 @@ label start:
     
     "Это был обычный день, такой же, как и все."
     "Вы сидели в кресле у камина и отдыхали, размышляя над тем, как бы завтра подзаработать."
-    show jack smile at left with dissolve
+    #show jack smile at left with dissolve
+    $jack = ['smile', 'normal']
+    show new jack at left with dissolve
     j_smile "Ох, ну и удачно сегодня сложились дела!"
-    show jack smile close2 at left
+    $jack[0] = 'smileclose2'
     j_smile_close2 "Если бы каждый день приносил столько денег, я бы работал без выходных!"
-    show jack serdit at left
+    $jack = ['serdit','belt']
     j_serdit "К сожалению, работа по контракту не всегда выходит удачной."
-    show jack smile at left
+    $jack = ['smile', 'normal']
     j_smile "Ну да ладно, подумаю об этом завтра."
     j_smile "А сейчас, пожалуй, пора спать."
     
     play sound "Music/stuk_v_dver.mp3"
     $ renpy.pause (6.0)
     
-    show jack nepon at left
+    $jack = ['duma', 'mouth']
     j_nepon "Хм? Кто это может быть так поздно?"
-    hide jack nepon with dissolve
+    hide new jack with dissolve
     "Вы подошли к двери и открыли ее."
     "Снаружи оказался почтальон, который передал вам письмо."
     "Вернувшись в уютную комнату и усевшись на кресло, вы распечатали письмо, вчитываясь в аккуратные рукописные строчки."
@@ -393,7 +395,7 @@ label alinor_dom_spal10:
     (40, 235, 204, 327, "Осмотреть книги")
     ])
     if result == "Меню":
-        call call_menu
+        call call_menu from _call_call_menu
     elif result == "В гостиную":
         if sobrat_veshi == True:
             if vzat_blank == True:
