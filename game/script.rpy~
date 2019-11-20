@@ -6,7 +6,7 @@ label start:
     $ muzika = "Alinor_vash_dom"
     scene dom with fade
     
-    jump alinor_capital_gorod
+    jump vokzal_night_ograb
     
     "Это был обычный день, такой же, как и все."
     "Вы сидели в кресле у камина и отдыхали, размышляя над тем, как бы завтра подзаработать."
@@ -25,7 +25,7 @@ label start:
     play sound "Music/stuk_v_dver.mp3"
     $ renpy.pause (6.0)
     
-    $jack[0] = 'nepon'
+    $jack = ['duma', 'mouth']
     j_nepon "Хм? Кто это может быть так поздно?"
     hide new jack with dissolve
     "Вы подошли к двери и открыли ее."
@@ -211,9 +211,9 @@ label prinyat:
     scene koroldal 
     with fade
 label koroldal:
-    if korol_dal_karta == True:
-        if korol_dal_dokument == True:
-            if korol_dal_money == True:
+    if korol_dal_karta:
+        if korol_dal_dokument:
+            if korol_dal_money:
                 jump koroldal1
 
     $ result = renpy.imagemap("Images/koroldal.jpg", "Images/koroldalakt.jpg", [
@@ -341,13 +341,13 @@ label alinor_vorota_dvorca1:
     $ buttons('vorota', 2, ['alinor_vorota_dvorca1' , 'alinor_vorota_dvorca1.garden' , 'alinor_glavn_ul1'])
     jump alinor_vorota_dvorca1
 
-label .garden:
-    show jack smile at left with dissolve
-    j_smile "Сейчас мне незачем возвращаться."
-    j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
-    hide jack smile with dissolve
-    $ no_fade = True
-    jump alinor_vorota_dvorca1
+    label .garden:
+        show jack smile at left with dissolve
+        j_smile "Сейчас мне незачем возвращаться."
+        j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
+        hide jack smile with dissolve
+        $ no_fade = True
+        jump alinor_vorota_dvorca1
 
 
 #==================Главная улица столицы======================
@@ -544,7 +544,7 @@ label vokzal_night_ograb:
     j_smile3 "Скажу тебе по секрету, я выполняю секретную миссию короля."
     bangirl_smile "Звучит очень интригующе..."
     show bangirl smile2
-    bangirl_smile2 "Не откажешь ли ты мне в толике подробностей?"
+    bangirl_smile2 "Звучит очень интригующе...{fast} Не откажешь ли ты мне в толике подробностей?"
     j_pohab_close "Ох, это {i}очень{/i} секретная миссия, мне не дозволено говорить о ней. Она настолько важная, что за успешное выполнение король пообещал мне большую награду! И гонорар для выполнения дал!"
     j_smile4_blush "Однако... может я смогу рассказать про мою миссию, если ты составишь мне компанию в поездке."
     bangirl_smile2 "Какое прелестное предложение..."

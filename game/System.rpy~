@@ -132,6 +132,7 @@ init python:
             shop_active_mode='paper'
         
         renpy.call_screen('game_shop')
+        
 
 #================Функции для перевода в экшен кнопки====================
         
@@ -459,8 +460,7 @@ init:
     $ j_zol = Character(show_side_image=Image("Chara/Mini GG/Zol.png", xalign=0.0, yalign=1.0))
     $ j_udiv = Character(show_side_image=Image("Chara/Mini GG/Udiv.png", xalign=0.0, yalign=1.0))
     $ j_zolkapl = Character(show_side_image=Image("Chara/Mini GG/Zolkapl.png", xalign=0.0, yalign=1.0))
-    
-    
+      
 #==============Переменные=====================================
     $ korol_dal_karta = False
     $ korol_dal_money = False
@@ -500,6 +500,8 @@ init:
     $effect1='Battle/1.png'
     
     $screen_name_to_hide = "" #Хранит название экрана, который требуется закрыть
+    
+    $npcName = ''
     
 #==============Трансформации для экранов=================
     transform battle_dissolve:

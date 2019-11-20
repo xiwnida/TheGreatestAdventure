@@ -1,13 +1,13 @@
-Sat Jul 20 08:39:49 2019
+Thu Nov 21 01:13:57 2019
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
 
 Bootstrap to the start of init.init took 0.15s
-Early init took 0.01s
+Early init took 0.05s
 Loader init took 0.03s
 Loading error handling took 0.03s
-Loading script took 0.45s
+Loading script took 0.44s
 Loading save slot metadata. took 0.06s
 Loading persistent took 0.00s
 Importing _renpysteam: ImportError('No module named _renpysteam',)
@@ -29,7 +29,7 @@ Load screen analysis took 0.00s
 Analyze screens took 0.04s
 Save screen analysis took 0.10s
 Prepare screens took 0.11s
-Save pyanalysis. took 0.15s
+Save pyanalysis. took 0.00s
 Save bytecode. took 0.12s
 Running _start took 0.00s
 Performance test:
@@ -38,7 +38,7 @@ Interface start took 0.03s
 primary display bounds: (0, 0, 1920, 1080)
 swap interval: 1 frames
 Windowed mode.
-Screen sizes: virtual=(800, 600) physical=(884, 663) drawable=(884, 663)
+Screen sizes: virtual=(800, 600) physical=(1304, 978) drawable=(1304, 978)
 Vendor: 'Intel'
 Renderer: 'Intel(R) HD Graphics Family'
 Version: '3.1.0 - Build 8.15.10.2462'
@@ -161,69 +161,31 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
-Total time until interface ready: 2.19800019264s
+Total time until interface ready: 2.1930000782s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
-- Frame drawn at 0.009000 seconds.
+- Frame drawn at 0.010000 seconds.
 - Frame drawn at 0.014000 seconds.
-- Frame drawn at 0.017000 seconds.
-- Frame drawn at 0.027000 seconds.
-- 0.027000 seconds to render 5 frames.
+- Frame drawn at 0.019000 seconds.
+- Frame drawn at 0.034000 seconds.
+- 0.034000 seconds to render 5 frames.
 
 Full traceback:
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\bootstrap.py", line 306, in bootstrap
+    renpy.main.main()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 523, in main
+    run(restart)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 149, in run
+    renpy.execution.run_context(True)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\execution.py", line 835, in run_context
+    context.run()
   File "game/Alinor.rpy", line 26, in script
-    $ buttons('trading_area', 4, ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 848, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\python.py", line 1812, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/Alinor.rpy", line 26, in <module>
-    $ buttons('trading_area', 4, ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
-  File "game/System.rpy", line 46, in buttons
-    renpy.call_screen('location_buttons')
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\exports.py", line 2655, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ui.py", line 287, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2624, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in interact_core
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
-    d.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
-    d.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
-    d.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\screen.py", line 405, in visit_all
-    self.child.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 511, in visit_all
-    d.visit_all(callback)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 513, in visit_all
-    callback(self)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\core.py", line 2999, in <lambda>
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 796, in per_interact
-    if self.is_selected():
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 786, in is_selected
-    return is_selected(self.action)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 356, in is_selected
-    return any(is_selected(i) for i in action)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 356, in <genexpr>
-    return any(is_selected(i) for i in action)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\display\behavior.py", line 359, in is_selected
-    return action.get_selected()
-  File "renpy/common/00action_data.rpy", line 50, in get_selected
-    return getattr(self.object, self.field) == self.value
-AttributeError: 'StoreModule' object has no attribute ''
+    $ buttons('trading_area', ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 871, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'vokzal'.
 
 While running game code:
   File "game/Alinor.rpy", line 26, in script
-    $ buttons('trading_area', 4, ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
-  File "game/Alinor.rpy", line 26, in <module>
-    $ buttons('trading_area', 4, ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
-  File "game/System.rpy", line 46, in buttons
-    renpy.call_screen('location_buttons')
-  File "renpy/common/00action_data.rpy", line 50, in get_selected
-    return getattr(self.object, self.field) == self.value
-AttributeError: 'StoreModule' object has no attribute ''
+    $ buttons('trading_area', ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
+ScriptError: could not find label 'vokzal'.

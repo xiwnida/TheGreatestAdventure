@@ -26,17 +26,15 @@ init python:
         renpy.call('location_image_and_music')
         
 #==============Функция, вклчающая кнопки передвижения на локациях=======================
-    def buttons(name, quantity, goto_array, inside=False): # Дописать закатные кнопки
+    def buttons(name, goto_array, inside=False): # Дописать закатные кнопки
         global button_name
         global button_hover
-        global buttons_quantity
         global gotoarray
         global day_time
         button_name=[]
         button_hover=[]
-        buttons_quantity=quantity
-        gotoarray=goto_array
-        for i in range(quantity):
+        gotoarray = goto_array
+        for i in range(len(goto_array)-1):
             if not inside:
                 button_name.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+".png")
                 button_hover.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+"akt.png")
@@ -50,23 +48,23 @@ init python:
         global random_today
         if not random_today:
             CharaRandom()
-            MonsterRandom()
+        #    MonsterRandom()
 
         #А здесь функцию заполнения кнопками персонажей
-     
-#================Функция рандомных кнопок монстров==================Потом перенести в другой файл мб
-    def MonsterRandom():
-        global strana
-        global random_today
+    
+#================Функция рандомных кнопок монстров==================Потом перенести в другой файл мб. ---------------------------Пока что отказываюсь от монстров.
+#    def MonsterRandom():
+#        global strana
+#        global random_today
 #                                                          Монстры Алинора
-        if strana=='Алинор':
-            #                                              КРЫСА
-            ratQuan=random.randint(1,3)
-            ratQuan=6
-            ratLoca=[ ['Alinor_vorota',622,199], [ 'Alinor_ul_plaza', 45, 371],  ['Alinor_trading_area',0,390],  ['Alinor_ul_dom', 34, 103],  ['Alinor_pereulok',533,311],  ['Alinor_cerkov',204, 406]]
-            random.shuffle(ratLoca)
-            for i in range(ratQuan):
-                random_today.append(['rat', ratLoca[i][0], ratLoca[i][1], ratLoca[i][2]])
+#        if strana=='Алинор':
+#            #                                              КРЫСА
+#            ratQuan=random.randint(1,3)
+#            ratQuan=6
+#            ratLoca=[ ['Alinor_vorota',622,199], [ 'Alinor_ul_plaza', 45, 371],  ['Alinor_trading_area',0,390],  ['Alinor_ul_dom', 34, 103],  ['Alinor_pereulok',533,311],  ['Alinor_cerkov',204, 406]]
+#            random.shuffle(ratLoca)
+#            for i in range(ratQuan):
+#                random_today.append(['rat', ratLoca[i][0], ratLoca[i][1], ratLoca[i][2]])
                  
 #================Функция рандомных кнопок персонажей=======================         !!!!!!!!!!!!!!ПРОПИСАТЬ ДО КОНЦА, КОГДА НАПИШУ СИСТЕМУ СМЕНЫ ДНЯ!!!!!!!!!!!!!!!
     def CharaRandom():
@@ -460,8 +458,7 @@ init:
     $ j_zol = Character(show_side_image=Image("Chara/Mini GG/Zol.png", xalign=0.0, yalign=1.0))
     $ j_udiv = Character(show_side_image=Image("Chara/Mini GG/Udiv.png", xalign=0.0, yalign=1.0))
     $ j_zolkapl = Character(show_side_image=Image("Chara/Mini GG/Zolkapl.png", xalign=0.0, yalign=1.0))
-    
-    
+      
 #==============Переменные=====================================
     $ korol_dal_karta = False
     $ korol_dal_money = False
@@ -564,7 +561,7 @@ screen location_buttons():
            focus_mask True
            action Jump("button_menu")
        
-    for i in range(buttons_quantity):
+    for i in range(len(button_name)):
         imagebutton:
             idle button_name[i]
             hover button_hover[i]

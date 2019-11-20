@@ -811,12 +811,12 @@ label calendar:   #Календарь
         show clock2345
     elif clock == 68:
         show clock0000
-    with fade
     
     $ result = renpy.imagemap("Invent/Calendar/Calendar.png", "Invent/Calendar/calendarakt.png", [
     (698, 560, 799, 599, "Назад")
     ])
     if result == "Назад":
+        $no_fade = True
         return
         
         

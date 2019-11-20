@@ -6,7 +6,7 @@ label start:
     $ muzika = "Alinor_vash_dom"
     scene dom with fade
     
-    jump alinor_capital_gorod
+    jump vokzal_night_ograb
     
     "Это был обычный день, такой же, как и все."
     "Вы сидели в кресле у камина и отдыхали, размышляя над тем, как бы завтра подзаработать."
@@ -211,9 +211,9 @@ label prinyat:
     scene koroldal 
     with fade
 label koroldal:
-    if korol_dal_karta == True:
-        if korol_dal_dokument == True:
-            if korol_dal_money == True:
+    if korol_dal_karta:
+        if korol_dal_dokument:
+            if korol_dal_money:
                 jump koroldal1
 
     $ result = renpy.imagemap("Images/koroldal.jpg", "Images/koroldalakt.jpg", [
@@ -338,46 +338,46 @@ label alinor_vorota_dvorca1:
         j_smile "Между прочим, сейчас неплохо было бы сходить домой, собрать пару походных комплектов одежды."
         hide jack smile with dissolve
         $ first_start = True
-    $ buttons('vorota', 2, ['alinor_vorota_dvorca1' , 'alinor_vorota_dvorca1.garden' , 'alinor_glavn_ul1'])
+    $ buttons('vorota', ['alinor_vorota_dvorca1' , 'alinor_vorota_dvorca1.garden' , 'alinor_glavn_ul1'])
     jump alinor_vorota_dvorca1
 
-label .garden:
-    show jack smile at left with dissolve
-    j_smile "Сейчас мне незачем возвращаться."
-    j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
-    hide jack smile with dissolve
-    $ no_fade = True
-    jump alinor_vorota_dvorca1
+    label .garden:
+        show jack smile at left with dissolve
+        j_smile "Сейчас мне незачем возвращаться."
+        j_smile "Я приду сюда, когда вернусь из своего путешествия с ягодами юности!"
+        hide jack smile with dissolve
+        $ no_fade = True
+        jump alinor_vorota_dvorca1
 
 
 #==================Главная улица столицы======================
 label alinor_glavn_ul1:
     $ location("Alinor", "ul_plaza", "alinor_stolica")
-    $buttons('ul_plaza', 2, ['alinor_glavn_ul1' , 'alinor_pereulok1' , 'alinor_vorota_dvorca1'])
+    $buttons('ul_plaza', ['alinor_glavn_ul1' , 'alinor_pereulok1' , 'alinor_vorota_dvorca1'])
 jump alinor_glavn_ul1
 
 #==================Переулок======================
 label alinor_pereulok1:
     $ location("Alinor", "pereulok", "alinor_stolica")
-    $buttons('pereulok', 2, ['alinor_pereulok1' , 'alinor_gorod1' , 'alinor_glavn_ul1'])
+    $buttons('pereulok', ['alinor_pereulok1' , 'alinor_gorod1' , 'alinor_glavn_ul1'])
 jump alinor_pereulok1
 
 #==================Торговая площадь======================
 label alinor_gorod1: 
     $ location("Alinor", "trading_area", "alinor_stolica")
-    $buttons('trading_area', 2, ['alinor_gorod1' , 'alinor_ul_dom1' , 'alinor_pereulok1'])
+    $buttons('trading_area', ['alinor_gorod1' , 'alinor_ul_dom1' , 'alinor_pereulok1'])
 jump alinor_gorod1
 
 #==================Улица где дом Джека======================
 label alinor_ul_dom1:
     $ location("Alinor", "ul_dom", "alinor_stolica")
-    $buttons('ul_dom', 2, ['alinor_ul_dom1' , 'alinor_vash_dom1' , 'alinor_gorod1'])
+    $buttons('ul_dom', ['alinor_ul_dom1' , 'alinor_vash_dom1' , 'alinor_gorod1'])
 jump alinor_ul_dom1
 
 #==================Дом Джека======================
 label alinor_vash_dom1:
     $ location("Alinor", "dom", "alinor_vash_dom", True)
-    $buttons('dom', 2, ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom1'], True)
+    $buttons('dom', ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom1'], True)
 jump alinor_vash_dom1
 
 #==================Спальня======================
@@ -500,19 +500,19 @@ jump alinor_dom_spal1
 #==================Дом Джека======================
 label alinor_vash_dom2:
     $ location("Alinor", "dom", "alinor_vash_dom", True)
-    $buttons('dom', 2, ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom2'], True)
+    $buttons('dom', ['alinor_vash_dom1' , 'alinor_dom_spal1' , 'alinor_ul_dom2'], True)
 jump alinor_vash_dom2
 
 #==================Улица где дом Джека======================
 label alinor_ul_dom2:
     $ location("Alinor", "ul_dom", "alinor_stolica")
-    $buttons('ul_dom', 2, ['alinor_ul_dom1' , 'alinor_vash_dom2' , 'alinor_gorod2'])
+    $buttons('ul_dom', ['alinor_ul_dom1' , 'alinor_vash_dom2' , 'alinor_gorod2'])
 jump alinor_ul_dom2
 
 #==================Торговая площадь======================
 label alinor_gorod2: 
     $ location("Alinor", "trading_area", "alinor_stolica")
-    $buttons('ograb', 2, ['alinor_gorod1' , 'alinor_ul_dom2' , 'vokzal_night_ograb'])
+    $buttons('ograb', ['alinor_gorod1' , 'alinor_ul_dom2' , 'vokzal_night_ograb'])
 jump alinor_gorod2
 
 #==================Ночной вокзал. Ограбление======================
@@ -544,7 +544,7 @@ label vokzal_night_ograb:
     j_smile3 "Скажу тебе по секрету, я выполняю секретную миссию короля."
     bangirl_smile "Звучит очень интригующе..."
     show bangirl smile2
-    bangirl_smile2 "Не откажешь ли ты мне в толике подробностей?"
+    bangirl_smile2 "Звучит очень интригующе...{fast} Не откажешь ли ты мне в толике подробностей?"
     j_pohab_close "Ох, это {i}очень{/i} секретная миссия, мне не дозволено говорить о ней. Она настолько важная, что за успешное выполнение король пообещал мне большую награду! И гонорар для выполнения дал!"
     j_smile4_blush "Однако... может я смогу рассказать про мою миссию, если ты составишь мне компанию в поездке."
     bangirl_smile2 "Какое прелестное предложение..."
