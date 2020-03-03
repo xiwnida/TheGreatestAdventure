@@ -822,7 +822,7 @@ label calendar:   #Календарь
         
 label money:   #Кошелек (потом переписать реакции).
 
-    "[money_gold]{image=Invent/Money/gold.png}, [money_silver]{image=Invent/Money/silver.png}, [money_bronz]{image=Invent/Money/bronz.png}."
+    "{image=Invent/Money/gold.png}[money_gold]            {image=Invent/Money/silver.png}[money_silver]            {image=Invent/Money/bronz.png}[money_bronz]"
     
     if money_gold >= 200:
         show jack smeh at left with dissolve

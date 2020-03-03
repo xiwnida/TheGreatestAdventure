@@ -1,4 +1,4 @@
-init python:
+init 1 python:
     import random
    
     config.automatic_images_minimum_components = 1
@@ -11,12 +11,30 @@ init python:
     style.hpbar.right_bar = Frame("Images/hp_empty.png", 0, 0)
     style.hpbar.xmaximum = 297 
     style.hpbar.ymaximum = 26
+    
+    style.say_who_window.background = Frame("Images/Namebox3.png", 335, 36)
+    style.say_who_window.xsize = 535
+    style.say_who_window.ysize = 36
+    style.say_who_window.xpos = 142
+    style.say_who_window.ypos = 70
+    
+    style.say_label.xpos = 8
+    style.say_label.ypos = -37
+    
+    style.say_label.font="Fonts/impact.ttf"
+    style.say_dialogue.font="Fonts/constan.ttf"
+    style.say_label.bold = False
+    style.say_label.size = 22
+    
+    style.say_label.xanchor = 0.5
+    
+    style.say_two_window_vbox.order_reverse = True
 
 #==============Функция, меняющая фон и музыку локаций=======================
-    def location(city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
+    def location(this_loca, city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
         global location_image
         global this_location
-        this_location=city+'_'+loca
+        this_location=this_loca
         if not inside:
             location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
         else:
@@ -27,25 +45,20 @@ init python:
         
 #==============Функция, вклчающая кнопки передвижения на локациях=======================
     def buttons(name, goto_array, inside=False): # Дописать закатные кнопки
-        global button_name
-        global button_hover
-        global gotoarray
-        global day_time
         button_name=[]
         button_hover=[]
         gotoarray = goto_array
-        for i in range(len(goto_array)-1):
+        for i in range(len(goto_array)):
             if not inside:
                 button_name.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+".png")
                 button_hover.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+"akt.png")
             else:
                 button_name.append("Images/Alinor/"+str(name)+str(i+1)+".png")
                 button_hover.append("Images/Alinor/"+str(name)+str(i+1)+"akt.png")
-        renpy.call_screen('location_buttons')
+        renpy.call_screen('location_buttons', button_name, button_hover, gotoarray)
         
 #================Функция для расположения рандомных кнопок================
     def EverydayRandom():
-        global random_today
         if not random_today:
             CharaRandom()
         #    MonsterRandom()
@@ -73,7 +86,7 @@ init python:
         global random_today
         if strana=='Алинор':
             #                                        Баба для проверки
-            womanLoca=['Alinor_trading_area',172,307]
+            womanLoca=['alinor_capital_gorod',172,307]
             random_today.append(['woman',womanLoca[0], womanLoca[1], womanLoca[2]])
             
                 
@@ -95,26 +108,19 @@ init python:
                     show_random_button1=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
                 elif not show_random_button2:
                     show_random_button2=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
-                elif not show_random_button2:
+                elif not show_random_button3:
                     show_random_button3=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
-                elif not show_random_button2:
+                elif not show_random_button4:
                     show_random_button4=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
-                elif not show_random_button2:
+                elif not show_random_button5:
                     show_random_button5=['Images/'+array[i][0]+'.png', array[i][2], array[i][3]]
             
         
 #================Функция для вызова магазина=================
-    def call_shop(shop, weapon=False, jeveler=False, alchemy=False, food=False, drop=False, paper=False): #Системное имя, режимы для продажи
+    def call_shop(shop): #Системное имя, режимы для продажи
         global shop_name
         global shop_active_mode
         shop_name=shop
-        
-        shop_name.sell_weapon=weapon
-        shop_name.sell_jeveler=jeveler
-        shop_name.sell_alchemy=alchemy
-        shop_name.sell_food=food
-        shop_name.sell_drop=drop
-        shop_name.sell_paper=paper
         
         if shop_name.weapon:
             shop_active_mode='weapon'
@@ -136,7 +142,7 @@ init python:
         
 #================Для перемещения по кнопкам===============
 
-    def goto_button(i):
+    def goto_button(i, gotoarray):
         renpy.jump(gotoarray[i])
         
 #================Обновление экрана==============
@@ -254,9 +260,15 @@ init python:
         wallet.addMoney(gold, silver, bronze)
 
         renpy.restart_interaction()
+       
+#==========Открыть меню============
+    def goto_menu():
+        renpy.call("call_menu")
+        renpy.jump(this_location)
                
 #==========Превращение функций в экшен-действия для кнопок=============
     goto_button = renpy.curry(goto_button)
+    goto_menu = renpy.curry(goto_menu)
     shop_plus= renpy.curry(shop_plus)
     shop_minus= renpy.curry(shop_minus)
     shop_item_position = renpy.curry(shop_item_position)
@@ -265,7 +277,7 @@ init python:
     shop_buy_item=renpy.curry(shop_buy_item)
     shop_sell_item=renpy.curry(shop_sell_item)
 
-init:
+init -100:
 
 #=====================Фоны=====================================
     image dom = "Images/Alinor/dom_gamestart.jpg"
@@ -286,7 +298,6 @@ init:
     image vokname_alinor = "Images/Vok/alinor.png"
     
 #==============Диалоги с персонажами=====================================
-    image shopper girl = "Images/Character/Shopper_Girl.jpg"
     
 #==============Персонажи=====================================
     image jack smile = "Chara/GG/smile.png"
@@ -311,10 +322,11 @@ init:
     image jack hehe2 = "Chara/GG/hehe2.png"
     
     $jack = ['norm', 'normal']
-    image new jack = LiveComposite((420, 479),  
+    image Jack = LiveComposite((420, 479),  
         (0, 0), ConditionSwitch(
             "jack[0] == 'auch'", "Chara/GG2/Emotion/auch.png", 
             "jack[0] == 'duma'", "Chara/GG2/Emotion/duma.png", 
+            "jack[0] == 'duma2'", "Chara/GG2/Emotion/duma2.png", 
             "jack[0] == 'hehe'", "Chara/GG2/Emotion/hehe.png",
             "jack[0] == 'hehe2'", "Chara/GG2/Emotion/hehe2.png",
             "jack[0] == 'hehe3'", "Chara/GG2/Emotion/hehe3.png",
@@ -323,7 +335,8 @@ init:
             "jack[0] == 'nepon3'", "Chara/GG2/Emotion/nepon3.png",
             "jack[0] == 'neponsmile'", "Chara/GG2/Emotion/neponsmile.png",
             "jack[0] == 'neponsmile2'", "Chara/GG2/Emotion/neponsmile2.png",
-            "jack[0] == 'horm'", "Chara/GG2/Emotion/horm.png",
+            "jack[0] == 'norm'", "Chara/GG2/Emotion/norm.png",
+            "jack[0] == 'norm2'", "Chara/GG2/Emotion/norm2.png",
             "jack[0] == 'out'", "Chara/GG2/Emotion/out.png",
             "jack[0] == 'pohab'", "Chara/GG2/Emotion/pohab.png",
             "jack[0] == 'pohabclose'", "Chara/GG2/Emotion/pohabclose.png",
@@ -426,38 +439,53 @@ init:
     $ driver1_udiv2 = Character(show_side_image=Image("Chara/Train driver/udiv2_box.png", xalign=0.0, yalign=1.0))
     
 #==============Головы Джека=====================================
-    $ j_auch = Character(show_side_image=Image("Chara/Mini GG/Auch.png", xalign=0.0, yalign=1.0))
-    $ j_duma = Character(show_side_image=Image("Chara/Mini GG/Duma.png", xalign=0.0, yalign=1.0))
-    $ j_hehe = Character(show_side_image=Image("Chara/Mini GG/Hehe.png", xalign=0.0, yalign=1.0))
-    $ j_hehe2 = Character(show_side_image=Image("Chara/Mini GG/Hehe2.png", xalign=0.0, yalign=1.0))
-    $ j_hehe3 = Character(show_side_image=Image("Chara/Mini GG/Hehe3.png", xalign=0.0, yalign=1.0))
-    $ j_nepon = Character(show_side_image=Image("Chara/Mini GG/Nepon.png", xalign=0.0, yalign=1.0))
-    $ j_nepon2 = Character(show_side_image=Image("Chara/Mini GG/Nepon2.png", xalign=0.0, yalign=1.0))
-    $ j_nepon3 = Character(show_side_image=Image("Chara/Mini GG/Nepon3.png", xalign=0.0, yalign=1.0))
-    $ j_neponsmile = Character(show_side_image=Image("Chara/Mini GG/Neponsmile.png", xalign=0.0, yalign=1.0))
-    $ j_neponsmile2 = Character(show_side_image=Image("Chara/Mini GG/Neponsmile2.png", xalign=0.0, yalign=1.0))
-    $ j_norm = Character(show_side_image=Image("Chara/Mini GG/Norm.png", xalign=0.0, yalign=1.0))
-    $ j_out = Character(show_side_image=Image("Chara/Mini GG/Out.png", xalign=0.0, yalign=1.0))
-    $ j_pohab = Character(show_side_image=Image("Chara/Mini GG/Pohab.png", xalign=0.0, yalign=1.0))
-    $ j_pohab_close = Character(show_side_image=Image("Chara/Mini GG/Pohab_close.png", xalign=0.0, yalign=1.0))
-    $ j_sad = Character(show_side_image=Image("Chara/Mini GG/Sad.png", xalign=0.0, yalign=1.0))
-    $ j_sad2 = Character(show_side_image=Image("Chara/Mini GG/Sad2.png", xalign=0.0, yalign=1.0))
-    $ j_serdit = Character(show_side_image=Image("Chara/Mini GG/Serdit.png", xalign=0.0, yalign=1.0))
-    $ j_shock = Character(show_side_image=Image("Chara/Mini GG/Shock.png", xalign=0.0, yalign=1.0))
-    $ j_shock2 = Character(show_side_image=Image("Chara/Mini GG/Shock2.png", xalign=0.0, yalign=1.0))
-    $ j_smeh = Character(show_side_image=Image("Chara/Mini GG/Smeh.png", xalign=0.0, yalign=1.0))
-    $ j_smeh2 = Character(show_side_image=Image("Chara/Mini GG/Smeh2.png", xalign=0.0, yalign=1.0))
-    $ j_smile = Character(show_side_image=Image("Chara/Mini GG/Smile.png", xalign=0.0, yalign=1.0))
-    $ j_smile2 = Character(show_side_image=Image("Chara/Mini GG/Smile2.png", xalign=0.0, yalign=1.0))
-    $ j_smile3 = Character(show_side_image=Image("Chara/Mini GG/Smile3.png", xalign=0.0, yalign=1.0))
-    $ j_smile4 = Character(show_side_image=Image("Chara/Mini GG/Smile4.png", xalign=0.0, yalign=1.0))
-    $ j_smile4_blush = Character(show_side_image=Image("Chara/Mini GG/Smile4_blush.png", xalign=0.0, yalign=1.0))
-    $ j_smile_close = Character(show_side_image=Image("Chara/Mini GG/Smile_close.png", xalign=0.0, yalign=1.0))
-    $ j_smile_close2 = Character(show_side_image=Image("Chara/Mini GG/Smile_close2.png", xalign=0.0, yalign=1.0))
-    $ j_smile_close3 = Character(show_side_image=Image("Chara/Mini GG/Smile_close3.png", xalign=0.0, yalign=1.0))
-    $ j_zol = Character(show_side_image=Image("Chara/Mini GG/Zol.png", xalign=0.0, yalign=1.0))
-    $ j_udiv = Character(show_side_image=Image("Chara/Mini GG/Udiv.png", xalign=0.0, yalign=1.0))
-    $ j_zolkapl = Character(show_side_image=Image("Chara/Mini GG/Zolkapl.png", xalign=0.0, yalign=1.0))
+    $ j = Character("Джек", color="#5e6c96", who_outlines = [ (1, "#000000") ], show_two_window=True, show_side_image=LiveComposite((800, 151),  
+        (0, 0), ConditionSwitch(
+            "jack[0] == 'auch'", "Chara/Mini GG2/Emotion/auch.png", 
+            "jack[0] == 'duma'", "Chara/Mini GG2/Emotion/duma.png", 
+            "jack[0] == 'duma2'", "Chara/Mini GG2/Emotion/duma2.png", 
+            "jack[0] == 'hehe'", "Chara/Mini GG2/Emotion/hehe.png",
+            "jack[0] == 'hehe2'", "Chara/Mini GG2/Emotion/hehe2.png",
+            "jack[0] == 'hehe3'", "Chara/Mini GG2/Emotion/hehe3.png",
+            "jack[0] == 'nepon'", "Chara/Mini GG2/Emotion/nepon.png",
+            "jack[0] == 'nepon2'", "Chara/Mini GG2/Emotion/nepon2.png",
+            "jack[0] == 'nepon3'", "Chara/Mini GG2/Emotion/nepon3.png",
+            "jack[0] == 'neponsmile'", "Chara/Mini GG2/Emotion/neponsmile.png",
+            "jack[0] == 'neponsmile2'", "Chara/Mini GG2/Emotion/neponsmile2.png",
+            "jack[0] == 'norm'", "Chara/Mini GG2/Emotion/norm.png",
+            "jack[0] == 'norm2'", "Chara/Mini GG2/Emotion/norm2.png",
+            "jack[0] == 'out'", "Chara/Mini GG2/Emotion/out.png",
+            "jack[0] == 'pohab'", "Chara/Mini GG2/Emotion/pohab.png",
+            "jack[0] == 'pohabclose'", "Chara/Mini GG2/Emotion/pohabclose.png",
+            "jack[0] == 'sad'", "Chara/Mini GG2/Emotion/sad.png",
+            "jack[0] == 'sad2'", "Chara/Mini GG2/Emotion/sad2.png",
+            "jack[0] == 'serdit'", "Chara/Mini GG2/Emotion/serdit.png",
+            "jack[0] == 'shock'", "Chara/Mini GG2/Emotion/shock.png",
+            "jack[0] == 'shock2'", "Chara/Mini GG2/Emotion/shock2.png",
+            "jack[0] == 'smeh'", "Chara/Mini GG2/Emotion/smeh.png",
+            "jack[0] == 'smeh2'", "Chara/Mini GG2/Emotion/smeh2.png",
+            "jack[0] == 'smile'", "Chara/Mini GG2/Emotion/smile.png",
+            "jack[0] == 'smile2'", "Chara/Mini GG2/Emotion/smile2.png",
+            "jack[0] == 'smile3'", "Chara/Mini GG2/Emotion/smile3.png",
+            "jack[0] == 'smile3brush'", "Chara/Mini GG2/Emotion/smile3brush.png",
+            "jack[0] == 'smileclose'", "Chara/Mini GG2/Emotion/smileclose.png",
+            "jack[0] == 'smileclose2'", "Chara/Mini GG2/Emotion/smileclose2.png",
+            "jack[0] == 'smileclose3'", "Chara/Mini GG2/Emotion/smileclose3.png",
+            "jack[0] == 'udiv'", "Chara/Mini GG2/Emotion/udiv.png",
+            "jack[0] == 'zol'", "Chara/Mini GG2/Emotion/zol.png",
+            "jack[0] == 'zolkapl'", "Chara/Mini GG2/Emotion/zolkapl.png"
+            ),
+        (0,0), ConditionSwitch(
+            "jack[1] == 'normal'", "Chara/Mini GG2/Pose/normal.png",
+            "jack[1] == 'belt'", "Chara/Mini GG2/Pose/Belt.png",
+            "jack[1] == 'belt_forward'", "Chara/Mini GG2/Pose/Belt_forward.png",
+            "jack[1] == 'forward'", "Chara/Mini GG2/Pose/forward_both.png",
+            "jack[1] == 'forward_left'", "Chara/Mini GG2/Pose/forward_left.png",
+            "jack[1] == 'forward_right'", "Chara/Mini GG2/Pose/forward_right.png",
+            "jack[1] == 'head'", "Chara/Mini GG2/Pose/head.png",
+            "jack[1] == 'head_belt'", "Chara/Mini GG2/Pose/head_belt.png",
+            "jack[1] == 'mouth'", "Chara/Mini GG2/Pose/mouth.png",
+            "jack[1] == 'mouth_belt'", "Chara/Mini GG2/Pose/mouth_belt.png"), xalign=0.0, yalign=1.0))
       
 #==============Переменные=====================================
     $ korol_dal_karta = False
@@ -499,7 +527,7 @@ init:
     
     $screen_name_to_hide = "" #Хранит название экрана, который требуется закрыть
     
-    $npcName = ''
+    $npc = ''
     
 #==============Трансформации для экранов=================
     transform battle_dissolve:
@@ -554,19 +582,19 @@ label location_image_and_music:
 
 #=========================Кнопки навигации по локации=====================
         
-screen location_buttons():
+screen location_buttons(button_name, button_hover, gotoarray):
     imagebutton:
            idle 'Images/menu.png'
            hover 'Images/menuakt.png'
            focus_mask True
-           action Jump("button_menu")
+           action goto_menu()
        
     for i in range(len(button_name)):
         imagebutton:
             idle button_name[i]
             hover button_hover[i]
             focus_mask True
-            action goto_button(i+1)
+            action goto_button(i, gotoarray)
             
     for i in range (len(random_today)):
         if random_today[i][1] == this_location:
@@ -590,10 +618,3 @@ screen location_buttons():
     #       value AnimatedValue(value=your_hp, range=max_hp, delay=1.0) 
     #       range max_hp
     #   text "[your_hp]/[max_hp]" xalign 0.5 yalign 0.5
-
-            
-            
-    
-label button_menu:
-    call call_menu from _call_call_menu_1
-    jump expression gotoarray[0]

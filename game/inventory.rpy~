@@ -14,7 +14,7 @@ screen inventory_screen:
         hover 'Inventory/cross_hover.png'
         focus_mask True
         action [SetVariable("screen_name_to_hide", "inventory_screen"), SetVariable('inventory_active_mode', 'weapon'), SetVariable('shop_item_picture', ''), SetVariable('shop_item_name_item',''), SetVariable('shop_item_description',''), SetVariable("selected_item", ""),
-                    SetVariable('shop_item_select',0), Call("closeScreen")]
+                    SetVariable('shop_item_select',0), SetVariable("shop_item_quantity", 0), Call("closeScreen")]
         
         
 #Кнопки действия=====

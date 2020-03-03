@@ -67,6 +67,8 @@ init python:
             self.sell_food = False
             self.sell_drop = False
             self.sell_paper = False
+            
+            self.itemPrice = 0
            
             for item in self.items:
                 getattr(self, item[0].mode).append(item)
@@ -86,6 +88,19 @@ init python:
                     if i[1] == 0:
                         getattr(self, item.mode).remove(i)
                     break
+                    
+                    
+                    
+        def getGold(self):
+            return self.itemPrice//2000
+            
+        def getSilver(self):
+            money_without_gold = self.itemPrice - (self.itemPrice//2000) * 2000
+            return money_without_gold//100
+            
+        def getBronze(self):
+            money_without_gold = self.itemPrice - (self.itemPrice//2000) * 2000
+            return money_without_gold%100
                     
 #=============КОШЕЛЕК===================
     class Wallet:

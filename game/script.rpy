@@ -6,28 +6,40 @@ label start:
     $ muzika = "Alinor_vash_dom"
     scene dom with fade
     
-    jump vokzal_night_ograb
+    jump alinor_capital_gorod
+    
+    #$ test5 = [["Chara/GG/nepon.png", j_smile, "Фраза номер 1"], ["Chara/GG/smile.png", j_smile, "Фраза номер 2"], ["Chara/GG/smile_close.png", j_smile_close, "Фраза номер 3"], 0]
+    #$ test6=test5[0]
+    #$ test7=0
+    #while test6 !=0:
+    #    show expression test6[0]
+    #    $lol6 = test6[2]
+    #    $lol7 = test6[1]
+    #    lol7 "[lol6]"
+    #    $ test7+=1
+    #    $ test6=test5[test7]
+        
     
     "Это был обычный день, такой же, как и все."
     "Вы сидели в кресле у камина и отдыхали, размышляя над тем, как бы завтра подзаработать."
     #show jack smile at left with dissolve
     $jack = ['smile', 'normal']
-    show new jack at left with dissolve
-    j_smile "Ох, ну и удачно сегодня сложились дела!"
+    show Jack at left with dissolve
+    j "Ох, ну и удачно сегодня сложились дела!"
     $jack[0] = 'smileclose2'
-    j_smile_close2 "Если бы каждый день приносил столько денег, я бы работал без выходных!"
+    j "Если бы каждый день приносил столько денег, я бы работал без выходных!"
     $jack = ['serdit','belt']
-    j_serdit "К сожалению, работа по контракту не всегда выходит удачной."
+    j "К сожалению, работа по контракту не всегда выходит удачной."
     $jack = ['smile', 'normal']
-    j_smile "Ну да ладно, подумаю об этом завтра."
-    j_smile "А сейчас, пожалуй, пора спать."
+    j "Ну да ладно, подумаю об этом завтра."
+    j "А сейчас, пожалуй, пора спать."
     
     play sound "Music/stuk_v_dver.mp3"
     $ renpy.pause (6.0)
     
     $jack = ['duma', 'mouth']
-    j_nepon "Хм? Кто это может быть так поздно?"
-    hide new jack with dissolve
+    j "Хм? Кто это может быть так поздно?"
+    hide Jack with dissolve
     "Вы подошли к двери и открыли ее."
     "Снаружи оказался почтальон, который передал вам письмо."
     "Вернувшись в уютную комнату и усевшись на кресло, вы распечатали письмо, вчитываясь в аккуратные рукописные строчки."
@@ -51,15 +63,16 @@ label svitok1:
 label svitok2:
     
     scene dom
-    show jack nepon at left with dissolve
-    j_nepon "Ничего себе!"
-    j_nepon "У короля ко мне какое то дело?"
-    show jack neponsmile at left
-    j_neponsmile "Хе, неужели я настолько известен?"
-    show jack nepon at left
-    j_nepon "Ладно, делать нечего, думай, не думай, идти придется."
-    j_nepon "Надеюсь, мне не кинут какую то подставу..."
-    hide jack nepon
+    $jack = ["nepon", "belt"]
+    show Jack at left with dissolve
+    j "Ничего себе!"
+    j "У короля ко мне какое то дело?"
+    $jack = ["neponsmile", "head_belt"]
+    j "Хе, неужели я настолько известен?"
+    $jack = ["nepon", "normal"]
+    j "Ладно, делать нечего, думай, не думай, идти придется."
+    j "Надеюсь, мне не кинут какую то подставу..."
+    hide Jack
     stop music
     
     scene black with dissolve
@@ -119,7 +132,7 @@ label svitok2:
     show korol norm at right with dissolve
     "Вы тут же подскочили на ноги."
     korol "Кхм. Я рад, что ты откликнулся на мое приглашение."
-    j_norm "Это была честь для меня, Ваше Величество.."
+    j_norm "Это была честь для меня, Ваше Величество..."
     show jack neponsmile at left
     j_neponsmile "{i}Ага, как будто я мог просто взять и не придти.{/i}"
     show jack norm at left
@@ -146,7 +159,7 @@ label svitok2:
     korol "Ты когда нибудь слышал о ягодах юности?"
     show jack duma at left
     j_duma "Совсем немного, Ваше Величество."
-    j_duma "Я знаю, что они способны омолодить того, кто их съест. И что они очень редки, и о них ходят лишь слухи, но никакой конекретной информации."
+    j_duma "Я знаю, что они способны омолодить того, кто их съест. И что они очень редки, и о них ходят лишь слухи, но никакой конкретной информации."
     korol "Верно. Мне известно ровно столько же."
     korol "Собственно, в наших краях мало кто знает больше."
     j_duma "Рискну предположить, что вы хотите, чтобы я добыл их для вас?"
@@ -271,8 +284,8 @@ label koroldalmoney:
         "Вы проверяете кошелек."
         "Внутри оказывается большая горсть монет."
         show jack udiv with dissolve
-        j_udiv "{i}Да тут на вскидку не меньше четырех сотен монет!!!{/i}"
-        j_udiv "{i}Я такой суммы даже в руках не держал никогда!{/i}"
+        j_udiv "{i}Да тут на вскидку не меньше трех сотен монет!!!{/i}"
+        j_udiv "{i}Я такой суммы не то, что в руках не держал, даже не видел никогда!{/i}"
         j_udiv "{i}Вот это спонсирование, ничего не скажешь!{/i}"
         hide jack udiv
         $ korol_dal_money = True
@@ -285,7 +298,7 @@ label koroldalmoney:
         
 label koroldal1:
     $ item1 = True
-    $ money_gold = 450
+    $ wallet.addMoney(300, 0, 0)
     $ items.append("item_dopusk")
     scene kabinet dvorca
     show jack smile at left
@@ -296,7 +309,7 @@ label koroldal1:
     korol "Ну, вот теперь, пожалуй, все."
     korol "У тебя есть какие то вопросы ко мне?"
     show jack duma at left
-    j_duma "Хмм.. да, наверное, нет."
+    j_duma "Хмм... да, наверное, нет."
     show jack smile at left
     j_smile "Все четко и ясно."
     "Король кивнул."
@@ -606,7 +619,7 @@ label vokzal_night_ograb:
     driver1_udiv "Кажется, вас ограбили?"
     j_zol "Не кажется!"
     extend "\nМеня ограбили! Вот наглецы!"
-    $ money = 0
+    $wallet.delMoney(298, 0, 57)
     j_serdit "Ну и как мне теперь ехать на край света без единого гроша в кармане?"
     j_nepon2 "..."
     j_nepon2 "Вы меня зайцем не пропустите?"

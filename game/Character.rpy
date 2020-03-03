@@ -1,80 +1,175 @@
-init python:
+init 3 python:
     class Chara:
-        def __init___(self, type, bigSprite, miniSprite, locationSprite, sysName, wName, role, npcName, playerName):
+        def __init__(self, sysName, name, role, location, spriteLink, shop):
             #Системное
-            self.type = type
-            self.sysName = sysName #Системное имя
-            
-            self.bSprite = bigSprite #Спрайт для досье
-            self.mSprite = miniSprite  #Спрайт для списка нпц
-            self.lSprite = locationSprite #Спрайт для локаций
-            self.wName = wName #Полное имя для досье
+            self.sysName = sysName #Системное имя для навигации по диалогу
+            self.name = name #Имя
             self.role = role  #Род дестельности нпц
-            self.reputationLvl = 0
-            #Уровни репы: -20-11: не хотел бы с вами встречаться, -10-1: чувствует к вам неприязнь, 0: Не знакомы, 1: слышал о вас, 2-10: знает вас, 11-20: считает вас хорошим знакомым, 21-30: считает вас другом, 31-40: считает вас хорошим другом
             
+            self.location = location #Локации, где может находится нпц
+            self.spriteLink = spriteLink #Адрес папки, где лежат спрайты
+            if self.location:
+                self.locSprite = self.spriteLink + "0locationSprite.png"  #Спрайт для локаций  
+            self.mSprite = self.spriteLink + "0miniSprite.png"  #Спрайт для списка нпц
+            self.bSprite = self.spriteLink + "0bigSprite.png" #Спрайт для досье
+            self.talkSprite = self.spriteLink + "0talkSprite.png" #Спрайт для диалога
             
+            self.shop = shop #Ссылка на магазин для торговцев
             
-            self.npcName = name #Как игрок обращается к персонажу
-            self.playerName = playerName #Как персонаж обращается к игроку
+            self.reputation = 0
+                #Уровни репы: -20-11: не хотел бы с вами встречаться, -10-1: чувствует к вам неприязнь, 0: Не знакомы, 1: слышал о вас, 2-10: знает вас, 11-20: считает вас хорошим знакомым, 21-30: считает вас другом, 31-40: считает вас хорошим другом 
+
+#====================================ОБЪЕКТЫ ПЕРОСОНАЖЕЙ
+    #Эми из Алинора
+    alinor_Amy = Chara(
+        "Alinor_Amy_", #Системное имя
+        "Девочка-торговка", #Имя
+        "trader", #Роль (normal / trader)
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/Shopper_girl/", #Адрес папки, где лежат спрайты
+        alinor_amy_shop)#Магазин торговца
+
+
+
+
+init:#=================================ИНИТ================================================================
+    # ===========Диалоговые облачка=============
+    
+            image Amy smoke1 = "Talking/smoke1.png"
+            image talkFog = "Talking/fog_bg.png"
+            image talkFrame = "Talking/frame_npc.png"
+            image Menu shop = "Talking/Npctalkmenu_shop.png"
+            image Menu normal = "Talking/Npctalkmenu.png"
+    
+    #===========ЭМОЦИИ И ПЕРЕМЕННЫЕ=======================
+        #====Эми из Алинора====
+            $ amy_smile = Character("[alinor_Amy.name]", color="#e89f7f", who_outlines = [ (2, "#000000") ], show_two_window=True, show_side_image=Image("Chara/Shopper_girl/m_amy_smile.png", xalign=0.0, yalign=1.0))
+            $ amy_verysmile = Character("[alinor_Amy.name]", color="#e89f7f", who_outlines = [ (2, "#000000") ], show_two_window=True, show_side_image=Image("Chara/Shopper_girl/m_amy_verysmile.png", xalign=0.0, yalign=1.0))
+            $ amy_udiv = Character("[alinor_Amy.name]", color="#e89f7f", who_outlines = [ (2, "#000000") ], show_two_window=True, show_side_image=Image("Chara/Shopper_girl/m_amy_udiv.png", xalign=0.0, yalign=1.0))
             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Тут будут прописыватся все активные персонажи и диалоги с ними.
-init:
-    # Диалоговые облачка
-    image Amy smoke1 = "Talking/smoke1.png"
+            $alinor_amy_quest_find_ball = "Not activated"
+            
+            $alinor_amy_case_lostMiara = False
+     
+label for_skip_MENU:
+#====================================МЕНЮ ДИАЛОГА С НПЦ===================================================
     
+        
+    label talk_menu:
+        $ talk_menu_first_appear = True
+        if npc.role == "trader":
+            show talkFog
+            show expression npc.talkSprite
+            show talkFrame
+            show Menu shop
+        elif npc == "normal":
+            show expression npc.talkSprite
+            show Menu normal
+        with dissolve
+          
+    label talk_menu_label:
+        
+        if npc.role == "trader":
+            show Menu shop
+        elif npc == "normal":
+            show Menu normal
+            
+        call screen talk_menu_screen
+        jump talk_menu_label
+        
+        
+        
+    screen talk_menu_screen:
+        imagemap:
+            if npc.role == "trader":
+                ground "Talking/Npctalkmenu_shop1.png"
+                hover "Talking/Npctalkmenu_shopakt.png"
+                
+                hotspot (407, 44, 303, 53) clicked Call (npc.sysName + str("talk"))
+                hotspot (407, 106, 303, 53) clicked Call ("call_shop_label")
+                hotspot (407, 170, 303, 53) clicked Call (npc.sysName +  str("cases"))
+                hotspot (407, 234, 303, 53) clicked Call (npc.sysName +  str("person"))
+                hotspot (407, 298, 303, 53) clicked Call (npc.sysName +  str("news"))
+                hotspot (407, 362, 303, 53) clicked Call (npc.sysName +  str("adventures"))
+                hotspot (407, 426, 303, 53) clicked Call (npc.sysName +  str("watch"))
+                hotspot (407, 490, 303, 53) clicked Jump (this_location)
+            elif npc.role == "normal":
+                ground "Talking/Npctalkmenu1.png"
+                hover "Talking/Npctalkmenuakt.png"
+                
+                hotspot (407, 69, 303, 53) clicked Call (npc.sysName +  str("talk"))
+                hotspot (407, 133, 303, 53) clicked Call (npc.sysName +  str("cases"))
+                hotspot (407, 197, 303, 53) clicked Call (npc.sysName +  str("person"))
+                hotspot (407, 261, 303, 53) clicked Call (npc.sysName +  str("news"))
+                hotspot (407, 325, 303, 53) clicked Call (npc.sysName +  str("adventures"))
+                hotspot (407, 389, 303, 53) clicked Call (npc.sysName +  str("watch"))
+                hotspot (407, 453, 303, 53) clicked Jump (this_location)
+            
+    label call_shop_label:
+        $ call_shop (npc.shop)
+        return
     
-    
-                                           #Опустить разговорного меню    
-label talk_menu_down:
-    show talkmenu with easeintop
-    return
-    
-         
-                                           #Поднять разговорное меню
-label talk_menu_up:
-    hide talkmenu with easeouttop
-    return
-
+label for_skip_CHARACTER:
 #====================================ПЕРСОНАЖИ СТОЛИЦЫ АЛИНОРА===========================================
                                     
-                                    
-                                            #Лавка торговца. Эмили.
-    label alinor_lavka_torgovca:
-        scene shopper girl 
-        show hidmenu
-        with dissolve
-        call talk_menu_down from _call_talk_menu_down
-        show Amy smoke1 with irisin:
-            xpos 50 ypos 35
-    label alinor_lavka_torgovca1:
-        $ result = renpy.imagemap("Talking/talk_menu.png", "Talking/talk_menuakt.png", [
-            (645, 7, 790, 60, "Разговор"),
-            (645, 75, 790, 121, "Дела"),
-            (645, 135, 790, 185, "Уйти"),
-            ])
-        if result == "Уйти":
-            jump alinor_capital_gorod
-        if result == "Дела":
-            $ call_shop(amy_shop, weapon=True, food=True)
-        if result == "Разговор":
-            "Держи одно серебро!"
-            $ wallet.addMoney(0, 1, 0)
-        jump alinor_lavka_torgovca1
+    #Лавка торговца. Эмили.
+        label alinor_lavka_torgovca:
+            
+            $ npc = alinor_Amy
+            $ location("alinor_lavka_torgovca", "Alinor", "lavka_torgovca", "alinor_stolica", True)
+            $ buttons('lavka_torgovca', ['talk_menu' , 'alinor_capital_gorod'], True)
+            jump alinor_lavka_torgovca
+            
+        #=======ДИАЛОГИ========
+            label Alinor_Amy_talk:
+                hide Menu
+                if npc.reputation == 0:
+                    amy_verysmile "Дяденька, купите пироженку!"
+                elif npc.reputation >0 and npcTalk.reputation <= 10:
+                    amy_smile "Привет, Джек! Купишь пироженку?"
+                
+                label Alinor_Amy_quests:
+                    if alinor_amy_quest_find_ball == "Not activated":
+                        $jack = ["smile", "normal"]
+                        j "Хм, я подумаю"
+                        amy_smile "Подумайте, они очень вкусные!"
+                        "Вы внимательно разглядываете пироженные, размышляя, стоят ли они вашего внимания."
+                        
+                jump talk_menu_label
+                
+            label Alinor_Amy_cases:
+                call jack_cases_questions
+                if chosen_case == "Пропавшая жена машиниста поезда":
+                    if not alinor_amy_case_lostMiara:
+                        $jack = ['duma', 'normal']
+                        j "Дело есть. Ты случайно эту женщину не встречала?"
+                        amy_udiv "Хм... ко мне много людей походит. Дайте я поближе посмотрю!"
+                        "Вы протягиваете девочке фотографию, и она внимательно ее разглядывает, едва не уткнувшись туда носом."
+                        amy_verysmile "Я вспомнила! Она покупала у меня пироженки не так давно, может неделю назад."
+                        amy_smile "А кто эта тетя? Она ваша девушка?"
+                        $jack[0] = 'norm2'
+                        j "Эээ, нет."
+                        $jack[0] = 'duma'
+                        j "Я ищу ее по просьбе ее мужа. Похоже, она потерялась."
+                        amy_udiv "Ой, надеюсь, вы ее найдете!"
+                        j "А куда она пошла после того, как купила у тебя пироженные?"
+                        amy_udiv "Куда то туда..."
+                        "Девочка махает рукой в сторону площади."
+                        amy_udiv "Я ведь тут за прилавком стою, дальше площади не вижу."
+                        $jack[0] = "duma2"
+                        j "Ну да..."
+                        $jack[0] = "smile"
+                        j "Впрочем, за помощь спасибо, это тоже было полезно."
+                        amy_verysmile "Пожалуйста, дядь!"
+                        amy_verysmile "Кста-а-а-а-ати-и-и-и-и-и...."
+                        amy_smile "Я знаю кое-какую другую странную девушку, может вам это интересно, если вы людей ищете?"
+                        amy_udiv "Ой, клиент идет, подойдите попозже, ладно? Я все расскажу."
+                        $ alinor_amy_case_lostMiara = True
+                    else:
+                        amy_smile "Эта тетя покупала у меня пироженки недельку назад, помните?"
+                        
+                else:
+                    amy_udiv "Простите, я об этом ничего не знаю..."
+                
+                jump talk_menu_label
+                    

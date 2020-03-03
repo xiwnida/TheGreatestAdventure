@@ -1,28 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Alinor.rpy", line 26, in script
-    $ buttons('trading_area', ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
-ScriptError: could not find label 'vokzal'.
+  File "game/Character.rpy", line 77, in script call
+    call screen talk_menu_screen
+  File "game/Alinor.rpy", line 12, in script
+    j_smile "Сейчас мне незачем возвращаться."
+Exception: Sayer 'j_smile' is not defined.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\bootstrap.py", line 306, in bootstrap
-    renpy.main.main()
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 523, in main
-    run(restart)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 149, in run
-    renpy.execution.run_context(True)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\execution.py", line 835, in run_context
-    context.run()
-  File "game/Alinor.rpy", line 26, in script
-    $ buttons('trading_area', ['alinor_capital_gorod' , 'alinor_capital_ul_dom' , 'alinor_capital_pereulok', 'alinor_lavka_torgovca', 'vokzal'])
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 871, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'vokzal'.
+  File "game/Character.rpy", line 77, in script call
+    call screen talk_menu_screen
+  File "game/Alinor.rpy", line 12, in script
+    j_smile "Сейчас мне незачем возвращаться."
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 615, in execute
+    who = eval_who(self.who, self.who_fast)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 528, in eval_who
+    raise Exception("Sayer '%s' is not defined." % who.encode("utf-8"))
+Exception: Sayer 'j_smile' is not defined.
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Thu Nov 21 01:14:12 2019
+Sun Mar 01 09:26:29 2020

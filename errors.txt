@@ -2,8 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/System.rpy", line 585: is not terminated with a newline. (Check strings and parenthesis.)
-                    action [SetVariable(npcName, 'woman'), Jump(getLabel('woman', 'start_talk'))
+File "game/cases.rpy", line 88: expecting name after dot.
+    "Вы показываете фотографию женщины, которую получили от машиниста".
+                                                                       ^
 
 Ren'Py Version: Ren'Py 6.99.14.1.3218
-Sat Jul 20 08:38:23 2019
+Sun Mar 01 09:09:43 2020

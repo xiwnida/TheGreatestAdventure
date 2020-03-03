@@ -1,4 +1,4 @@
-init python:
+init 2 python:
     class Item:
         def __init__(self, name, description, picture, icon, mode, price):
             self.name = name
@@ -49,8 +49,7 @@ init python:
 #=============МАГАЗИН===================
 
     class Shop:
-        def __init__(self, system_name, game_name, items):
-            self.ststem_name = system_name
+        def __init__(self, game_name, items, weapon, jeveler, alchemy, food, drop, paper):
             self.game_name = game_name
             self.items = items
         
@@ -61,12 +60,12 @@ init python:
             self.drop = []
             self.paper = []
         
-            self.sell_weapon = False
-            self.sell_jeveler = False
-            self.sell_alchemy = False
-            self.sell_food = False
-            self.sell_drop = False
-            self.sell_paper = False
+            self.sell_weapon = weapon
+            self.sell_jeveler = jeveler
+            self.sell_alchemy = alchemy
+            self.sell_food = food
+            self.sell_drop = drop
+            self.sell_paper = paper
             
             self.itemPrice = 0
            
@@ -136,7 +135,7 @@ init python:
     amy_cake = Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой \nВосстанавливает 1 здоровья", "amy_cake", "cake", 'food', [0, 0, 5])
     amy_candies = Food("Кулек конфет", "Мешочек с вкусными желейными конфетами  \nВосстанавливает 1 здоровья", "amy_candies", "candy", 'food', [0, 0, 19])
 
-    amy_shop = Shop('amy_shop', 'Лавка кондитера', [[amy_cake, 18], [amy_candies, 22]])
+    alinor_amy_shop = Shop('Лавка кондитера', [[amy_cake, 18], [amy_candies, 22]], False, False, False, True, False, False) #weapon, jeveler, alchemy, food, drop, paper
 
     inventory = Inventar([[amy_cake, 8]])
 
