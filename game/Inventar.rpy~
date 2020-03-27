@@ -820,57 +820,45 @@ label calendar:   #Календарь
         return
         
         
-label money:   #Кошелек (потом переписать реакции).
-
-    "{image=Invent/Money/gold.png}[money_gold]            {image=Invent/Money/silver.png}[money_silver]            {image=Invent/Money/bronz.png}[money_bronz]"
+label money:
     
-    if money_gold >= 200:
-        show jack smeh at left with dissolve
-        j_smeh "Как прекрасна жизнь с тугим кошельком!"
-        hide jack smeh with dissolve
-    if money_gold >=100:
-        if money_gold <=199:
-            show jack smeh2 at left with dissolve
-            j_smeh2 "С такой суммой можно не думать о расходах!"
-            hide jack smeh2 with dissolve
-    if money_gold >=50:
-        if money_gold <= 99:
-            show jack smile2 at left with dissolve
-            j_smile2 "Эти цифры радуют мой глаз!"
-            hide jack smile2 with dissolve
-    if money_gold >=20:
-        if money_gold <= 49:
-            show jack smile at left with dissolve
-            j_smile "Хорошо, когда есть деньги. Правда, было бы неплохо подзаработать еще."
-            hide jack smile with dissolve
-    if money_gold >= 1:
-        if money_gold <= 19:
-            show jack sad at left with dissolve
-            j_sad "Кошелек почти пуст. Мне это не нравится."
-            hide jack sad with dissolve
-    if money_gold == 0:
-        show jack zol at left with dissolve
-        j_zol "Да я как полный нищеброд! Мне срочно нужны деньги!"
-        hide jack zol with dissolve
+    $for_wallet_gold = wallet.getGold()
+    $for_wallet_silver = wallet.getSilver()
+    $for_wallet_bronze = wallet.getBronze()
+    "{image=Invent/Money/gold.png}[for_wallet_gold]            {image=Invent/Money/silver.png}[for_wallet_silver]            {image=Invent/Money/bronz.png}[for_wallet_bronze]"
+    
+    if wallet.getGold()*20 + wallet.getSilver() < 1:
+        $jack = ["zol", "head_belt"]
+        show Jack at left with dissolve
+        "[for_wallet_silver]"
+        j "Да я как полный нищеброд! Мне срочно нужны деньги!"
+    elif wallet.getGold()*20 + wallet.getSilver() < 5:
+        $jack = ["sad", "normal"]
+        show Jack at left with dissolve
+        j "Кошелек почти пуст. Мне это не нравится."
+    elif wallet.getGold() < 2:
+        $jack = ["smile", "belt"]
+        show Jack at left with dissolve
+        j "Хорошо, когда есть деньги. Правда, было бы неплохо подзаработать еще."
+    elif wallet.getGold() < 8:
+        $jack = ["smile2", "belt"]
+        show Jack at left with dissolve
+        j "Эти цифры радуют мой глаз!"
+    elif wallet.getGold() < 15:
+        $jack = ["smeh2", "head_belt"]
+        show Jack at left with dissolve
+        j "С такой суммой можно не думать о расходах!"
+    else:
+        $jack = ["smeh", "forward"]
+        show Jack at left with dissolve
+        j "Как прекрасна жизнь с тугим кошельком!"
+    hide Jack with dissolve
+            
+    
     
     hide callmenu with easeouttop    
     $ no_fade = True
     return
-        
-        
-    label money_use: # Этот блок отвечает за изменение денег.
-        if money_bronz < 0:
-            $ money_silver -=1
-            $ money_bronz +=20
-        if money_bronz >= 20:
-            $ money_silver +=1
-            $ money_bronz -=20
-        if money_silver < 0:
-            $ money_gold -=1
-            $ money_silver +=20
-        if money_silver >=20:
-            $ money_gold +=1
-            $ money_silver -=20
     
         
                  # Эти блок отвечает за течение времени.

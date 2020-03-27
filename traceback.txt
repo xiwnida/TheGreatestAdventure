@@ -1,26 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/Character.rpy", line 77, in script call
-    call screen talk_menu_screen
-  File "game/Alinor.rpy", line 12, in script
-    j_smile "Сейчас мне незачем возвращаться."
-Exception: Sayer 'j_smile' is not defined.
+While parsing D:\Games\renpy-6.9.3-rus\template\game\The Greatest Adventure/game/System.rpy.
+ScriptError: Name (u'D:\\Games\\renpy-6.9.3-rus\\template\\game\\The Greatest Adventure/game/cases.rpy', 1583873258, 14) is defined twice, at game/cases.rpy:1 and game/cases.rpy:1.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/Character.rpy", line 77, in script call
-    call screen talk_menu_screen
-  File "game/Alinor.rpy", line 12, in script
-    j_smile "Сейчас мне незачем возвращаться."
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 615, in execute
-    who = eval_who(self.who, self.who_fast)
-  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\ast.py", line 528, in eval_who
-    raise Exception("Sayer '%s' is not defined." % who.encode("utf-8"))
-Exception: Sayer 'j_smile' is not defined.
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\bootstrap.py", line 306, in bootstrap
+    renpy.main.main()
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\main.py", line 367, in main
+    renpy.game.script.load_script()  # sets renpy.game.script.
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 266, in load_script
+    self.load_appropriate_file(".rpyc", ".rpy", dir, fn, initcode)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 757, in load_appropriate_file
+    self.finish_load(stmts, initcode, filename=lastfn)
+  File "D:\Programms\Renpy\renpy-6.99.14.1-sdk\renpy\script.py", line 423, in finish_load
+    bad_node.filename, bad_node.linenumber))
+ScriptError: Name (u'D:\\Games\\renpy-6.9.3-rus\\template\\game\\The Greatest Adventure/game/cases.rpy', 1583873258, 14) is defined twice, at game/cases.rpy:1 and game/cases.rpy:1.
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.99.14.1.3218
  
-Sun Mar 01 09:26:29 2020
+Fri Mar 27 22:23:13 2020

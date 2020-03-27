@@ -3,10 +3,11 @@ init:
 
 label blank:
     if vzat_blank == False:
-        show jack nepon with dissolve
-        j_nepon "А, тот блокнот, в который я записываю свои контракты?"
-        j_nepon "Так он у меня не с собой, я его оставил дома."
-        hide jack nepon with dissolve
+        $jack = ['nepon', 'head']
+        show Jack with dissolve
+        j "А, тот блокнот, в который я записываю свои контракты?"
+        j "Так он у меня не с собой, я его оставил дома."
+        hide Jack with dissolve
         hide callmenu with easeouttop
         $ no_fade = True
         return
@@ -29,7 +30,8 @@ label blank_spisok:
     
     
     show jack smile_for_blank at right with dissolve
-    j_smile "А больше пока ничего и нет."
+    $jack = ['smile', 'normal']
+    j "А больше пока ничего и нет."
     hide jack smile_for_blank with dissolve
 jump blankakt
 

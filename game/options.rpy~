@@ -92,7 +92,7 @@ init -1 python hide:
 
     ## Фон текстового окна. В Frame два числа -- это размеры границ, левой-правой
     ## и верхней-нижней соответственно
-    style.window.background = Frame("Images/textbox.png", 12, 12)
+    style.window.background = Frame("Images/textbox2.png", 12, 12)
 
         
     ## margin -- это окружающее окно пространство, где фон не выводится.
@@ -132,7 +132,7 @@ init -1 python hide:
     ## Тут можно подправить шрифт, используемый по умолчанию.
 
     ## Файл шрифта по умолчанию.
-    # style.default.font = "DejaVuSans.ttf"
+    # style.default.font = "Fonts/constan.ttf"
 
     ## Размр шрифта по умолчанию.        
     # style.default.size = 22

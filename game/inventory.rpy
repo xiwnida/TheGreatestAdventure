@@ -6,7 +6,7 @@ screen inventory_screen:
     $ shop_slide = 0
     
     button:
-        xpos 0 ypos 0
+        xpos -1 ypos -1
         background 'inventory/main.jpg'
         action NullAction()
         

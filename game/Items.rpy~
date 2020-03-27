@@ -1,4 +1,4 @@
-init python:
+init 2 python:
     class Item:
         def __init__(self, name, description, picture, icon, mode, price):
             self.name = name
@@ -49,8 +49,7 @@ init python:
 #=============МАГАЗИН===================
 
     class Shop:
-        def __init__(self, system_name, game_name, items):
-            self.ststem_name = system_name
+        def __init__(self, game_name, items, weapon, jeveler, alchemy, food, drop, paper):
             self.game_name = game_name
             self.items = items
         
@@ -61,12 +60,12 @@ init python:
             self.drop = []
             self.paper = []
         
-            self.sell_weapon = False
-            self.sell_jeveler = False
-            self.sell_alchemy = False
-            self.sell_food = False
-            self.sell_drop = False
-            self.sell_paper = False
+            self.sell_weapon = weapon
+            self.sell_jeveler = jeveler
+            self.sell_alchemy = alchemy
+            self.sell_food = food
+            self.sell_drop = drop
+            self.sell_paper = paper
             
             self.itemPrice = 0
            
@@ -136,7 +135,7 @@ init python:
     amy_cake = Food("Клубничное пироженное", "Небольшое сладкое пироженное, украшенное клубникой \nВосстанавливает 1 здоровья", "amy_cake", "cake", 'food', [0, 0, 5])
     amy_candies = Food("Кулек конфет", "Мешочек с вкусными желейными конфетами  \nВосстанавливает 1 здоровья", "amy_candies", "candy", 'food', [0, 0, 19])
 
-    amy_shop = Shop('amy_shop', 'Лавка кондитера', [[amy_cake, 18], [amy_candies, 22]])
+    alinor_amy_shop = Shop('Лавка кондитера', [[amy_cake, 18], [amy_candies, 22]], False, False, False, True, False, False) #weapon, jeveler, alchemy, food, drop, paper
 
     inventory = Inventar([[amy_cake, 8]])
 
@@ -161,17 +160,19 @@ label item_dopusk: # Допуск, данный нам королем.
     (607, 321, 770, 388, "Отмена")
     ])
     if result == "Информация":
-        show jack smile at left with dissolve
-        j_smile "Эту бумагу я получил от короля. Она позволяет мне некие привелегии в моих поисках."
-        show jack smeh2 at left
-        j_smeh2 "Потрясная вещичка!"
-        hide jack with dissolve
+        $jack = ['smile', 'normal']
+        show Jack at left with dissolve
+        j "Эту бумагу я получил от короля. Она позволяет мне некие привелегии в моих поисках."
+        $jack = ['smeh2', 'belt']
+        j "Потрясная вещичка!"
+        hide Jack with dissolve
         jump .akt
     if result == "Использовать":
-        show jack serdit at left with dissolve
-        j_serdit "Как мне ее использовать?! Сжечь что ли?" 
-        j_serdit "Нетушки!"
-        hide jack with dissolve
+        $jack = ['serdit', 'belt']
+        show Jack at left with dissolve
+        j "Как мне ее использовать?! Сжечь что ли?" 
+        j "Нетушки!"
+        hide Jack with dissolve
         jump .akt
     if result == "Отмена":
         hide bitem
@@ -188,17 +189,19 @@ label item_train_wife_foto:
     (607, 321, 770, 388, "Отмена")
     ])
     if result == "Информация":
-        show jack smile at left with dissolve
-        j_smile "Это фотография Миары - жены поездного проводника."
-        j_smile "Я собираюсь отыскать ее, воссоединить семью, а заодно выбить себе бесплатный проезд!"
-        hide jack with dissolve
+        $jack = ['smile', 'normal']
+        show Jack at left with dissolve
+        j "Это фотография Миары - жены поездного проводника."
+        j "Я собираюсь отыскать ее, воссоединить семью, а заодно выбить себе бесплатный проезд!"
+        hide Jack with dissolve
         jump .akt
     if result == "Использовать":
-        show jack nepon2 at left with dissolve
-        j_nepon2 "Хммммм......."
-        show jack duma at left with dissolve
-        j_duma "Нет, я ее еще нигде не встречал."
-        hide jack with dissolve
+        $jack = ['nepon2', 'head_belt']
+        show Jack at left with dissolve
+        j "Хммммм......."
+        $jack = ['duma', 'belt']
+        j "Нет, я ее еще нигде не встречал."
+        hide Jack with dissolve
         jump .akt
     if result == "Отмена":
         hide bitem

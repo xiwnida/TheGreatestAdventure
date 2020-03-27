@@ -1,4 +1,4 @@
-init 1 python:
+init -24 python:
     import random
    
     config.automatic_images_minimum_components = 1
@@ -20,41 +20,80 @@ init 1 python:
     
     style.say_label.xpos = 8
     style.say_label.ypos = -37
+    style.say_label.outlines = [ (1, "#000000") ]
     
     style.say_label.font="Fonts/impact.ttf"
     style.say_dialogue.font="Fonts/constan.ttf"
+    narrator = Character(None, what_font="Fonts/constan.ttf")
     style.say_label.bold = False
     style.say_label.size = 22
     
     style.say_label.xanchor = 0.5
     
     style.say_two_window_vbox.order_reverse = True
+   
+#==============Функция, устанавливающая город при выборе страны=======================
+    def setCity(country):
+        for i in repCities:
+            if i[0] == country:
+                return i[1]
+    
+#==============Функция, добавляющая персонажа в список персонажей=======================
+    def addChara(chara, country, city):
+        global repCountries
+        global repCities
+        global npc_list
+        npc_list.append([chara, country, city])
+        if country not in repCountries:
+            repCountries.append(country)
+        if [country, city] not in repCities:
+            repCities.append([country, city])
+    
+    
+#==============Функция, меняющая репутацию=======================
+    def changeRep(reputation, rate):
+        if reputation + rate == 0:
+            if rate < 0:
+                rate -=1
+            elif rate > 0:
+                rate +=1
+        reputation += rate
 
 #==============Функция, меняющая фон и музыку локаций=======================
-    def location(this_loca, city, loca, music, inside=False): #Название города, название фона, время суток, название музыки
+    def location(this_loca, music, inside=False): #Название города, название фона, время суток, название музыки
         global location_image
         global this_location
         this_location=this_loca
+        locaList = this_loca.split("_")
         if not inside:
-            location_image = "Images/"+str(city)+"/"+str(loca)+"_"+str(day_time)+".jpg"
+            location_image = "Images/"+str(locaList[0])+"/"+str(locaList[1])+"/"+str(locaList[2])+"_"+str(day_time)+".jpg"
         else:
-            location_image = "Images/"+str(city)+"/"+str(loca)+".jpg"
+            location_image = "Images/"+str(locaList[0])+"/"+str(locaList[1])+"/"+str(locaList[2])+".jpg"
         global loca_music
         loca_music=music
         renpy.call('location_image_and_music')
         
 #==============Функция, вклчающая кнопки передвижения на локациях=======================
-    def buttons(name, goto_array, inside=False): # Дописать закатные кнопки
+    def buttons(goto_array, inside=False):
         button_name=[]
         button_hover=[]
         gotoarray = goto_array
-        for i in range(len(goto_array)):
-            if not inside:
-                button_name.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+".png")
-                button_hover.append("Images/Alinor/"+str(name)+'_'+str(day_time)+str(i+1)+"akt.png")
+        for i in goto_array:
+            loc = i.split("_")
+            place = this_location.split("_")
+            if len(loc) < 3:
+                if not inside:
+                    button_name.append("Images/"+str(place[0])+'/'+str(place[1])+"/"+str(place[2])+"_"+str(i)+"_"+str(day_time)+".png")
+                    button_hover.append("Images/"+str(place[0])+'/'+str(place[1])+"/"+str(place[2])+"_"+str(i)+"_"+str(day_time)+"_hover.png")
+                else:
+                    button_name.append("Images/"+str(place[0])+'/'+str(place[1])+"/"+str(place[2])+"_"+str(i)+".png")
+                    button_hover.append("Images/"+str(place[0])+'/'+str(place[1])+"/"+str(place[2])+"_"+str(i)+"_hover.png")
+            elif not inside:
+                button_name.append("Images/"+str(loc[0])+'/'+str(loc[1])+"/"+str(place[2])+"_"+str(loc[2])+"_"+str(day_time)+".png")
+                button_hover.append("Images/"+str(loc[0])+'/'+str(loc[1])+"/"+str(place[2])+"_"+str(loc[2])+"_"+str(day_time)+"_hover.png")
             else:
-                button_name.append("Images/Alinor/"+str(name)+str(i+1)+".png")
-                button_hover.append("Images/Alinor/"+str(name)+str(i+1)+"akt.png")
+                button_name.append("Images/"+str(loc[0])+'/'+str(loc[1])+"/"+str(place[2])+"_"+str(loc[2])+".png")
+                button_hover.append("Images/"+str(loc[0])+'/'+str(loc[1])+"/"+str(place[2])+"_"+str(loc[2])+"_hover.png")
         renpy.call_screen('location_buttons', button_name, button_hover, gotoarray)
         
 #================Функция для расположения рандомных кнопок================
@@ -263,7 +302,7 @@ init 1 python:
        
 #==========Открыть меню============
     def goto_menu():
-        renpy.call("call_menu")
+        renpy.call("call_inventory")
         renpy.jump(this_location)
                
 #==========Превращение функций в экшен-действия для кнопок=============
@@ -277,7 +316,7 @@ init 1 python:
     shop_buy_item=renpy.curry(shop_buy_item)
     shop_sell_item=renpy.curry(shop_sell_item)
 
-init -100:
+init -10:
 
 #=====================Фоны=====================================
     image dom = "Images/Alinor/dom_gamestart.jpg"
@@ -300,27 +339,6 @@ init -100:
 #==============Диалоги с персонажами=====================================
     
 #==============Персонажи=====================================
-    image jack smile = "Chara/GG/smile.png"
-    image jack smile2 = "Chara/GG/smile2.png"
-    image jack smile close = "Chara/GG/smile_close.png"
-    image jack smile close2 = "Chara/GG/smile_close2.png"
-    image jack smile close3 = "Chara/GG/smile_close3.png"
-    image jack nepon = "Chara/GG/nepon.png"
-    image jack nepon2 = "Chara/GG/nepon2.png"
-    image jack serdit = "Chara/GG/serdit.png"
-    image jack neponsmile = "Chara/GG/neponsmile.png"
-    image jack neponsmile2 = "Chara/GG/neponsmile2.png"
-    image jack norm = "Chara/GG/norm.png"
-    image jack smeh = "Chara/GG/smeh.png"
-    image jack smeh2 = "Chara/GG/smeh2.png"
-    image jack duma = "Chara/GG/duma.png"
-    image jack udiv = "Chara/GG/udiv.png"
-    image jack sad = "Chara/GG/sad.png"
-    image jack zol = "Chara/GG/zol.png"
-    image jack zolkapl = "Chara/GG/zolkapl.png"
-    image jack hehe = "Chara/GG/hehe.png"
-    image jack hehe2 = "Chara/GG/hehe2.png"
-    
     $jack = ['norm', 'normal']
     image Jack = LiveComposite((420, 479),  
         (0, 0), ConditionSwitch(
@@ -378,18 +396,18 @@ init -100:
     image korol hvur = "Chara/Korol/hmur.png"
     image korol udiv = "Chara/Korol/udiv.png"
     
-    image bankid hah = "Chara/Bandits/Bandkid_hah.png"
-    image bankid norm = "Chara/Bandits/Bandkid_norm.png"
-    image bangirl hah = "Chara/Bandits/Bandgirl_hah.png"
-    image bangirl smile = "Chara/Bandits/Bandgirl_smile.png"
-    image bangirl smile2 = "Chara/Bandits/Bandgirl_smile2.png"
-    image bangirl ero = "Chara/Bandits/Bandgirl_ero.png"
-    image bantop cool = "Chara/Bandits/Bandtop_cool.png"
-    image bantop fight = "Chara/Bandits/Bandtop_fight.png"
-    image bantop hah = "Chara/Bandits/Bandtop_hah.png"
-    image bantop hmur = "Chara/Bandits/Bandtop_hmur.png"
-    image bantop norm = "Chara/Bandits/Bandtop_norm.png"
-    image bantop zlo = "Chara/Bandits/Bandtop_zlo.png"
+    image bankid hah = "Chara/Bandkid/Bandkid_hah.png"
+    image bankid norm = "Chara/Bandkid/Bandkid_norm.png"
+    image bangirl hah = "Chara/Bandgirl/Bandgirl_hah.png"
+    image bangirl smile = "Chara/Bandgirl/Bandgirl_smile.png"
+    image bangirl smile2 = "Chara/Bandgirl/Bandgirl_smile2.png"
+    image bangirl ero = "Chara/Bandgirl/Bandgirl_ero.png"
+    image bantop cool = "Chara/Bandman/Bandtop_cool.png"
+    image bantop fight = "Chara/Bandman/Bandtop_fight.png"
+    image bantop hah = "Chara/Bandman/Bandtop_hah.png"
+    image bantop hmur = "Chara/Bandman/Bandtop_hmur.png"
+    image bantop norm = "Chara/Bandman/Bandtop_norm.png"
+    image bantop zlo = "Chara/Bandman/Bandtop_zlo.png"
     
     image driver1 norm = "Chara/Train Driver/norm.png"
     image driver1 duma = "Chara/Train Driver/duma.png"
@@ -415,31 +433,30 @@ init -100:
     image gold = "Invent/Money/gold.png"
     
 #==============Реплики=====================================
-    #$ bangirl = Character(u'Красивая девушка', color="d24f4b")
     
 #==============Головы персонажей Алинора=====================================
-    $ bangirl_hah = Character(show_side_image=Image("Chara/Bandits/Bandgirl_hah_mini.png", xalign=0.0, yalign=1.0))
-    $ bangirl_smile = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile_mini.png", xalign=0.0, yalign=1.0))
-    $ bangirl_smile2 = Character(show_side_image=Image("Chara/Bandits/Bandgirl_smile2_mini.png", xalign=0.0, yalign=1.0))
-    $ bankid_hah = Character(show_side_image=Image("Chara/Bandits/Bandkid_hah_mini.png", xalign=0.0, yalign=1.0))
-    $ bankid_norm = Character(show_side_image=Image("Chara/Bandits/Bandkid_norm_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_hah = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_hah_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_cool = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_cool_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_hmur = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_hmur_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_norm = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_norm_mini.png", xalign=0.0, yalign=1.0))
-    $ bantop_zlo = Character(color="d7d4c4", show_side_image=Image("Chara/Bandits/Bandtop_zlo_mini.png", xalign=0.0, yalign=1.0))
-    $ butler = Character(show_side_image=Image("Chara/Butler/Butler_box.png", xalign=0.0, yalign=1.0))
-    $ korol = Character(show_side_image=Image("Chara/Korol/Korol_box.png", xalign=0.0, yalign=1.0))
-    $ man_voice = Character(show_side_image=Image("Chara/Man_voice.png", xalign=0.0, yalign=1.0))
-    $ woman_voice = Character(show_side_image=Image("Chara/Woman_voice.png", xalign=0.0, yalign=1.0))
-    $ driver1_duma = Character(show_side_image=Image("Chara/Train driver/duma_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_norm = Character(show_side_image=Image("Chara/Train driver/norm_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_shock = Character(show_side_image=Image("Chara/Train driver/shock_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_udiv = Character(show_side_image=Image("Chara/Train driver/udiv_box.png", xalign=0.0, yalign=1.0))
-    $ driver1_udiv2 = Character(show_side_image=Image("Chara/Train driver/udiv2_box.png", xalign=0.0, yalign=1.0))
+    $ bangirl_hah = Character(bandit_girl_alinor.name, color="#d3443f", show_two_window=True, show_side_image=Image("Chara/Bandgirl/Bandgirl_hah_mini.png", yalign=1.0))
+    $ bangirl_smile = Character(bandit_girl_alinor.name, color="#d3443f", show_two_window=True, show_side_image=Image("Chara/Bandgirl/Bandgirl_smile_mini.png", yalign=1.0))
+    $ bangirl_smile2 = Character(bandit_girl_alinor.name, color="#d3443f", show_two_window=True, show_side_image=Image("Chara/Bandgirl/Bandgirl_smile2_mini.png", yalign=1.0))
+    $ bankid_hah = Character(bandit_kid_alinor.name, color="#558489", show_two_window=True, show_side_image=Image("Chara/Bandkid/Bandkid_hah_mini.png", yalign=1.0))
+    $ bankid_norm = Character(bandit_kid_alinor.name, color="#558489", show_two_window=True, show_side_image=Image("Chara/Bandkid/Bandkid_norm_mini.png", yalign=1.0))
+    $ bantop_hah = Character(bandit_man_alinor.name, color="#596659", show_two_window=True, show_side_image=Image("Chara/Bandman/Bandtop_hah_mini.png", yalign=1.0))
+    $ bantop_cool = Character(bandit_man_alinor.name, color="#596659", show_two_window=True, show_side_image=Image("Chara/Bandman/Bandtop_cool_mini.png", yalign=1.0))
+    $ bantop_hmur = Character(bandit_man_alinor.name, color="#596659", show_two_window=True, show_side_image=Image("Chara/Bandman/Bandtop_hmur_mini.png", yalign=1.0))
+    $ bantop_norm = Character(bandit_man_alinor.name, color="#596659", show_two_window=True, show_side_image=Image("Chara/Bandman/Bandtop_norm_mini.png",  yalign=1.0))
+    $ bantop_zlo = Character(bandit_man_alinor.name, color="#596659", show_two_window=True, show_side_image=Image("Chara/Bandman/Bandtop_zlo_mini.png", yalign=1.0))
+    $ butler = Character(buttler_alinor.name, color="#b0a5a8", show_two_window=True, show_side_image=Image("Chara/Butler/Butler_box.png", yalign=1.0))
+    $ korol = Character(korol_alinor.name, color="#b0a5a8", show_two_window=True, show_side_image=Image("Chara/Korol/Korol_box.png", yalign=1.0))
+    $ man_voice = Character("Мужской голос", color="#596659", show_two_window=True)
+    $ woman_voice = Character("Женский голос", color="#d3443f", show_two_window=True)
+    $ driver1_duma = Character(driver1_alinor.name, color="#53608c", show_two_window=True, show_side_image=Image("Chara/Train driver/duma_box.png", yalign=1.0))
+    $ driver1_norm = Character(driver1_alinor.name, color="#53608c", show_two_window=True, show_side_image=Image("Chara/Train driver/norm_box.png", yalign=1.0))
+    $ driver1_shock = Character(driver1_alinor.name, color="#53608c", show_two_window=True, show_side_image=Image("Chara/Train driver/shock_box.png", yalign=1.0))
+    $ driver1_udiv = Character(driver1_alinor.name, color="#53608c", show_two_window=True, show_side_image=Image("Chara/Train driver/udiv_box.png",  yalign=1.0))
+    $ driver1_udiv2 = Character(driver1_alinor.name, color="#53608c", show_two_window=True, show_side_image=Image("Chara/Train driver/udiv2_box.png",  yalign=1.0))
     
 #==============Головы Джека=====================================
-    $ j = Character("Джек", color="#5e6c96", who_outlines = [ (1, "#000000") ], show_two_window=True, show_side_image=LiveComposite((800, 151),  
+    $ j = Character("Джек", color="#5e6c96", show_two_window=True, show_side_image=LiveComposite((800, 151),  
         (0, 0), ConditionSwitch(
             "jack[0] == 'auch'", "Chara/Mini GG2/Emotion/auch.png", 
             "jack[0] == 'duma'", "Chara/Mini GG2/Emotion/duma.png", 
@@ -485,19 +502,19 @@ init -100:
             "jack[1] == 'head'", "Chara/Mini GG2/Pose/head.png",
             "jack[1] == 'head_belt'", "Chara/Mini GG2/Pose/head_belt.png",
             "jack[1] == 'mouth'", "Chara/Mini GG2/Pose/mouth.png",
-            "jack[1] == 'mouth_belt'", "Chara/Mini GG2/Pose/mouth_belt.png"), xalign=0.0, yalign=1.0))
+            "jack[1] == 'mouth_belt'", "Chara/Mini GG2/Pose/mouth_belt.png"), yalign=1.0))
       
 #==============Переменные=====================================
     $ korol_dal_karta = False
     $ korol_dal_money = False
     $ korol_dal_dokument = False
-    $ money_gold = 0 # Эта переменная покажет, сколько у вас золота.
-    $ money_silver = 0 # Эта переменная покажет, сколько у вас серебра.
-    $ money_bronz = 0 # Эта переменная покажет, сколько у вас бронзы.
-    $ first_start = False # Эта переменная нужна для перехода на второй скрипт.
-    $ ludzem = 1 # Эта переменная покажет, сколько стран вы уже открыли.
-    $ strana = u"Алинор" # Эта переменная указывает, в какой стране вы находитесь.
-    $ alinor_stolica = True # Эти переменные покажут, в каких местах вы уже побывали.
+    $ first_start = True # Эта переменная нужна для перехода на второй скрипт.
+    
+    $ strana = "Алинор" # Эта переменная указывает, в какой стране вы находитесь.
+    $ city = "Аранкар" # Эта переменная указывает, в каком городе вы находитесь.
+    $ countries = ["Алинор"] # Эта переменная указывает, в каких странах вы уже бывали
+    $ cities = ["Аранкар"] # Эта переменная указывает, в каких городах вы уже бывали
+    
     $ sobrat_veshi = False # Эта переменная не даст уйти из гостиной, пока вы не собрались в путешествие.
     $ vzat_blank = False # Эта переменная не даст уйти из гостинной, пока вы не взяли блокнот.
     $ lech_na_krovat = False # Эта переменная позволяет полежать на кровати только один раз.
@@ -528,6 +545,9 @@ init -100:
     $screen_name_to_hide = "" #Хранит название экрана, который требуется закрыть
     
     $npc = ''
+    $energy = 100
+    
+    define fade = Fade(0.3, 0.0, 0.3)
     
 #==============Трансформации для экранов=================
     transform battle_dissolve:
@@ -544,7 +564,14 @@ init -100:
 #==============Колл. Показывает изображение, чье название собрано функцией location====================
 
 label location_image_and_music:
+    if energy <=20:
+        $day_time = 'zakat'
+    else:
+        $day_time = 'day'
+    
     scene expression location_image 
+    if not first_start:
+        show screen enegryScreen
     
     $show_random_button_fun(random_today, this_location)
     if show_random_button1:
@@ -582,12 +609,21 @@ label location_image_and_music:
 
 #=========================Кнопки навигации по локации=====================
         
-screen location_buttons(button_name, button_hover, gotoarray):
-    imagebutton:
-           idle 'Images/menu.png'
-           hover 'Images/menuakt.png'
-           focus_mask True
-           action goto_menu()
+screen location_buttons(button_name, button_hover, gotoarray):         
+    key "i" action Jump('call_inventory')
+    key "I" action Jump('call_inventory')
+    key "ш" action Jump('call_inventory')
+    key "Ш" action Jump('call_inventory')
+    
+    key "m" action Jump('callMap')
+    key "M" action Jump('callMap')
+    key "ь" action Jump('callMap')
+    key "Ь" action Jump('callMap')
+    
+    key "r" action Jump('callReputation')
+    key "R" action Jump('callReputation')
+    key "к" action Jump('callReputation')
+    key "К" action Jump('callReputation')
        
     for i in range(len(button_name)):
         imagebutton:
@@ -604,17 +640,3 @@ screen location_buttons(button_name, button_hover, gotoarray):
                 hover 'Images/'+random_today[i][0]+'_hover.png'
                 focus_mask True
                 action NullAction()
-    #frame:
-    #   ymaximum 26
-    #   xmaximum 297 
-    #   xpos 400 ypos 200
-    #   bar:
-    #       left_bar "Images/hp_full.png"
-    #       right_bar "Images/hp_empty.png"
-    #       thumb_offset 7
-    #       thumb 'Images/lol.png'
-    #       ymaximum 26
-    #       xmaximum 297 
-    #       value AnimatedValue(value=your_hp, range=max_hp, delay=1.0) 
-    #       range max_hp
-    #   text "[your_hp]/[max_hp]" xalign 0.5 yalign 0.5

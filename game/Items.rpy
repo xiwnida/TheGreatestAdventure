@@ -1,4 +1,4 @@
-init 2 python:
+init -22 python:
     class Item:
         def __init__(self, name, description, picture, icon, mode, price):
             self.name = name
@@ -160,17 +160,19 @@ label item_dopusk: # Допуск, данный нам королем.
     (607, 321, 770, 388, "Отмена")
     ])
     if result == "Информация":
-        show jack smile at left with dissolve
-        j_smile "Эту бумагу я получил от короля. Она позволяет мне некие привелегии в моих поисках."
-        show jack smeh2 at left
-        j_smeh2 "Потрясная вещичка!"
-        hide jack with dissolve
+        $jack = ['smile', 'normal']
+        show Jack at left with dissolve
+        j "Эту бумагу я получил от короля. Она позволяет мне некие привелегии в моих поисках."
+        $jack = ['smeh2', 'belt']
+        j "Потрясная вещичка!"
+        hide Jack with dissolve
         jump .akt
     if result == "Использовать":
-        show jack serdit at left with dissolve
-        j_serdit "Как мне ее использовать?! Сжечь что ли?" 
-        j_serdit "Нетушки!"
-        hide jack with dissolve
+        $jack = ['serdit', 'belt']
+        show Jack at left with dissolve
+        j "Как мне ее использовать?! Сжечь что ли?" 
+        j "Нетушки!"
+        hide Jack with dissolve
         jump .akt
     if result == "Отмена":
         hide bitem
@@ -187,17 +189,19 @@ label item_train_wife_foto:
     (607, 321, 770, 388, "Отмена")
     ])
     if result == "Информация":
-        show jack smile at left with dissolve
-        j_smile "Это фотография Миары - жены поездного проводника."
-        j_smile "Я собираюсь отыскать ее, воссоединить семью, а заодно выбить себе бесплатный проезд!"
-        hide jack with dissolve
+        $jack = ['smile', 'normal']
+        show Jack at left with dissolve
+        j "Это фотография Миары - жены поездного проводника."
+        j "Я собираюсь отыскать ее, воссоединить семью, а заодно выбить себе бесплатный проезд!"
+        hide Jack with dissolve
         jump .akt
     if result == "Использовать":
-        show jack nepon2 at left with dissolve
-        j_nepon2 "Хммммм......."
-        show jack duma at left with dissolve
-        j_duma "Нет, я ее еще нигде не встречал."
-        hide jack with dissolve
+        $jack = ['nepon2', 'head_belt']
+        show Jack at left with dissolve
+        j "Хммммм......."
+        $jack = ['duma', 'belt']
+        j "Нет, я ее еще нигде не встречал."
+        hide Jack with dissolve
         jump .akt
     if result == "Отмена":
         hide bitem

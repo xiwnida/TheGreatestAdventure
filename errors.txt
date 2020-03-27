@@ -2,9 +2,7 @@
 errors listed below, and try again.
 
 
-File "game/cases.rpy", line 88: expecting name after dot.
-    "Вы показываете фотографию женщины, которую получили от машиниста".
-                                                                       ^
+File "game/Character.rpy", line 3: non-default argument follows default argument
 
 Ren'Py Version: Ren'Py 6.99.14.1.3218
-Sun Mar 01 09:09:43 2020
+Fri Mar 27 19:40:22 2020

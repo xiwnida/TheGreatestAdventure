@@ -1,10 +1,11 @@
-init 3 python:
+init -20 python:
     class Chara:
-        def __init__(self, sysName, name, role, location, spriteLink, shop):
+        def __init__(self, sysName, name, role, description, location, spriteLink, info, shop = None):
             #Системное
             self.sysName = sysName #Системное имя для навигации по диалогу
             self.name = name #Имя
             self.role = role  #Род дестельности нпц
+            self.des = description  #Описание для списка нпц
             
             self.location = location #Локации, где может находится нпц
             self.spriteLink = spriteLink #Адрес папки, где лежат спрайты
@@ -15,9 +16,10 @@ init 3 python:
             self.talkSprite = self.spriteLink + "0talkSprite.png" #Спрайт для диалога
             
             self.shop = shop #Ссылка на магазин для торговцев
+            self.info = info
             
             self.reputation = 0
-                #Уровни репы: -20-11: не хотел бы с вами встречаться, -10-1: чувствует к вам неприязнь, 0: Не знакомы, 1: слышал о вас, 2-10: знает вас, 11-20: считает вас хорошим знакомым, 21-30: считает вас другом, 31-40: считает вас хорошим другом 
+                #Уровни репы: -20-11: не хотел бы с вами встречаться, -10-1: чувствует к вам неприязнь, 0: Не знакомы, 1-10: знает вас, 11-20: считает вас хорошим знакомым, 21-30: считает вас другом, 31-40: считает вас хорошим другом 
 
 #====================================ОБЪЕКТЫ ПЕРОСОНАЖЕЙ
     #Эми из Алинора
@@ -25,9 +27,81 @@ init 3 python:
         "Alinor_Amy_", #Системное имя
         "Девочка-торговка", #Имя
         "trader", #Роль (normal / trader)
+        "Торговка сладостями", #Описание для списка нпц
         "", #Локация (оставить пустым, если диалог активируется через CG)
         "Chara/Shopper_girl/", #Адрес папки, где лежат спрайты
+        [],
         alinor_amy_shop)#Магазин торговца
+    
+    #Водитель, которого Джек встречает на вокзале
+    driver1_alinor = Chara(
+        "driver1_alinor_",
+        "Проводник",
+        "normal", #Роль (normal / trader)
+        "Работник поезда",
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/Train Driver/",
+        [])
+    
+    #Жена водителя
+    miara_alinor = Chara(
+        "miara_alinor_", 
+        "Миара", 
+        "normal", #Роль (normal / trader)
+        "???",
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/miara/",
+        [])
+    
+    #Король
+    korol_alinor = Chara(
+        "korol_alinor_", 
+        "Его величество", 
+        "normal", #Роль (normal / trader)
+        "Король Алинора",
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/Korol/",
+        [])
+    
+    #Дворецкий короля
+    buttler_alinor = Chara(
+        "buttler_alinor_", 
+        "Дворецкий", 
+        "normal", #Роль (normal / trader)
+        "Дворецкий короля",
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/butler/",
+        [])
+    
+    #Девушка-бандит
+    bandit_girl_alinor = Chara(
+        "bandit_girl_alinor_", 
+        "Красивая девушка", 
+        "normal", #Роль (normal / trader)
+        "Воровка с вокзала",
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/bandgirl/",
+        [])
+    
+    #Пацан-бандит
+    bandit_kid_alinor = Chara(
+        "bandit_kid_alinor_", 
+        "Пацан", 
+        "normal", #Роль (normal / trader)
+        "Вор с вокзала",
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/bandkid/",
+        [])
+    
+    #Мужик-бандит
+    bandit_man_alinor = Chara(
+        "bandit_man_alinor_", 
+        "Мужчина с сигаретой", 
+        "normal", #Роль (normal / trader)
+        "Вор с вокзала",
+        "", #Локация (оставить пустым, если диалог активируется через CG)
+        "Chara/bandman/",
+        [])
 
 
 
@@ -113,19 +187,19 @@ label for_skip_CHARACTER:
 #====================================ПЕРСОНАЖИ СТОЛИЦЫ АЛИНОРА===========================================
                                     
     #Лавка торговца. Эмили.
-        label alinor_lavka_torgovca:
+        label alinor_capital_lavkaTorgovca:
             
             $ npc = alinor_Amy
-            $ location("alinor_lavka_torgovca", "Alinor", "lavka_torgovca", "alinor_stolica", True)
-            $ buttons('lavka_torgovca', ['talk_menu' , 'alinor_capital_gorod'], True)
-            jump alinor_lavka_torgovca
+            $ location("alinor_capital_lavkaTorgovca", "alinor_stolica")
+            $ buttons(['talk_menu' , 'alinor_capital_tradingArea'])
+            jump alinor_capital_lavkaTorgovca
             
         #=======ДИАЛОГИ========
             label Alinor_Amy_talk:
                 hide Menu
                 if npc.reputation == 0:
                     amy_verysmile "Дяденька, купите пироженку!"
-                elif npc.reputation >0 and npcTalk.reputation <= 10:
+                elif npc.reputation >0 and npc.reputation <= 10:
                     amy_smile "Привет, Джек! Купишь пироженку?"
                 
                 label Alinor_Amy_quests:
@@ -134,6 +208,9 @@ label for_skip_CHARACTER:
                         j "Хм, я подумаю"
                         amy_smile "Подумайте, они очень вкусные!"
                         "Вы внимательно разглядываете пироженные, размышляя, стоят ли они вашего внимания."
+                        if npc.reputation == 0:
+                            $npc.reputation +=1
+                        $energy -= 9
                         
                 jump talk_menu_label
                 
